@@ -6,11 +6,13 @@ import axios from 'axios';
 import VueAxios from 'vue-axios';
 import Loading from 'vue-loading-overlay';
 import 'vue-loading-overlay/dist/vue-loading.css';
+// import customLoading from '@/components/loading';
 //使用BS4 Modal
 import 'bootstrap';
 //自定義
 import App from './App';
 import router from '@/router';
+import './bus';
 
 
 Vue.config.productionTip = false;
@@ -18,6 +20,7 @@ Vue.use(VueAxios, axios);
 axios.defaults.withCredentials = true;
 //載入元件 - 全域啟用
 Vue.component('Loading',Loading);
+// Vue.component('customLoading',customLoading);
 
 /* eslint-disable no-new */
 new Vue({

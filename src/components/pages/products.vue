@@ -1,6 +1,9 @@
 <template>
     <div>
-        <loading :active.sync="isLoading" :loader="loadingType"></loading>
+        <loading :active.sync="isLoading">
+            <img src="@/assets/img/loading.gif" alt="" width="200">
+        </loading>
+        <!-- <customLoading v-if="isLoading"></customLoading> -->
         <div class="mt-3 text-right">
             <button class=" btn btn-outline-success btn-sm" @click="openModal(true)">建立新的產品</button>
         </div>
@@ -150,7 +153,6 @@ export default {
       tempProduct:{},
       isNew:false,
       isLoading:false,
-      loadingType:'dots',
       status:{
           fileuploading:false,
       },
@@ -168,8 +170,10 @@ export default {
         //console.log(vm.products);
         vm.isLoading = false;
         }else{
-            alert('取得資料失敗，請登入後重試');
-            vm.$router.push('/login');
+            vm.$bus.$emit('message:push',response.data.message,'danger');
+            setTimeout(() => {
+                vm.$router.push('/login');
+                }, 5000);   
             }
         });
     },
@@ -214,10 +218,10 @@ export default {
             if(response.data.success){
                 $('#productModal').modal('hide');
                 vm.getProducts();
+                vm.$bus.$emit('message:push',response.data.message,'success');
             }else{
                 $('#productModal').modal('hide');
-                alert('新增失敗，請登入後重試');
-                vm.$router.push('/login');
+                vm.$bus.$emit('message:push',response.data.message,'danger');
             }
         });
     },
@@ -228,12 +232,12 @@ export default {
             console.log('刪除產品API狀態',response.data.success);
             if(response.data.success){
                 $('#delProductModal').modal('hide');
-                console.log('刪除成功');
+                vm.$bus.$emit('message:push',response.data.message,'success');
+                //console.log('刪除成功');
                 vm.getProducts();
             }else{
                 $('#delProductModal').modal('hide');
-                alert('刪除失敗，請登入後重試');
-                vm.$router.push('/login');
+                vm.$bus.$emit('message:push',response.data.message,'danger');
             }
         });
     },
@@ -259,13 +263,11 @@ export default {
                 //這樣寫的話，此時的圖片路徑並沒有雙向綁定 - 可觀察有無Getter . Setter
                 // vm.tempProduct.imageUrl = response.data.imageUrl;
                 // console.log(vm.tempProduct);
-
                 //正確
                 vm.$set(vm.tempProduct,'imageUrl',response.data.imageUrl);
             }else{
                 $('#productModal').modal('hide');
-                alert('上傳失敗，請登入後重試');    
-                vm.$router.push('/login');
+                vm.$bus.$emit('message:push',response.data.message,'danger');
             }
         });
     }

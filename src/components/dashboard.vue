@@ -5,6 +5,7 @@
      -->
     <div>
         <navbar></navbar>
+        <alertMessage></alertMessage>
         <div class="container-fluid">
             <div class="row">
                 <sidebar></sidebar>
@@ -21,11 +22,13 @@
 <script>
 import sidebar from './sidebar';
 import navbar from './navbar';
+import alertMessage from './AlertMessage';
 
 export default {
   components: {
     sidebar,
     navbar,
+    alertMessage,
   }
 }
 </script>
