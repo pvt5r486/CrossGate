@@ -31,9 +31,6 @@ export default {
       default: {}
     },
   },
-  data() {
-    return {}
-  },
   methods: {
       changePage(page){
           this.$emit('changepage', page);

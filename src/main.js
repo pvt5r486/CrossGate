@@ -13,14 +13,17 @@ import 'bootstrap';
 import App from './App';
 import router from '@/router';
 import './bus';
-
+import currencyFilter from './filters/currency';
+import pagination from '@/components/pagination';
 
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 axios.defaults.withCredentials = true;
 //載入元件 - 全域啟用
 Vue.component('Loading',Loading);
-// Vue.component('customLoading',customLoading);
+Vue.component('pagination',pagination);
+Vue.filter('currency',currencyFilter);
+
 
 /* eslint-disable no-new */
 new Vue({

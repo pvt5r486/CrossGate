@@ -6,6 +6,8 @@ import VueRouter from 'vue-router';
 import Login from '@/components/pages/login';
 import Dashboard from '@/components/dashboard';
 import Products from '@/components/pages/products';
+import Orders from '@/components/pages/orders';
+import Cupon from '@/components/pages/cupon';
 
 Vue.use(VueRouter);
 
@@ -37,6 +39,16 @@ export default new VueRouter({
                 {
                     path: 'products',
                     component: Products,
+                    meta: { requiresAuth: true },
+                },
+                {
+                    path: 'orders',
+                    component: Orders,
+                    meta: { requiresAuth: true },
+                },
+                {
+                    path: 'cupon',
+                    component: Cupon,
                     meta: { requiresAuth: true },
                 },
             ],
