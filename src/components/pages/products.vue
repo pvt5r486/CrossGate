@@ -35,6 +35,7 @@
                 </tr>
             </tbody>
         </table>
+        <pagination :page-data="pagination" @changepage="getProducts"></pagination>
         <!-- Modal -->
         <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -65,7 +66,7 @@
                             <div class="col-sm-8">
                                 <div class="form-group">
                                     <label for="title">標題</label>
-                                    <input type="text" class="form-control" id="title" v-model="tempProduct.title"  placeholder="請輸入標題">
+                                    <input type="text" class="form-control" id="title" v-model="tempProduct.title" placeholder="請輸入標題">
                                 </div>
 
                                 <div class="form-row">
@@ -117,7 +118,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="modal fade" id="delProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content border-0">
@@ -145,135 +146,154 @@
 
 <script>
 //使用JQuery
-import $ from 'jquery'
+import $ from 'jquery';
+import pagination from '@/components/pagination';
 export default {
+  components: {
+      pagination,
+  },
   data() {
     return {
       products: [],
-      tempProduct:{},
-      isNew:false,
-      isLoading:false,
-      status:{
-          fileuploading:false,
-      },
+      pagination: {},
+      tempProduct: {},
+      isNew: false,
+      isLoading: false,
+      status: {
+        fileuploading: false
+      }
     }
   },
   methods: {
-    getProducts() {
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/products/all`;
-      const vm = this;
-      vm.isLoading = true;
+    //es6 技巧 參數預設值, 這樣就不需要在每個有用getProducts()的地方都放參數
+    getProducts(page = 1) {
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/products?page=${page}`
+      const vm = this
+      vm.isLoading = true
       this.$http.get(api).then(response => {
-        console.log('產品清單API狀態',response.data.success);
-        if(response.data.success){
-        vm.products = response.data.products;
-        //console.log(vm.products);
-        vm.isLoading = false;
-        }else{
-            vm.$bus.$emit('message:push',response.data.message,'danger');
-            setTimeout(() => {
-                vm.$router.push('/login');
-                }, 5000);   
-            }
-        });
+        console.log('產品清單API狀態', response.data.success)
+        if (response.data.success) {
+          vm.products = response.data.products
+          console.log(response.data)
+          vm.isLoading = false
+          vm.pagination = response.data.pagination
+        } else {
+          vm.$bus.$emit('message:push', response.data.message, 'danger')
+          setTimeout(() => {
+            vm.$router.push('/login')
+          }, 5000)
+        }
+      })
     },
-    openModal(isNew,item) {
-      if (isNew){
-          this.tempProduct = {};
-          this.isNew = true;
-      }else{
-          //特別注意 因為物件是傳參考如果直接這樣寫會有問題
-          //在此要使用展開
+    openModal(isNew, item) {
+      if (isNew) {
+        this.tempProduct = {}
+        this.isNew = true
+      } else {
+        //特別注意 因為物件是傳參考如果直接這樣寫會有問題
+        //在此要使用展開
         //   this.tempProduct = {
         //       ...item
         //   };
-          //或者使用 將item的值寫入空物件內 - ES6語法 用來避免有參考特性
-          this.tempProduct = Object.assign({},item);
-          this.isNew = false;
+        //或者使用 將item的值寫入空物件內 - ES6語法 用來避免有參考特性
+        this.tempProduct = Object.assign({}, item)
+        this.isNew = false
       }
-      $('#productModal').modal('show');
-      $('#customFile').val('');
+      $('#productModal').modal('show')
+      $('#customFile').val('')
     },
-    deleteModal(item){
-        //把值 放入 tempProduct
-        // this.tempProduct = {
-        //     ...item
-        // };
-        this.tempProduct = Object.assign({},item);
-        $('#delProductModal').modal('show');
+    deleteModal(item) {
+      //把值 放入 tempProduct
+      // this.tempProduct = {
+      //     ...item
+      // };
+      this.tempProduct = Object.assign({}, item)
+      $('#delProductModal').modal('show')
     },
-    updateProduct(){
-        let api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product`;
-        const vm = this;
-        let httpMethod = 'post';
-        if (!vm.isNew){
-            api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
-            httpMethod = 'put';
-        }
-        //調整資料格式 使其 被API接受
-        //console.log({data: vm.tempProduct});
-        this.$http[httpMethod](api,{data: vm.tempProduct}).then(response => {
+    updateProduct() {
+      let api = `${process.env.APIPATH}/api/${
+        process.env.CUSTOMPATH
+      }/admin/product`
+      const vm = this
+      let httpMethod = 'post'
+      if (!vm.isNew) {
+        api = `${process.env.APIPATH}/api/${
+          process.env.CUSTOMPATH
+        }/admin/product/${vm.tempProduct.id}`
+        httpMethod = 'put'
+      }
+      //調整資料格式 使其 被API接受
+      //console.log({data: vm.tempProduct});
+      this.$http[httpMethod](api, { data: vm.tempProduct }).then(response => {
         //vm.products = response.data.products;
-        console.log('新增產品API狀態',response.data.success);
-            if(response.data.success){
-                $('#productModal').modal('hide');
-                vm.getProducts();
-                vm.$bus.$emit('message:push',response.data.message,'success');
-            }else{
-                $('#productModal').modal('hide');
-                vm.$bus.$emit('message:push',response.data.message,'danger');
-            }
-        });
+        console.log('新增產品API狀態', response.data.success)
+        if (response.data.success) {
+          $('#productModal').modal('hide')
+          vm.getProducts()
+          vm.$bus.$emit('message:push', response.data.message, 'success')
+        } else {
+          $('#productModal').modal('hide')
+          vm.$bus.$emit('message:push', response.data.message, 'danger')
+        }
+      })
     },
-    delProduct(){    
-        const vm = this;
-        const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
-        this.$http.delete(api).then(response => {
-            console.log('刪除產品API狀態',response.data.success);
-            if(response.data.success){
-                $('#delProductModal').modal('hide');
-                vm.$bus.$emit('message:push',response.data.message,'success');
-                //console.log('刪除成功');
-                vm.getProducts();
-            }else{
-                $('#delProductModal').modal('hide');
-                vm.$bus.$emit('message:push',response.data.message,'danger');
-            }
-        });
+    delProduct() {
+      const vm = this
+      const api = `${process.env.APIPATH}/api/${
+        process.env.CUSTOMPATH
+      }/admin/product/${vm.tempProduct.id}`
+      this.$http.delete(api).then(response => {
+        console.log('刪除產品API狀態', response.data.success)
+        if (response.data.success) {
+          $('#delProductModal').modal('hide')
+          vm.$bus.$emit('message:push', response.data.message, 'success')
+          //console.log('刪除成功');
+          vm.getProducts()
+        } else {
+          $('#delProductModal').modal('hide')
+          vm.$bus.$emit('message:push', response.data.message, 'danger')
+        }
+      })
     },
-    uploadFile(){
-        console.log(this);
-        if (this.$refs.files.files.length == '0'){return}
-        const uploadedFile = this.$refs.files.files[0];
-        const vm = this;
-        //使用FormData 方法
-        const formData = new FormData();
-        formData.append('file-to-upload',uploadedFile);
-        vm.status.fileuploading = true;
-        const url = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/upload`;
-        this.$http.post(url,formData,{
-            headers:{
-                //修改headers資訊
-                'Content-Type':'multipart/form-data',
-            }
-        }).then(response =>{
-            console.log('上傳API狀態',response.data.success);
-            vm.status.fileuploading = false;
-            if (response.data.success){
-                //這樣寫的話，此時的圖片路徑並沒有雙向綁定 - 可觀察有無Getter . Setter
-                // vm.tempProduct.imageUrl = response.data.imageUrl;
-                // console.log(vm.tempProduct);
-                //正確
-                vm.$set(vm.tempProduct,'imageUrl',response.data.imageUrl);
-            }else{
-                $('#productModal').modal('hide');
-                vm.$bus.$emit('message:push',response.data.message,'danger');
-            }
-        });
+    uploadFile() {
+      console.log(this)
+      if (this.$refs.files.files.length == '0') {
+        return
+      }
+      const uploadedFile = this.$refs.files.files[0]
+      const vm = this
+      //使用FormData 方法
+      const formData = new FormData()
+      formData.append('file-to-upload', uploadedFile)
+      vm.status.fileuploading = true
+      const url = `${process.env.APIPATH}/api/${
+        process.env.CUSTOMPATH
+      }/admin/upload`
+      this.$http
+        .post(url, formData, {
+          headers: {
+            //修改headers資訊
+            'Content-Type': 'multipart/form-data'
+          }
+        })
+        .then(response => {
+          console.log('上傳API狀態', response.data.success)
+          vm.status.fileuploading = false
+          if (response.data.success) {
+            //這樣寫的話，此時的圖片路徑並沒有雙向綁定 - 可觀察有無Getter . Setter
+            // vm.tempProduct.imageUrl = response.data.imageUrl;
+            // console.log(vm.tempProduct);
+            //正確
+            vm.$set(vm.tempProduct, 'imageUrl', response.data.imageUrl)
+          } else {
+            $('#productModal').modal('hide')
+            vm.$bus.$emit('message:push', response.data.message, 'danger')
+          }
+        })
     }
   },
   created() {
-    this.getProducts();
+    this.getProducts()
   }
 }
 </script>
