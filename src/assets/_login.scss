@@ -1,0 +1,102 @@
+.login-background{
+    background-color: #EAF0ED;
+}
+
+.login-title-block{
+    background: $main;
+    color: white;
+    h1{
+        font-size: 36px;
+        font-weight: bolder;
+        text-align: center;
+        margin-bottom: 0px;
+    }
+}
+
+.login-form-title{
+    padding-top: 20px;
+    padding-bottom: 0px;
+    color: white;
+    background: $main;
+    text-align: center;
+    h1{
+        margin-bottom: 0px;
+        font-size: 26px;
+    }
+    @include media-breakpoint-up(md) {
+        padding-top: 20px;
+        padding-bottom: 20px;
+        h1{
+            margin-bottom: 0px;
+            font-size: 26px;
+        }
+    }
+}
+
+.login-form-block{
+    background: $main;
+    padding: 30px;
+    @include media-breakpoint-up(md) {
+        padding-top: 0;
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-bottom: 25px;
+     }
+}
+
+.login-form{
+    position: relative;
+    input{
+        color: $main;
+    }
+}
+
+.form-input{
+    padding-top: 16px;
+    padding-bottom: 16px;
+    padding-right: 10px;
+    outline: none;
+    border: none;
+    background: $second;
+    font-size: 16px;
+    text-indent: 60px;
+}
+
+.login-form-icon{
+    position: absolute;
+    color: $main;
+    background-color: $second;
+    left: 0px;
+    top: 0px;
+    bottom: 0;
+    width: 56px;
+    text-align: center;
+    line-height: 56px;
+    margin-bottom: 0;
+}
+
+.form-input,.login-form-icon{
+    overflow: hidden;
+    border-radius: 10px;
+}
+
+.remember-block{
+    display: flex;
+    align-items: center;
+}
+
+.remember-checkbox{
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    border: none;
+    cursor: pointer;
+}
+
+.login-btn{
+    @include btn;
+}
+
+
+
+

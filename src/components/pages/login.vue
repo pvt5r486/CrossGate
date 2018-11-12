@@ -1,23 +1,43 @@
 <template>
-    <div>
-        <!-- 登入事件除了可以寫在按鈕上 也可以寫在form -->
-        <form class="form-signin" @submit.prevent="signin">
-            <!-- <form class="form-signin"> -->
-            <h1 class="h3 mb-3 font-weight-normal">請先登入</h1>
-            <label for="inputEmail" class="sr-only">Email address</label>
-            <input type="email" id="inputEmail" class="form-control" v-model="user.username" placeholder="Email address" required autofocus>
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" v-model="user.password" placeholder="Password" required>
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="remember-me"> 記得我
+  <div class="login-background">
+    <loading :active.sync="isLoading">
+      <img src="@/assets/img/loading.gif" alt="" width="200">
+    </loading>
+    <div class="container">
+      <div class="row no-gutters justify-content-center align-items-center" style="min-height:100vh;">
+        <div class="col-md-4">
+          <div class="text-center">
+            <img src="@/assets/img/crossgate-logo3.png" alt="" class="img-fluid">
+          </div>
+          <div class="login-form-title"> 
+            <h1>CrossGate 管理平台</h1>
+          </div>
+          <form @submit.prevent="signin">
+            <div class="login-form-block">
+              <div class="login-form mb-3">
+                <label for="username" class="material-icons login-form-icon">
+                  person
                 </label>
+                <input type="email" id="username" class="form-input w-100" placeholder="Email" v-model="user.username" required autofocus>
+              </div>
+              <div class="login-form mb-3">
+                <label for="password" class="material-icons login-form-icon">
+                  vpn_key
+                </label>
+                <input type="password" id="password" class="form-input w-100" placeholder="PassWord" v-model="user.password">
+              </div>
+              <div class="remember-block">
+                <input type="checkbox" class="remember-checkbox" id="remenberme" v-model="user.isRemember">
+                <label class="text-white mb-0" for="remenberme">記住我</label>
+              </div>
             </div>
-            <!-- <button class="btn btn-lg btn-primary btn-block" type="submit" @click.prevent="signin">登入</button> -->
-            <button class="btn btn-lg btn-primary btn-block" type="submit">登入</button>
-            <p class="mt-5 mb-3 text-muted">&copy; 2018 CrossGate 寶貝商店</p>
-        </form>
+            <button class="login-btn" type="submit">登入</button>
+          </form>
+          <p class="mt-3 mb-3 text-muted text-center">&copy; 2018 CrossGate 遊戲商店</p>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script>
@@ -27,74 +47,46 @@ export default {
     return {
       user: {
         username: '',
-        password: ''
-      }
+        password: '',
+        isRemember: false
+      },
+      isLoading:false,
     }
   },
   methods: {
     signin() {
-      const api = `${process.env.APIPATH}/admin/signin`
+      const api = `${process.env.APIPATH}/admin/signin`;
       //這個API方法是使用POST
-      const vm = this
+      const vm = this;
+      vm.isLoading = true;
+      localStorage.setItem('isRemember', vm.user.isRemember);
+      vm.user.isRemember ? localStorage.setItem('userAccount', vm.user.username) : localStorage.removeItem('userAccount')   
       //this.$http.post(路徑,傳入參數)
-      //console.log(vm.user)
+      console.log(vm.user)
       this.$http.post(api, vm.user).then(response => {
         //console.log(response.data);
-        response.data.success ? vm.$router.push('/admin/products') : alert(`${response.data.message}，請確認您的帳號密碼。`)
+        if (response.data.success) {
+          vm.isLoading = false;
+          vm.$router.push('/admin/products');
+        } else {
+          vm.isLoading = false;
+          alert(`${response.data.message}，請確認您的帳號密碼。`)
+        }
       });
+    }
+  },
+  created(){
+    const userAccount = localStorage.getItem('userAccount') || '';
+    const rememberMe = localStorage.getItem('isRemember') || false;
+    const vm = this;
+    //console.log(typeof(rememberMe) ,rememberMe )
+    //typeof(rememberMe)
+    if (rememberMe === 'true'){
+      this.user.username = userAccount;
+      this.user.isRemember = true;
     }
   }
 }
 </script>
 
-<style scoped>
-html,
-body {
-  height: 100%;
-}
 
-body {
-  display: -ms-flexbox;
-  display: -webkit-box;
-  display: flex;
-  -ms-flex-align: center;
-  -ms-flex-pack: center;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
-  background-color: #f5f5f5;
-}
-
-.form-signin {
-  width: 100%;
-  max-width: 330px;
-  padding: 15px;
-  margin: 0 auto;
-}
-.form-signin .checkbox {
-  font-weight: 400;
-}
-.form-signin .form-control {
-  position: relative;
-  box-sizing: border-box;
-  height: auto;
-  padding: 10px;
-  font-size: 16px;
-}
-.form-signin .form-control:focus {
-  z-index: 2;
-}
-.form-signin input[type='email'] {
-  margin-bottom: -1px;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
-}
-.form-signin input[type='password'] {
-  margin-bottom: 10px;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
-}
-</style>
