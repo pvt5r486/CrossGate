@@ -3,10 +3,23 @@
 @import '~bootstrap/scss/bootstrap';  //引用bootstrap4 scss
 
 //自己寫的scss
-//@import './_dashboard';
 @import './_mytool';
 @import './_login';
+@import './_dashboard';
 
 html,body {
   font-family: 'Microsoft JhengHei';
+}
+
+ul{
+  list-style: none;
+  padding-left: 0;
+}
+
+.back-background{
+  background-color: #EAF0ED;
+}
+
+.fixheight{
+  min-height:calc(100vh - 66px);
 }

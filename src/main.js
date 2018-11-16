@@ -14,6 +14,7 @@ import App from './App';
 import router from '@/router';
 import './bus';
 import currencyFilter from './filters/currency';
+import timeTampsFilter from './filters/timetamps';
 import pagination from '@/components/pagination';
 
 Vue.config.productionTip = false;
@@ -23,7 +24,7 @@ axios.defaults.withCredentials = true;
 Vue.component('Loading',Loading);
 Vue.component('pagination',pagination);
 Vue.filter('currency',currencyFilter);
-
+Vue.filter('timeTamps',timeTampsFilter);
 
 /* eslint-disable no-new */
 new Vue({

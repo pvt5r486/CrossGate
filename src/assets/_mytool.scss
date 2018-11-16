@@ -34,3 +34,12 @@
         background: darken($becare,10%);
     }
 }
+
+.multiple-line-truncate{
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3;
+    overflow: hidden;  
+    /* 其它瀏覽器降級方式：給定最大高度 */
+    max-height:70px;
+}

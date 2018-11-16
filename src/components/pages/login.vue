@@ -1,13 +1,14 @@
 <template>
-  <div class="login-background">
+  <div class="back-background">
     <loading :active.sync="isLoading">
       <img src="@/assets/img/loading.gif" alt="" width="200">
     </loading>
+    <alertMessage></alertMessage>
     <div class="container">
       <div class="row no-gutters justify-content-center align-items-center" style="min-height:100vh;">
         <div class="col-md-4">
           <div class="text-center">
-            <img src="@/assets/img/crossgate-logo3.png" alt="" class="img-fluid">
+            <img src="@/assets/img/crossgate-logo.png" alt="CrossGate" class="img-fluid">
           </div>
           <div class="login-form-title"> 
             <h1>CrossGate 管理平台</h1>
@@ -41,8 +42,12 @@
 </template>
 
 <script>
+import alertMessage from '@/components/AlertMessage';
 export default {
   name: 'Login',
+  components: {
+    alertMessage,
+  },
   data() {
     return {
       user: {
@@ -70,7 +75,8 @@ export default {
           vm.$router.push('/admin/products');
         } else {
           vm.isLoading = false;
-          alert(`${response.data.message}，請確認您的帳號密碼。`)
+          //alert(`${response.data.message}，請確認您的帳號密碼。`)
+          vm.$bus.$emit('message:push', `${response.data.message}，請確認您的帳號密碼。`, 'danger');
         }
       });
     }

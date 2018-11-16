@@ -1,6 +1,6 @@
 <template>
     <div>
-        <nav aria-label="Page navigation example">
+        <nav>
             <ul class="pagination">
                 <li class="page-item" :class="{'disabled': pageData.has_pre === false}">
                     <a class="page-link" href="#" aria-label="Previous" @click.prevent="changePage(pageData.current_page - 1)">
