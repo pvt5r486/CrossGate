@@ -6,6 +6,7 @@
 @import './_mytool';
 @import './_login';
 @import './_dashboard';
+@import './_shoppingdemo';
 
 html,body {
   font-family: 'Microsoft JhengHei';
@@ -22,4 +23,12 @@ ul{
 
 .fixheight{
   min-height:calc(100vh - 66px);
+}
+
+.message-alert {
+  position: fixed;
+  max-width: 70%;
+  top: 56px;
+  right: 20px;
+  z-index: 1100;
 }

@@ -1,0 +1,26 @@
+.shopcartIcon{
+    position: fixed;
+    right:20px;
+    bottom:20px;
+    box-shadow:2px 2px 2px rgba(20%,20%,40%,0.6),4px 4px 6px rgba(20%,20%,40%,0.4),6px 6px 12px rgba(20%,20%,40%,0.4);
+    .count{
+      display: block;
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      line-height: 25px;
+      right: -8px;
+      top: -8px;
+      background-color: red;
+      border:1px solid #ddd;
+      font-size: 12px;
+      border-radius: 50%;
+      text-align: center;
+      box-shadow:4px 4px 12px -2px rgba(20%,20%,40%,0.5);
+    }
+  }
+  .modal-open .shopcartIcon {
+    @include media-breakpoint-up(lg) {
+      margin-right: 16.5px;
+    }
+  }

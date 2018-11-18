@@ -190,7 +190,7 @@ export default {
             $('#productModal').modal('hide');
             $('#delProductModal').modal('hide');
             vm.$router.push('/login');
-          }, 5000)
+          }, 3000)
         }
       })
     },
