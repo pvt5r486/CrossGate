@@ -98,10 +98,10 @@
           </div>
           <div class="modal-body">
             <div class="table-responsive" v-if="shopCart.carts && shopCart.carts.length != 0">
-              <table class="table">
+              <table class="table table-hover">
                 <thead class="table-becare">
                   <tr class="text-nowrap">
-                    <th width="60"></th>
+                    <th width="30" class="p-1"></th>
                     <th>商品名稱</th>
                     <th width="80">數量</th>
                     <th width="100">單價</th>
@@ -109,8 +109,8 @@
                 </thead>
                 <tbody>
                   <tr v-for="item in shopCart.carts" :key="item.id">
-                    <td class="align-middle">
-                      <button type="button" class="btn btn-outline-danger btn-sm" @click="delCartItem(item.id,item.product.title)">
+                    <td class="align-middle p-1">
+                      <button type="button" class="btn btn-outline-danger btn-sm border-0" @click="delCartItem(item.id,item.product.title)">
                         <i class="far fa-trash-alt"></i>
                       </button>
                     </td>
@@ -122,18 +122,45 @@
                         {{item.product.category}}
                       </span>  
                       {{item.product.title}}
+                      <div class="text-success" v-if="item.coupon">     
+                        <small>已套用{{item.coupon.title}}</small>          
+                      </div>
                     </td>
                     <td class="align-middle text-nowrap">{{item.qty}} {{item.product.unit}}</td>
-                    <td class="align-middle text-right text-nowrap">{{item.final_total | currency}}</td>
+                    <td class="align-middle text-right text-nowrap" v-if="item.total !== item.final_total">
+                      <div class="text-dontcare">
+                        <em><del>{{item.total | currency}}</del></em>
+                      </div>            
+                      <div>     
+                        {{item.final_total | currency}}      
+                      </div>
+                    </td>
+                    <td class="align-middle text-right text-nowrap" v-else>            
+                        {{item.final_total | currency}}      
+                    </td>
                   </tr>
                 </tbody>
                 <tfoot>
-                  <tr class="text-right">
-                    <td colspan="3" class="align-middle font-weight-bold">總計</td>
-                    <td class="align-middle font-weight-bold">{{ shopCart.total | currency}}</td>
+                  <tr class="text-right" v-if="shopCart.final_total == shopCart.total ">
+                    <td colspan="3" class="align-middle">總計</td>
+                    <td class="align-middle">{{ shopCart.total | currency}}</td>
+                  </tr>
+                  <tr class="text-right text-dontcare" v-else>
+                    <td colspan="3" class="align-middle"><em>總計</em></td>
+                    <td class="align-middle"><em><del>{{ shopCart.total | currency}}</del></em></td>
+                  </tr>
+                  <tr class="text-right text-danger" v-if="shopCart.final_total !== shopCart.total ">
+                    <td colspan="3" class="align-middle font-weight-bold">折扣價</td>
+                    <td class="align-middle font-weight-bold">{{ shopCart.final_total | currency}}</td>
                   </tr>
                 </tfoot>
               </table>
+              <div class="input-group mb-3">
+                <input type="text" class="form-control" id="coupontext" v-model="coupon_code" placeholder="請輸入優惠碼" aria-label="請輸入優惠碼">
+                <div class="input-group-append">
+                  <button class="btn btn-outline-secondary" type="button" @click="addCouponCode" :disabled="!coupon_code">套用優惠券</button>
+                </div>
+              </div>
             </div>
             <div v-else class="alert alert-becare py-5 mt-3 mb-5 text-center font-weight-bold">
               - 噢 , 很遺憾 , 這裡空空如也 - <br>繼續逛逛 , 好嗎 ?
@@ -143,9 +170,62 @@
             <button type="button" class="btn btn-main" @click="closeMyshopCart">
               繼續逛逛
             </button>
-            <button type="button" class="btn btn-becare text-main font-weight-bold" v-if="shopCart.carts && shopCart.carts.length != 0">
+            <button type="button" class="btn btn-becare text-main font-weight-bold" v-if="shopCart.carts && shopCart.carts.length != 0" @click="orderModal">
               去結帳
             </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="OrderModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content border-0">
+          <div class="modal-header bg-main text-white">
+            <h5 class="modal-title" id="exampleModalLabel">
+              <span>建立訂單</span>
+            </h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true" class="text-white">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row justify-content-center">
+              <form class="col-md-12">
+                <div class="form-group">
+                  <label for="useremail">Email</label>
+                  <input type="email" class="form-control" name="email" id="useremail"
+                    v-model="form.user.email" placeholder="請輸入 Email" required>
+                  <span class="text-danger"></span>
+                </div>
+              
+                <div class="form-group">
+                  <label for="username">收件人姓名</label>
+                  <input type="text" class="form-control" name="name" id="username"
+                    v-model="form.user.name" placeholder="輸入姓名">
+                  <span class="text-danger"></span>
+                </div>
+              
+                <div class="form-group">
+                  <label for="usertel">收件人電話</label>
+                  <input type="tel" class="form-control" id="usertel" v-model="form.user.tel" placeholder="請輸入電話">
+                </div>
+              
+                <div class="form-group">
+                  <label for="useraddress">收件人地址</label>
+                  <input type="address" class="form-control" name="address" id="useraddress" v-model="form.user.address"
+                    placeholder="請輸入地址">
+                  <span class="text-danger">地址欄位不得留空</span>
+                </div>
+              
+                <div class="form-group">
+                  <label for="usermessage">特殊需求</label>
+                  <textarea name="message" id="usermessage" class="form-control" cols="30" rows="10" v-model="form.message"></textarea>
+                </div>
+                <div class="text-right">
+                  <button class="btn btn-becare">送出訂單</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
@@ -171,6 +251,15 @@ export default {
       status:{
         //判斷目前在loading的是哪個產品的id
         loadingItem:'',
+      },
+      coupon_code:'',
+      form:{
+        user:{
+          name:'',
+          email:'',
+          tel:'',
+          address:'',
+        }
       },
     }
   },
@@ -245,6 +334,35 @@ export default {
         vm.isLoading = false;
         vm.getCart();
       });
+    },
+    addCouponCode(){
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/coupon`;
+      const vm = this;
+      const coupon = {
+        code:vm.coupon_code
+      }
+      vm.isLoading = true;
+      this.$http.post(api,{data:coupon}).then(response => {
+        //console.log(response);
+        if(response.data.success){
+          vm.$bus.$emit('message:push', `${response.data.message}`, 'success');
+        }else{
+          vm.$bus.$emit('message:push', `${response.data.message}`, 'danger');
+        }
+        $('#coupontext').val('');
+        vm.isLoading = false;
+        vm.coupon_code='';
+        vm.getCart();
+      });
+    },
+    orderModal(){
+      const vm = this;
+      vm.isLoading = true;
+      $('#shopCartModal').modal('hide');
+      setTimeout(() => {
+        vm.isLoading = false;
+        $('#OrderModal').modal('show');  
+      }, 1000)   
     },
   },
   created() {

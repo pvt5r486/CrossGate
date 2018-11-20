@@ -25,7 +25,7 @@
                 <label for="password" class="material-icons login-form-icon">
                   vpn_key
                 </label>
-                <input type="password" id="password" class="form-input w-100" placeholder="PassWord" v-model="user.password">
+                <input type="password" id="password" class="form-input w-100" placeholder="PassWord" v-model="user.password" required>
               </div>
               <div class="remember-block">
                 <input type="checkbox" class="remember-checkbox" id="remenberme" v-model="user.isRemember">

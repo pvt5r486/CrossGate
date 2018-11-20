@@ -9,6 +9,9 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 // import customLoading from '@/components/loading';
 //使用BS4 Modal
 import 'bootstrap';
+import VeeValidate from 'vee-validate';
+import zhTWValidate from 'vee-validate/dist/locale/zh_TW';
+
 //自定義
 import App from './App';
 import router from '@/router';
@@ -19,6 +22,8 @@ import pagination from '@/components/pagination';
 
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
+VeeValidate.Validator.localize('zh_TW',zhTWValidate);
+Vue.use(VeeValidate);
 axios.defaults.withCredentials = true;
 //載入元件 - 全域啟用
 Vue.component('Loading',Loading);
