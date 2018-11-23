@@ -10,22 +10,22 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <router-link to="/admin/products" class="nav-link" activeClass="active">
+            <router-link to="/admin/products" class="nav-link" activeClass="active" @click.native="closeNavbar">
               <i class="fas fa-box-open mr-1"></i>產品列表
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/admin/orders" class="nav-link" activeClass="active">
+            <router-link to="/admin/orders" class="nav-link" activeClass="active" @click.native="closeNavbar">
               <i class="fas fa-clipboard-list mr-1"></i>訂單列表
             </router-link>
           </li>
            <li class="nav-item">
-            <router-link to="/admin/coupon" class="nav-link" activeClass="active">
+            <router-link to="/admin/coupon" class="nav-link" activeClass="active" @click.native="closeNavbar">
               <i class="fas fa-ticket-alt mr-1"></i>優惠券
             </router-link>
           </li>
           <li class="nav-item">
-            <router-link to="/admin/shopping-demo" class="nav-link" activeClass="active">
+            <router-link to="/admin/shopping-demo" class="nav-link" activeClass="active" @click.native="closeNavbar">
               <i class="fas fa-shopping-cart mr-1"></i>模擬購物
             </router-link>
           </li>
@@ -40,6 +40,7 @@
 
 
 <script>
+import $ from 'jquery';
 export default {
   name: 'navbar',
   data() {
@@ -57,6 +58,9 @@ export default {
         }
       })
     },
+    closeNavbar(){
+      $('.collapse').collapse('hide');
+    }
   },
 }
 </script>
