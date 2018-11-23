@@ -9,7 +9,7 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/CrossGate/dist',
+    assetsPublicPath: '/CrossGate/dist/',
     proxyTable: {},
 
     // Various Dev Server settings
