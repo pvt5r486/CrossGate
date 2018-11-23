@@ -8,6 +8,8 @@
 @import './_dashboard';
 @import './_shoppingdemo';
 
+
+//全域設定
 html,body {
   font-family: 'Microsoft JhengHei';
 }
@@ -27,8 +29,18 @@ ul{
 
 .message-alert {
   position: fixed;
-  max-width: 70%;
-  top: 56px;
-  right: 20px;
+  top: 0px;
+  right: 0px;
+  left: 0px;
   z-index: 1100;
+  transform: translateY(-50%);
+  transition: all .3s;
+  &.active{
+    transform: translateY(0%);
+  }
+}
+
+.form-control:focus {
+  box-shadow: 0 0 0 2px lighten($main, 40%);
+  border:1px solid $main;
 }

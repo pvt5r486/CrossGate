@@ -1,6 +1,6 @@
 <template>
-  <div class="message-alert">
-    <div class="alert alert-dismissible"
+  <div class="message-alert" :class="{'active' : messages.length !== 0}">
+    <div class="alert alert-dismissible mb-0 rounded-0"
       :class="'alert-' + item.status"
       v-for="(item, i) in messages" :key="i">
       {{ item.message }}
@@ -29,9 +29,9 @@ export default {
       });
       this.removeMessageWithTiming(timestamp);
     },
-    removeMessage(num) {
-      this.messages.splice(num, 1);
-    },
+     removeMessage(num) {
+       this.messages.splice(num, 1);
+     },
     removeMessageWithTiming(timestamp) {
       const vm = this;
       setTimeout(() => {
@@ -40,7 +40,7 @@ export default {
             vm.messages.splice(i, 1);
           }
         });
-      }, 3000);
+      }, 1500);
     },
   },
   created() {

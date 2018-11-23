@@ -53,7 +53,8 @@
                 <div class="modal-content border-0">
                     <div class="modal-header bg-main text-white">
                         <h5 class="modal-title" id="exampleModalLabel">
-                            <span>新增產品</span>
+                            <span v-if="isNew">新增產品</span>
+                            <span v-else>編輯產品</span>
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true" class="text-white">&times;</span>
@@ -77,29 +78,44 @@
                             </div>
                             <div class="col-sm-8">
                                 <div class="form-group">
-                                    <label for="title">標題</label>
-                                    <input type="text" class="form-control" id="title" v-model="tempProduct.title" placeholder="請輸入標題">
+                                    <label for="title">*產品標題</label>
+                                    <input type="text" class="form-control" id="title"  name="title" placeholder="請輸入標題"
+                                        v-model="tempProduct.title" v-validate="'required'" :class="{'is-invalid': errors.has('title')}">
+                                    <span class="text-danger" v-if="errors.has('title')">請輸入產品標題</span>
                                 </div>
 
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
                                         <label for="category">分類</label>
-                                        <input type="text" class="form-control" id="category" v-model="tempProduct.category" placeholder="請輸入分類">
+                                        <!-- <input type="text" class="form-control" id="category"  placeholder="請輸入分類"> -->
+                                        <select name="category" id="category" v-model="tempProduct.category" class="form-control">
+                                            <option value="Switch">Switch</option>
+                                            <option value="3DS">3DS</option>
+                                            <option value="PS4">PS4</option>
+                                        </select>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="price">單位</label>
-                                        <input type="unit" class="form-control" id="unit" v-model="tempProduct.unit" placeholder="請輸入單位">
+                                        <label for="price">*單位</label>
+                                        <input type="unit" class="form-control" id="unit" placeholder="請輸入單位" name="unit"
+                                            v-model="tempProduct.unit" v-validate="'required'" :class="{'is-invalid': errors.has('unit')}">
+                                        <span class="text-danger" v-if="errors.has('unit')">請輸入單位</span>
                                     </div>
                                 </div>
 
                                 <div class="form-row">
                                     <div class="form-group col-md-6">
-                                        <label for="origin_price">原價</label>
-                                        <input type="number" class="form-control" id="origin_price" v-model="tempProduct.origin_price" placeholder="請輸入原價">
+                                        <label for="origin_price">*原價</label>
+                                        <input type="number" class="form-control" id="origin_price" placeholder="請輸入原價" name="origin_price"
+                                            v-model="tempProduct.origin_price" v-validate="{ required: true, regex: /^([0-9]+)$/ }" 
+                                            :class="{'is-invalid': errors.has('origin_price')}">
+                                        <span class="text-danger" v-if="errors.has('origin_price')">僅接受純數字</span>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="price">售價</label>
-                                        <input type="number" class="form-control" id="price" v-model="tempProduct.price" placeholder="請輸入售價">
+                                        <label for="price">*售價</label>
+                                        <input type="number" class="form-control" id="price" placeholder="請輸入售價" name="price"
+                                            v-model="tempProduct.price" v-validate="{ required: true, regex: /^([0-9]+)$/ }"
+                                            :class="{'is-invalid': errors.has('price')}">
+                                        <span class="text-danger" v-if="errors.has('origin_price')">僅接受純數字</span>
                                     </div>
                                 </div>
                                 <hr>
@@ -125,7 +141,10 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-outline-secondary border-0" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-becare text-main" @click="updateProduct">確認</button>
+                        <button type="button" class="btn btn-becare text-main" @click="updateProduct">
+                            <i class="fas fa-spinner fa-spin" v-if="status.loading"></i>
+                            確認
+                        </button>
                     </div>
                 </div>
             </div>
@@ -146,7 +165,10 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-outline-secondary border-0" @click="delProduct">確認刪除</button>
+                        <button type="button" class="btn btn-outline-secondary border-0" @click="delProduct">
+                            <i class="fas fa-spinner fa-spin" v-if="status.loading"></i>
+                            確認刪除
+                        </button>
                     </div>
                 </div>
             </div>
@@ -167,7 +189,8 @@ export default {
       isNew: false,
       isLoading: false,
       status: {
-        fileuploading: false
+        fileuploading: false,
+        loading:false,
       }
     }
   },
@@ -190,13 +213,15 @@ export default {
             $('#productModal').modal('hide');
             $('#delProductModal').modal('hide');
             vm.$router.push('/login');
-          }, 3000)
+          }, 1500)
         }
       })
     },
     openModal(isNew, item) {
       if (isNew) {
-        this.tempProduct = {};
+        this.tempProduct = {
+            category:'Switch',
+        };
         this.isNew = true;
       } else {
         //特別注意 因為物件是傳參考如果直接這樣寫會有問題
@@ -227,32 +252,45 @@ export default {
         api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
         httpMethod = 'put';
       }
+      
       //調整資料格式 使其 被API接受
       //console.log({data: vm.tempProduct});
-      this.$http[httpMethod](api, { data: vm.tempProduct }).then(response => {
-        //vm.products = response.data.products;
-        console.log('新增產品API狀態', response.data.success)
-        if (response.data.success) {
-          $('#productModal').modal('hide');
-          vm.getProducts(vm.pagination.current_page);
-          vm.$bus.$emit('message:push', response.data.message, 'success');
-        } else {
-          $('#productModal').modal('hide');
-          vm.$bus.$emit('message:push', response.data.message, 'danger');
-        }
-      })
+      this.$validator.validate().then((result) => { 
+          if (result) {
+            vm.status.loading = true;
+            this.$http[httpMethod](api, { data: vm.tempProduct }).then(response => {
+                //vm.products = response.data.products;
+                //console.log('新增產品API狀態', response.data.success)
+                if (response.data.success) {
+                    vm.status.loading = false;
+                    $('#productModal').modal('hide');
+                    vm.getProducts(vm.pagination.current_page);
+                    vm.$bus.$emit('message:push', response.data.message, 'success');
+                } else {
+                    vm.status.loading = false;
+                    $('#productModal').modal('hide');
+                    vm.$bus.$emit('message:push', response.data.message, 'danger');
+                }
+            })
+          }else{
+            vm.$bus.$emit('message:push', `噢！表單內有欄位空白唷`, 'danger');
+          }
+      });
     },
     delProduct() {
       const vm = this;
       const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
+      vm.status.loading = true;
       this.$http.delete(api).then(response => {
-        console.log('刪除產品API狀態', response.data.success);
+        //console.log('刪除產品API狀態', response.data.success);
         if (response.data.success) {
+          vm.status.loading = false;
           $('#delProductModal').modal('hide');
           vm.$bus.$emit('message:push', response.data.message, 'success');
           //console.log('刪除成功');
           vm.getProducts();
         } else {
+          vm.status.loading = false;
           $('#delProductModal').modal('hide')
           vm.$bus.$emit('message:push', response.data.message, 'danger');
         }

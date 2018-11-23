@@ -45,7 +45,8 @@
                 <div class="modal-content border-0">
                     <div class="modal-header bg-main text-white">
                         <h5 class="modal-title" id="exampleModalLabel">
-                            <span>新增優惠券</span>
+                            <span v-if="isNew">新增優惠券</span>
+                            <span v-else>編輯優惠券</span>
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -55,24 +56,28 @@
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
-                                    <label for="couponName">優惠券名稱</label>
-                                    <input type="text" class="form-control" id="couponName" aria-describedby="emailHelp" placeholder="請輸入優惠券名稱" 
-                                        v-model="tempCoupon.title" autofocus required>
+                                    <label for="couponName">*優惠券名稱</label>
+                                    <input type="text" class="form-control" id="couponName" name="couponName" placeholder="請輸入優惠券名稱" 
+                                        v-model="tempCoupon.title" v-validate="'required'" :class="{'is-invalid': errors.has('couponName')}">
+                                    <span class="text-danger" v-if="errors.has('couponName')">請輸入優惠券名稱</span>
                                 </div>
                                 <div class="form-group">
-                                    <label for="couponCode">優惠代碼</label>
-                                    <input type="text" class="form-control" id="couponCode" placeholder="請輸入優惠代碼" 
-                                        v-model="tempCoupon.code" required>
+                                    <label for="couponCode">*優惠代碼</label>
+                                    <input type="text" class="form-control" id="couponCode" name="couponCode" placeholder="請輸入優惠代碼" 
+                                        v-model="tempCoupon.code" v-validate="'required'" :class="{'is-invalid': errors.has('couponCode')}">
+                                    <span class="text-danger" v-if="errors.has('couponCode')">請輸入優惠代碼</span>
                                 </div>
                                 <div class="form-group">
-                                    <label for="dueDate">到期日</label>
-                                    <input type="date" class="form-control" id="dueDate" 
-                                        v-model="tempCoupon.due_date" required>
+                                    <label for="dueDate">*到期日</label>
+                                    <input type="date" class="form-control" id="dueDate" name="dueDate"
+                                        v-model="tempCoupon.due_date" v-validate="'required'" :class="{'is-invalid': errors.has('dueDate')}">
+                                    <span class="text-danger" v-if="errors.has('dueDate')">請選擇到期日</span>
                                 </div>
                                 <div class="form-group">
-                                    <label for="percent">折扣百分比</label>
-                                    <input type="tel" class="form-control" id="percent" placeholder="請輸入折扣百分比"
-                                        v-model="tempCoupon.percent" required>
+                                    <label for="percent">*折扣百分比</label>
+                                    <input type="tel" class="form-control" id="percent" name="percent" placeholder="請輸入折扣百分比"
+                                        v-model="tempCoupon.percent" v-validate="{ required: true, alpha_num: true, max_value:100  }" :class="{'is-invalid': errors.has('percent')}">
+                                    <span class="text-danger" v-if="errors.has('percent')">請輸入101以內的正整數</span>
                                 </div>
                                 <div class="form-check">
                                     <input type="checkbox" class="form-check-input" id="isEnabled"  v-model="tempCoupon.is_enabled" :true-value="1" :false-value="0">
@@ -83,7 +88,10 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button"  class="btn btn-outline-secondary border-0" data-dismiss="modal">取消</button>
-                        <button type="button"  class="btn btn-becare text-main" @click="updateCoupons">確認</button>
+                        <button type="button"  class="btn btn-becare text-main" @click="updateCoupons">
+                            <i class="fas fa-spinner fa-spin" v-if="status.loading"></i>
+                            確認
+                        </button>
                     </div>
                 </div>
             </div>
@@ -105,7 +113,10 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-outline-secondary border-0" @click="delCoupon">確認刪除</button>
+                        <button type="button" class="btn btn-outline-secondary border-0" @click="delCoupon">
+                            <i class="fas fa-spinner fa-spin" v-if="status.loading"></i>
+                            確認刪除
+                        </button>
                     </div>
                 </div>
             </div>
@@ -125,6 +136,9 @@ export default {
       tempCoupon: {},
       isNew: false,
       isLoading: false,
+      status: {
+        loading:false,
+      }
     }
   },
   methods: {
@@ -142,7 +156,7 @@ export default {
           vm.$bus.$emit('message:push', response.data.message, 'danger');
           setTimeout(() => {
             vm.$router.push('/login');
-          }, 3000);
+          }, 1500);
         }
       })
     },
@@ -173,32 +187,44 @@ export default {
         api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`;
         httpMethod = 'put'
       }
-      //調整資料格式 使其 被API接受
-      const updateCoupon = Object.assign({}, vm.tempCoupon);
-      const couponDate = new Date(vm.tempCoupon.due_date);
-      updateCoupon.due_date = Math.floor(couponDate / 1000);
-      updateCoupon.percent = Number(vm.tempCoupon.percent);
-      //console.log(updateCoupon);
-      this.$http[httpMethod](api, { data: updateCoupon }).then(response => {
-        if (response.data.success) {
-          $('#couponModal').modal('hide')
-          vm.getCoupons()
-          vm.$bus.$emit('message:push', response.data.message, 'success')
-        } else {
-          $('#couponModal').modal('hide')
-          vm.$bus.$emit('message:push', response.data.message, 'danger')
-        }
-      })
+      this.$validator.validate().then((result) => { 
+          if (result) {
+            vm.status.loading = true;
+            //調整資料格式 使其 被API接受
+            const updateCoupon = Object.assign({}, vm.tempCoupon);
+            const couponDate = new Date(vm.tempCoupon.due_date);
+            updateCoupon.due_date = Math.floor(couponDate / 1000);
+            updateCoupon.percent = Number(vm.tempCoupon.percent);
+            //console.log(updateCoupon);
+            this.$http[httpMethod](api, { data: updateCoupon }).then(response => {
+                if (response.data.success) {
+                    vm.status.loading = false;
+                    $('#couponModal').modal('hide');
+                    vm.getCoupons();
+                    vm.$bus.$emit('message:push', response.data.message, 'success');
+                } else {
+                    vm.status.loading = false;
+                    $('#couponModal').modal('hide');
+                    vm.$bus.$emit('message:push', response.data.message, 'danger');
+                }
+            })
+          }else{
+            vm.$bus.$emit('message:push', `噢！表單內有欄位空白唷`, 'danger');
+          }
+      });    
     },
     delCoupon() {
       const vm = this;
       const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`;
+      vm.status.loading = true;
       this.$http.delete(api).then(response => {
         if (response.data.success) {
+          vm.status.loading = false;
           $('#delCouponModal').modal('hide');
           vm.$bus.$emit('message:push', response.data.message, 'success');
           vm.getCoupons();
         } else {
+          vm.status.loading = false;
           $('#delCouponModal').modal('hide');
           vm.$bus.$emit('message:push', response.data.message, 'danger')
         }

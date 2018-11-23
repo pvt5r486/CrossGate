@@ -22,8 +22,10 @@ import pagination from '@/components/pagination';
 
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
-VeeValidate.Validator.localize('zh_TW',zhTWValidate);
+
 Vue.use(VeeValidate);
+VeeValidate.Validator.localize('zh_TW',zhTWValidate);
+
 axios.defaults.withCredentials = true;
 //載入元件 - 全域啟用
 Vue.component('Loading',Loading);
