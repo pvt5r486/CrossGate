@@ -48,7 +48,7 @@
                             <span v-if="isNew">新增優惠券</span>
                             <span v-else>編輯優惠券</span>
                         </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -104,7 +104,7 @@
                         <h5 class="modal-title" id="exampleModalLabel">
                             <span>刪除優惠券</span>
                         </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
