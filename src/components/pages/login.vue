@@ -5,7 +5,7 @@
     </loading>
     <alertMessage></alertMessage>
     <div class="container">
-      <div class="row no-gutters justify-content-center align-items-center" >
+      <div class="row no-gutters justify-content-center align-items-center" style="min-height:100vh;">
         <div class="col-md-4">
           <div class="text-center">
             <img src="@/assets/img/crossgate-logo.png" alt="CrossGate" class="img-fluid">
