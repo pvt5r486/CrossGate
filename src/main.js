@@ -23,7 +23,8 @@ import pagination from '@/components/pagination';
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 
-Vue.use(VeeValidate);
+
+Vue.use(VeeValidate, { events: 'change' });
 VeeValidate.Validator.localize('zh_TW',zhTWValidate);
 
 axios.defaults.withCredentials = true;

@@ -95,7 +95,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label for="price">*單位</label>
+                                        <label for="unit">*單位</label>
                                         <input type="unit" class="form-control" id="unit" placeholder="請輸入單位" name="unit"
                                             v-model="tempProduct.unit" v-validate="'required'" :class="{'is-invalid': errors.has('unit')}">
                                         <span class="text-danger" v-if="errors.has('unit')">請輸入單位</span>
@@ -218,6 +218,7 @@ export default {
       })
     },
     openModal(isNew, item) {
+      this.$validator.reset();
       if (isNew) {
         this.tempProduct = {
             category:'Switch',

@@ -161,6 +161,7 @@ export default {
       })
     },
     openModal(isNew, item) {
+      this.$validator.reset();
       if (isNew) {
         this.tempCoupon = {};
         this.isNew = true;

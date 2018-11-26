@@ -87,13 +87,13 @@
                                     <div class="col-md-12">
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
-                                                <label for="orderName">訂購人</label>
+                                                <label for="orderName">*訂購人</label>
                                                 <input type="text" class="form-control" id="orderName" name="Name" v-model="tempOrder.user.name" placeholder="請輸入姓名"
                                                     v-validate="'required'" :class="{'is-invalid': errors.has('Name')}">
                                                 <span class="text-danger" v-if="errors.has('Name')">請輸入訂購人姓名</span>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label for="orderEmail">信箱</label>
+                                                <label for="orderEmail">*信箱</label>
                                                 <input type="email" class="form-control" :class="{'is-invalid': errors.has('email')}" name="email" id="orderEmail"
                                                     v-model="tempOrder.user.email" placeholder="請輸入 Email" v-validate="'required|email'" >
                                                 <span class="text-danger" v-if="errors.has('email')">{{errors.first('email')}}</span>
@@ -101,13 +101,13 @@
                                         </div>
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
-                                                <label for="orderAddress">住址</label>
+                                                <label for="orderAddress">*住址</label>
                                                 <input type="text" class="form-control" id="orderAddress" name="address" :class="{'is-invalid': errors.has('address')}"
                                                     v-model="tempOrder.user.address" placeholder="請輸入住址"  v-validate="'required'">
                                                 <span class="text-danger" v-if="errors.has('address')">地址欄位不得留空</span>
                                             </div>
                                             <div class="form-group col-md-6">
-                                                <label for="orderTel">電話</label>
+                                                <label for="orderTel">*電話</label>
                                                 <input type="tel" class="form-control" id="orderTel" name="regex" v-model="tempOrder.user.tel" 
                                                     v-validate="{ required: true, regex: /^([0-9]+)$/ }" placeholder="請輸入電話" :class="{'is-invalid': errors.has('regex')}">
                                                 <span class="text-danger" v-if="errors.has('regex')">僅接受純數字</span>
@@ -140,29 +140,31 @@
                                                     <input type="text" class="form-control"  aria-label="prodName" style="cursor:default;" readonly
                                                         v-model="item.product.title">
                                                 </div>
-                                                <div v-if="item.coupon" class="text-danger font-weight-bold">
-                                                    <span>*套用{{item.coupon.title}} 優惠中 - </span>
+                                                <p v-if="item.coupon" class="text-danger font-weight-bold mb-0">
+                                                    <span>*套用{{item.coupon.title}} 中 - </span>
                                                     <span>{{(item.product.price * item.coupon.percent) / 100 | currency}} 1/套</span>
-                                                </div>
-                                                <div v-else class="text-dontcare">
+                                                </p>
+                                                <p v-else class="text-dontcare mb-0">
                                                     <span >未套用酷碰優惠 - </span>
                                                     <span>{{item.product.price | currency}} 1/{{item.product.unit}}</span>
-                                                </div>
+                                                </p>
                                             </div>
                                             <div class="form-group col-md-3">
                                                 <div class="input-group">
                                                     <div class="input-group-prepend">
-                                                        <span class="input-group-text bg-main text-white" id="basic-addon1">數量</span>
+                                                        <span class="input-group-text bg-main text-white" id="basic-addon1">*數量</span>
                                                     </div>
                                                     <input type="number" class="form-control"  aria-label="num"  v-model="item.qty" :name="`num${index}`"
                                                         v-validate="{ required: true, regex: /^([0-9]+)$/ }" placeholder="請輸入數量" :class="{'is-invalid': errors.has('num' + index)}">
                                                 </div>
-                                                <div class="text-right text-dontcare" v-if="item.coupon">
-                                                    小計 {{((item.product.price * item.coupon.percent) / 100) * item.qty | currency}}
-                                                </div>
-                                                <div class="text-right text-dontcare" v-else>
-                                                    小計 {{(item.product.price * item.qty) | currency}}
-                                                </div>
+                                                <p class="mb-0  text-dontcare text-right">
+                                                    <span v-if="item.coupon">
+                                                        小計 {{((item.product.price * item.coupon.percent) / 100) * item.qty | currency}}
+                                                    </span>
+                                                    <span v-else>
+                                                        小計 {{(item.product.price * item.qty) | currency}}
+                                                    </span>
+                                                </p>
                                             </div>
                                         </div>
                                         <div class="text-right text-danger font-weight-bold">總計 {{calcFinalTotal | currency}}</div>
@@ -246,6 +248,7 @@ export default {
       //this.tempOrder = Object.assign({}, item);
       //用JSON.stringify把物件轉成字串,再用JSON.parse把字串轉成新的物件
       this.tempOrder = JSON.parse(JSON.stringify(item));
+      this.$validator.reset();
       $('#editOrderModal').modal('show');
     },
     delModal(item){
