@@ -34,7 +34,7 @@
             </div>
             <button class="login-btn" type="submit">登入</button>
           </form>
-          <p class="pt-3 pb-3 text-muted text-center">&copy; 2018 CrossGate 遊戲商店</p>
+          <p class="pt-3 pb-3 text-muted text-center mb-0">&copy; 2018 CrossGate 遊戲商店</p>
         </div>
       </div>
     </div>
