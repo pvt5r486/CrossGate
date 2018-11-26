@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="back-background" style="min-height:100vh;">
     <loading :active.sync="isLoading">
       <img src="@/assets/img/loading.gif" alt="" width="200">
     </loading>
