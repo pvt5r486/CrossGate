@@ -90,15 +90,16 @@ export default {
         this.user.isRemember = true;
       }
     },
-    heightInit(){
+    heightFix(){
       let vh = $(window).height();
       document.querySelector('.container').style.minHeight = vh + 'px';
     },
   },
   mounted(){
-    const vm = this;
-    vm.heightInit();
+    const vm = this; 
+    vm.heightFix();
     vm.rememberMe();
+    window.onresize = () => vm.heightFix();
   }
 }
 </script>
