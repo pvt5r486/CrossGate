@@ -4,7 +4,7 @@
       <img src="@/assets/img/loading.gif" alt="" width="200">
     </loading>
     <alertMessage></alertMessage>
-    <div class="container">
+    <div class="container d-flex flex-column justify-content-start justify-content-md-center" style="min-height:100vh;">
       <div class="row no-gutters justify-content-center">
         <div class="col-md-4">
           <div class="text-center">
@@ -94,15 +94,5 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.container{
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-</style>
 
 
