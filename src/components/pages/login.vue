@@ -4,7 +4,7 @@
       <img src="@/assets/img/loading.gif" alt="" width="200">
     </loading>
     <alertMessage></alertMessage>
-    <div class="container d-flex flex-column justify-content-start justify-content-md-center" style="min-height:100vh;">
+    <div class="container d-flex flex-column justify-content-start justify-content-md-center" id="test">
       <div class="row no-gutters justify-content-center">
         <div class="col-md-4">
           <div class="text-center">
@@ -43,6 +43,7 @@
 
 <script>
 import alertMessage from '@/components/AlertMessage';
+import $ from 'jquery';
 export default {
   name: 'Login',
   components: {
@@ -79,18 +80,29 @@ export default {
           vm.$bus.$emit('message:push', `${response.data.message}，請確認您的帳號密碼。`, 'danger');
         }
       });
-    }
+    },
+    rememberMe(){
+      const userAccount = localStorage.getItem('userAccount') || '';
+      const rememberMe = localStorage.getItem('isRemember') || false;
+      const vm = this;
+      //console.log(typeof(rememberMe) ,rememberMe )
+      //typeof(rememberMe)
+      if (rememberMe === 'true'){
+        this.user.username = userAccount;
+        this.user.isRemember = true;
+      }
+    },
+    heightInit(){
+       let vh = window.screen.height;
+       console.log(vh);
+       document.querySelector('.container').style.height = vh + 'px';
+       //.style.height = vh;
+    },
   },
-  created(){
-    const userAccount = localStorage.getItem('userAccount') || '';
-    const rememberMe = localStorage.getItem('isRemember') || false;
+  mounted(){
     const vm = this;
-    //console.log(typeof(rememberMe) ,rememberMe )
-    //typeof(rememberMe)
-    if (rememberMe === 'true'){
-      this.user.username = userAccount;
-      this.user.isRemember = true;
-    }
+    vm.heightInit();
+    vm.rememberMe();
   }
 }
 </script>
