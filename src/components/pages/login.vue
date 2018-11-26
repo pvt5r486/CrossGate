@@ -1,5 +1,5 @@
 <template>
-  <div class="back-background" style="min-height:100vh;">
+  <div class="back-background">
     <loading :active.sync="isLoading">
       <img src="@/assets/img/loading.gif" alt="" width="200">
     </loading>
@@ -94,5 +94,15 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.container{
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+</style>
 
 
