@@ -11,6 +11,7 @@ import 'vue-loading-overlay/dist/vue-loading.css';
 import 'bootstrap';
 import VeeValidate from 'vee-validate';
 import zhTWValidate from 'vee-validate/dist/locale/zh_TW';
+import $ from 'jquery';
 
 //自定義
 import App from './App';
@@ -22,7 +23,6 @@ import pagination from '@/components/pagination';
 
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
-
 
 Vue.use(VeeValidate, { events: 'change' });
 VeeValidate.Validator.localize('zh_TW',zhTWValidate);
@@ -48,6 +48,8 @@ router.beforeEach((to, from, next) => {
   //from: Route: 当前导航正要离开的路由
   //next(): 进行管道中的下一个钩子。如果全部钩子执行完了，则导航的状态就是 confirmed (确认的)。
   console.log('執行beforeEach');
+  //避免再modal打開時使用者按上一頁導致卡死
+  $('.modal').modal('hide');
   if (to.meta.requiresAuth) {
     console.log('這個頁面需要驗證');
     const api = `${process.env.APIPATH}/api/user/check`;

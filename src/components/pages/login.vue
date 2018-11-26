@@ -4,7 +4,7 @@
       <img src="@/assets/img/loading.gif" alt="" width="200">
     </loading>
     <alertMessage></alertMessage>
-    <div class="container d-flex flex-column justify-content-center">
+    <div class="container d-flex flex-column justify-content-center" id="container">
       <div class="row no-gutters justify-content-center">
         <div class="col-md-4">
           <div class="text-center">
@@ -92,7 +92,9 @@ export default {
     },
     heightFix(){
       let vh = $(window).height();
-      document.querySelector('.container').style.minHeight = vh + 'px';
+      if (document.querySelector('#container')) {
+        document.querySelector('#container').style.minHeight = vh + 'px';
+      } 
     },
   },
   mounted(){

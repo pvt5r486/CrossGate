@@ -67,7 +67,7 @@
                                         v-model="tempCoupon.code" v-validate="'required'" :class="{'is-invalid': errors.has('couponCode')}">
                                     <span class="text-danger" v-if="errors.has('couponCode')">請輸入優惠代碼</span>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" v-if="tempCoupon.is_enabled == 1">
                                     <label for="dueDate">*到期日</label>
                                     <input type="date" class="form-control" id="dueDate" name="dueDate"
                                         v-model="tempCoupon.due_date" v-validate="'required'" :class="{'is-invalid': errors.has('dueDate')}">
@@ -149,7 +149,7 @@ export default {
       this.$http.get(api).then(response => {
         if (response.data.success) {
           vm.coupons = response.data.coupons;
-          console.log(response.data);
+          //console.log(response.data);
           vm.isLoading = false;
           vm.pagination = response.data.pagination;
         } else {
@@ -168,11 +168,16 @@ export default {
       } else {
         this.tempCoupon = Object.assign({}, item);
         this.isNew = false;
-        const date = new Date(Number(this.tempCoupon.due_date) * 1000);
-        let Y = date.getFullYear() + '-';
-        let M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
-        let D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
-        this.tempCoupon.due_date = Y + M + D;
+        //判斷 是否啟用
+        if (this.tempCoupon.is_enabled == 1){
+            const date = new Date(Number(this.tempCoupon.due_date) * 1000);
+            let Y = date.getFullYear() + '-';
+            let M = (date.getMonth() + 1 < 10 ? '0' + (date.getMonth() + 1) : date.getMonth() + 1) + '-';
+            let D = (date.getDate() < 10 ? '0' + date.getDate() : date.getDate());
+            this.tempCoupon.due_date = Y + M + D;
+        }else{
+            this.tempCoupon.due_date = '';
+        }
       }
       $('#couponModal').modal('show');
     },
@@ -183,20 +188,25 @@ export default {
     updateCoupons() {
       let api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/coupon`;
       const vm = this;
-      let httpMethod = 'post'
+      let httpMethod = 'post';
       if (!vm.isNew) {
         api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/coupon/${vm.tempCoupon.id}`;
-        httpMethod = 'put'
+        httpMethod = 'put';
       }
       this.$validator.validate().then((result) => { 
           if (result) {
             vm.status.loading = true;
             //調整資料格式 使其 被API接受
             const updateCoupon = Object.assign({}, vm.tempCoupon);
-            const couponDate = new Date(vm.tempCoupon.due_date);
-            updateCoupon.due_date = Math.floor(couponDate / 1000);
+            if (vm.tempCoupon.is_enabled == 1){
+                const couponDate = new Date(vm.tempCoupon.due_date);
+                updateCoupon.due_date = Math.floor(couponDate / 1000);
+            }else{   
+                const couponDate = new Date('1970-01-01');  
+                updateCoupon.due_date = Math.floor(couponDate / 1000);
+            }       
             updateCoupon.percent = Number(vm.tempCoupon.percent);
-            //console.log(updateCoupon);
+
             this.$http[httpMethod](api, { data: updateCoupon }).then(response => {
                 if (response.data.success) {
                     vm.status.loading = false;
@@ -234,6 +244,6 @@ export default {
   },
   created() {
     this.getCoupons();
-  }
+  },
 }
 </script>

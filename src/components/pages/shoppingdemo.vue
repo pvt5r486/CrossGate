@@ -4,8 +4,8 @@
       <img src="@/assets/img/loading.gif" alt="" width="200">
     </loading>
     <div class="row mt-4">
-      <div class="col-lg-4 col-sm-6 mb-4" v-for="item in products" :key="item.id">
-        <div class="card border-0 shadow-sm h-100">
+      <div class="col-lg-4 col-sm-6 mb-4" v-for="item in products" :key="item.id" v-if="item.is_enabled == 1">
+        <div class="card border-0 shadow-sm h-100" >
           <div style="height: 200px; background-size: cover; background-position: center top" :style="{backgroundImage:`url(${item.imageUrl})`}">
           </div>
           <div class="card-body">
@@ -369,6 +369,7 @@ export default {
     orderModal(){
       const vm = this;
       vm.isLoading = true;
+      vm.$validator.reset();
       $('#shopCartModal').modal('hide');
       setTimeout(() => {
         vm.isLoading = false;
