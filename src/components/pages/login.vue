@@ -4,7 +4,7 @@
       <img src="@/assets/img/loading.gif" alt="" width="200">
     </loading>
     <alertMessage></alertMessage>
-    <div class="container d-flex flex-column justify-content-start justify-content-md-center">
+    <div class="container d-flex flex-column justify-content-center">
       <div class="row no-gutters justify-content-center">
         <div class="col-md-4">
           <div class="text-center">
@@ -85,8 +85,6 @@ export default {
       const userAccount = localStorage.getItem('userAccount') || '';
       const rememberMe = localStorage.getItem('isRemember') || false;
       const vm = this;
-      //console.log(typeof(rememberMe) ,rememberMe )
-      //typeof(rememberMe)
       if (rememberMe === 'true'){
         this.user.username = userAccount;
         this.user.isRemember = true;
