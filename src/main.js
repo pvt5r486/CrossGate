@@ -24,6 +24,7 @@ import './bus';
 import currencyFilter from './filters/currency';
 import timeTampsFilter from './filters/timetamps';
 import pagination from '@/components/pagination';
+import modal from '@/components/modal';
 
 Vue.config.productionTip = false;
 //啟用
@@ -35,6 +36,7 @@ VeeValidate.Validator.localize('zh_TW',zhTWValidate);
 //全域啟用元件 
 Vue.component('Loading',Loading);
 Vue.component('pagination',pagination);
+Vue.component('modal',modal);
 Vue.filter('currency',currencyFilter);
 Vue.filter('timeTamps',timeTampsFilter);
 

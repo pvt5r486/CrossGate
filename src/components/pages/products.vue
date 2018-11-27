@@ -43,132 +43,97 @@
             </table>
         </div>
         <pagination :page-data="pagination" @changepage="getProducts" class="d-flex justify-content-center"></pagination>
-        <!-- Modal -->
-        <div class="modal fade" id="productModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-lg" role="document">
-                <div class="modal-content border-0">
-                    <div class="modal-header bg-main text-white">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                            <span v-if="isNew">新增產品</span>
-                            <span v-else>編輯產品</span>
-                        </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true" class="text-white">&times;</span>
-                        </button>
+        <modal id="productModal" :modal-data="tempProduct">
+            <div slot="modalHeader" class="modal-header bg-main text-white">
+                <h5 class="modal-title" id="exampleModalLabel">
+                    <span v-if="isNew">新增產品</span>
+                    <span v-else>編輯產品</span>
+                </h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true" class="text-white">&times;</span>
+                </button>
+            </div>
+            <div slot="modalBody" class="modal-body">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="image">輸入圖片網址</label>
+                            <input type="text" class="form-control" id="image" v-model="tempProduct.imageUrl" placeholder="請輸入圖片連結">
+                        </div>
+                        <div class="form-group">
+                            <label for="customFile" class="upload-filed rounded" @dragenter="fileDragHover" @dragleave="fileDragHover">
+                                <i class="fas fa-cloud-upload-alt mr-1"></i>Click & Upload
+                                <i class="fas fa-spinner fa-spin" v-if="status.fileuploading"></i>
+                                <input type="file" id="customFile" class="form-control upload-contorl" ref="files" @change="uploadFile">
+                            </label>
+                        </div>
+                        <img class="img-fluid" alt="" :src="tempProduct.imageUrl">
                     </div>
-                    <div class="modal-body">
-                        <div class="row">
-                            <div class="col-sm-4">
-                                <div class="form-group">
-                                    <label for="image">輸入圖片網址</label>
-                                    <input type="text" class="form-control" id="image" v-model="tempProduct.imageUrl" placeholder="請輸入圖片連結">
-                                </div>
-                                <div class="form-group">
-                                    <label for="customFile" class="upload-filed rounded" @dragenter="fileDragHover" @dragleave="fileDragHover">
-                                        <i class="fas fa-cloud-upload-alt mr-1"></i>Click & Upload
-                                        <i class="fas fa-spinner fa-spin" v-if="status.fileuploading"></i>
-                                        <input type="file" id="customFile" class="form-control upload-contorl" ref="files" @change="uploadFile">
-                                    </label>
-                                </div>
-                                <img class="img-fluid" alt="" :src="tempProduct.imageUrl">
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label for="title">*產品標題</label>
+                            <input type="text" class="form-control" id="title"  name="title" placeholder="請輸入標題"
+                                v-model="tempProduct.title" v-validate="'required'" :class="{'is-invalid': errors.has('title')}">
+                            <span class="text-danger" v-if="errors.has('title')">請輸入產品標題</span>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="category">分類</label>
+                                <select name="category" id="category" v-model="tempProduct.category" class="form-control">
+                                    <option value="Switch">Switch</option>
+                                    <option value="3DS">3DS</option>
+                                    <option value="PS4">PS4</option>
+                                </select>
                             </div>
-                            <div class="col-sm-8">
-                                <div class="form-group">
-                                    <label for="title">*產品標題</label>
-                                    <input type="text" class="form-control" id="title"  name="title" placeholder="請輸入標題"
-                                        v-model="tempProduct.title" v-validate="'required'" :class="{'is-invalid': errors.has('title')}">
-                                    <span class="text-danger" v-if="errors.has('title')">請輸入產品標題</span>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="category">分類</label>
-                                        <!-- <input type="text" class="form-control" id="category"  placeholder="請輸入分類"> -->
-                                        <select name="category" id="category" v-model="tempProduct.category" class="form-control">
-                                            <option value="Switch">Switch</option>
-                                            <option value="3DS">3DS</option>
-                                            <option value="PS4">PS4</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="unit">*單位</label>
-                                        <input type="unit" class="form-control" id="unit" placeholder="請輸入單位" name="unit"
-                                            v-model="tempProduct.unit" v-validate="'required'" :class="{'is-invalid': errors.has('unit')}">
-                                        <span class="text-danger" v-if="errors.has('unit')">請輸入單位</span>
-                                    </div>
-                                </div>
-
-                                <div class="form-row">
-                                    <div class="form-group col-md-6">
-                                        <label for="origin_price">*原價</label>
-                                        <input type="number" class="form-control" id="origin_price" placeholder="請輸入原價" name="origin_price"
-                                            v-model="tempProduct.origin_price" v-validate="{ required: true, regex: /^([0-9]+)$/ }" 
-                                            :class="{'is-invalid': errors.has('origin_price')}">
-                                        <span class="text-danger" v-if="errors.has('origin_price')">僅接受純數字</span>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label for="price">*售價</label>
-                                        <input type="number" class="form-control" id="price" placeholder="請輸入售價" name="price"
-                                            v-model="tempProduct.price" v-validate="{ required: true, regex: /^([0-9]+)$/ }"
-                                            :class="{'is-invalid': errors.has('price')}">
-                                        <span class="text-danger" v-if="errors.has('origin_price')">僅接受純數字</span>
-                                    </div>
-                                </div>
-                                <hr>
-
-                                <div class="form-group">
-                                    <label for="description">產品描述</label>
-                                    <textarea type="text" class="form-control" id="description" v-model="tempProduct.description" placeholder="請輸入產品描述"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <label for="content">說明內容</label>
-                                    <textarea type="text" class="form-control" id="content" v-model="tempProduct.content" placeholder="請輸入產品說明內容"></textarea>
-                                </div>
-                                <div class="form-group">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="is_enabled" v-model="tempProduct.is_enabled" :true-value="1" :false-value="0">
-                                        <label class="form-check-label" for="is_enabled">
-                                            是否啟用
-                                        </label>
-                                    </div>
-                                </div>
+                            <div class="form-group col-md-6">
+                                <label for="unit">*單位</label>
+                                <input type="unit" class="form-control" id="unit" placeholder="請輸入單位" name="unit"
+                                    v-model="tempProduct.unit" v-validate="'required'" :class="{'is-invalid': errors.has('unit')}">
+                                <span class="text-danger" v-if="errors.has('unit')">請輸入單位</span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label for="origin_price">*原價</label>
+                                <input type="number" class="form-control" id="origin_price" placeholder="請輸入原價" name="origin_price"
+                                    v-model="tempProduct.origin_price" v-validate="{ required: true, regex: /^([0-9]+)$/ }" 
+                                    :class="{'is-invalid': errors.has('origin_price')}">
+                                <span class="text-danger" v-if="errors.has('origin_price')">僅接受純數字</span>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="price">*售價</label>
+                                <input type="number" class="form-control" id="price" placeholder="請輸入售價" name="price"
+                                    v-model="tempProduct.price" v-validate="{ required: true, regex: /^([0-9]+)$/ }"
+                                    :class="{'is-invalid': errors.has('price')}">
+                                <span class="text-danger" v-if="errors.has('origin_price')">僅接受純數字</span>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="form-group">
+                            <label for="description">產品描述</label>
+                            <textarea type="text" class="form-control" id="description" v-model="tempProduct.description" placeholder="請輸入產品描述"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="content">說明內容</label>
+                            <textarea type="text" class="form-control" id="content" v-model="tempProduct.content" placeholder="請輸入產品說明內容"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="is_enabled" v-model="tempProduct.is_enabled" :true-value="1" :false-value="0">
+                                <label class="form-check-label" for="is_enabled">是否啟用</label>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-outline-secondary border-0" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-becare text-main" @click="updateProduct">
-                            <i class="fas fa-spinner fa-spin" v-if="status.loading"></i>
-                            確認
-                        </button>
-                    </div>
                 </div>
             </div>
-        </div>
-        <div class="modal fade" id="delProductModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content border-0">
-                    <div class="modal-header bg-danger text-white">
-                        <h5 class="modal-title" id="exampleModalLabel">
-                            <span>刪除產品</span>
-                        </h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true" class="text-white">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        是否刪除 <strong class="text-danger">{{ tempProduct.title }}</strong> 商品(刪除後將無法恢復)。
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-outline-secondary border-0" @click="delProduct">
-                            <i class="fas fa-spinner fa-spin" v-if="status.loading"></i>
-                            確認刪除
-                        </button>
-                    </div>
-                </div>
+            <div slot="modalFooter" class="modal-footer">
+                <button type="button" class="btn btn-outline-secondary border-0" data-dismiss="modal">取消</button>
+                <button type="button" class="btn btn-becare text-main" @click="updateProduct">
+                <i class="fas fa-spinner fa-spin" v-if="status.loading"></i>確認
+                </button>
             </div>
-        </div>
+        </modal>
+        <modal id="delProductModal" :modal-data="tempProduct" :isloading="status.loading" @doit="delProduct"></modal>
     </div>
 </template>
 
