@@ -2,13 +2,13 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 //自定
-//import Home from '@/components/HelloWorld';
 import Login from '@/components/pages/login';
 import Dashboard from '@/components/dashboard';
 import Products from '@/components/pages/products';
 import Orders from '@/components/pages/orders';
 import Coupon from '@/components/pages/coupon';
 import ShoppingDemo from '@/components/pages/shoppingdemo';
+import OrderCheckout from '@/components/pages/orderCheckout';
 
 Vue.use(VueRouter);
 
@@ -19,22 +19,14 @@ export default new VueRouter({
             path: '*',
             redirect: 'login',
         },
-        // {
-        //     path: '/',
-        //     component: Home,
-        //     //加入這段代表這個頁面需要被驗證才能使用
-        //     meta:
-        //     {
-        //         requiresAuth: true
-        //     },
-        // },
         {
             path: '/login',
             component: Login,
         },
         {
             path: '/admin',
-            component: Dashboard,   
+            component: Dashboard,
+            meta: { requiresAuth: true },   
             children: [
                 // 根的路徑通常會加上 "/"   子路徑則不會加上 "/"
                 {
@@ -55,6 +47,11 @@ export default new VueRouter({
                 {
                     path: 'shopping-demo',
                     component: ShoppingDemo,
+                    meta: { requiresAuth: true },
+                },
+                {
+                    path: 'orderCheckout/:orderID',
+                    component: OrderCheckout,
                     meta: { requiresAuth: true },
                 },
             ],

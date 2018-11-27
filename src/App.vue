@@ -5,13 +5,11 @@
 </template>
 
 <script>
-//import HelloWorld from './components/HelloWorld';
-
 //ES6匯出模組的方式
 export default {
   name: 'App',
   components: {
-    //HelloWorld
+
   },
 }
 </script>

@@ -68,7 +68,7 @@ export default {
       localStorage.setItem('isRemember', vm.user.isRemember);
       vm.user.isRemember ? localStorage.setItem('userAccount', vm.user.username) : localStorage.removeItem('userAccount')   
       //this.$http.post(路徑,傳入參數)
-      console.log(vm.user)
+      //console.log(vm.user)
       this.$http.post(api, vm.user).then(response => {
         //console.log(response.data);
         if (response.data.success) {
@@ -86,8 +86,8 @@ export default {
       const rememberMe = localStorage.getItem('isRemember') || false;
       const vm = this;
       if (rememberMe === 'true'){
-        this.user.username = userAccount;
-        this.user.isRemember = true;
+        vm.user.username = userAccount;
+        vm.user.isRemember = true;
       }
     },
     heightFix(){

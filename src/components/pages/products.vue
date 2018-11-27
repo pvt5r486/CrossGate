@@ -23,11 +23,7 @@
                 <tbody class="bg-white">
                     <tr v-for="item in products" :key="item.id">
                         <td>
-                            <span class="badge" 
-                                :class="{'badge-danger': item.category ==='Switch',
-                                'badge-main': item.category ==='3DS',
-                                'badge-dark': item.category ==='PS4',}">{{item.category}}
-                            </span>                
+                            <span class="badge" :class="categoryClassName(item.category)">{{item.category}}</span>                
                         </td>
                         <td>{{item.title}}</td>
                         <td class="text-right" v-if="item.origin_price">{{item.origin_price | currency}}</td>
@@ -191,7 +187,7 @@ export default {
       status: {
         fileuploading: false,
         loading:false,
-      }
+      },
     }
   },
   methods: {
@@ -201,10 +197,10 @@ export default {
       const vm = this;
       vm.isLoading = true;
       this.$http.get(api).then(response => {
-        console.log('產品清單API狀態', response.data.success);
+        //console.log('產品清單API狀態', response.data.success);
         if (response.data.success) {
           vm.products = response.data.products;
-          console.log(response.data);
+          //console.log(response.data);
           vm.isLoading = false;
           vm.pagination = response.data.pagination;
         } else {
@@ -334,7 +330,21 @@ export default {
     fileDragHover(e){
         const uploadfield = document.querySelector('.upload-filed');
         e.type == "dragenter" ? uploadfield.className = "upload-filed dragin" : uploadfield.className = "upload-filed";
-    }
+    },
+    categoryClassName(category){
+        let className = '';
+        switch (category) {
+            case 'Switch':
+                return className = 'badge-danger'
+                break;     
+            case '3DS':
+                return className = 'badge-main'
+                break;
+            case 'PS4':
+                return className = 'badge-dark'
+                break;
+        }
+    },
   },
   created() {
     this.getProducts();

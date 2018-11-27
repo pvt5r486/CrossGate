@@ -47,7 +47,6 @@
                         <td>
                             <ul v-if="item.is_paid">
                                 <li class="text-success font-weight-bold">已付款</li>
-                                <li>{{item.payment_method}}</li>
                                 <li>{{item.paid_date | timeTamps}}</li>
                             </ul>
                             <span v-else>未付款</span>
@@ -83,7 +82,7 @@
                         </nav>
                         <div class="tab-content" id="nav-tabContent">
                             <div class="tab-pane fade show active pt-3" id="nav-orderinfo" role="tabpanel" aria-labelledby="nav-orderinfo-tab">
-                                <div class="row" v-if="tempOrder.user">
+                                <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-row">
                                             <div class="form-group col-md-6">
@@ -129,7 +128,7 @@
                                 </div>
                             </div>
                             <div class="tab-pane fade pt-3" id="nav-prodlist" role="tabpanel" aria-labelledby="nav-prodlist-tab">
-                                <div class="row" v-if="tempOrder.products">
+                                <div class="row">
                                     <div class="col-md-12">
                                         <div class="form-row" v-for="(item,key, index) in tempOrder.products" :key="item.id">
                                             <div class="form-group col-md-9">
@@ -236,7 +235,10 @@ export default {
       orders: [],
       pagination: {},
       isLoading: false,
-      tempOrder:{},
+      tempOrder:{
+          user:{},
+          products:{},
+      },
       status:{
         loading:false,
       },
@@ -287,11 +289,9 @@ export default {
             vm.status.loading = true;
             //資料處理
             if(vm.tempOrder.is_paid){
-                vm.tempOrder.payment_method = '人員勾選';
                 const nowDate = new Date();
                 vm.tempOrder.paid_date = Math.floor(nowDate / 1000);
             } else {
-                vm.tempOrder.payment_method = '';
                 vm.tempOrder.paid_date = '';
             }
             let allFinalTotal = 0;

@@ -9,9 +9,7 @@
           <div style="height: 200px; background-size: cover; background-position: center top" :style="{backgroundImage:`url(${item.imageUrl})`}">
           </div>
           <div class="card-body">
-            <span class="badge float-right ml-2" :class="{'badge-danger': item.category ==='Switch',
-            'badge-main': item.category ==='3DS',
-            'badge-dark': item.category ==='PS4',}">{{item.category}}
+            <span class="badge float-right ml-2" :class="categoryClassName(item.category)">{{item.category}}
             </span>
             <h5 class="card-title text-truncate">
               <a href="#" class="text-dark">{{item.title}}</a>
@@ -115,15 +113,13 @@
                       </button>
                     </td>
                     <td class="align-middle">
-                      <span class="badge d-none d-md-inline-block" 
-                        :class="{'badge-danger': item.product.category ==='Switch',
-                        'badge-main': item.product.category ==='3DS',
-                        'badge-dark': item.product.category ==='PS4',}">
-                        {{item.product.category}}
-                      </span>
-                        <p class="mb-0">{{item.product.title}}<br>
-                          <span class="text-right d-md-none">{{item.qty}} {{item.product.unit}}</span> 
-                        </p> 
+                      <p class="mb-0">
+                        <span class="badge d-none d-md-inline-block" :class="categoryClassName(item.product.category)">
+                          {{item.product.category}}
+                        </span>
+                        {{item.product.title}}
+                        <span class="text-right d-md-none">{{item.qty}} {{item.product.unit}}</span> 
+                      </p> 
                       <div class="text-success" v-if="item.coupon">     
                         <small>已套用{{item.coupon.title}}</small>          
                       </div>
@@ -309,7 +305,7 @@ export default {
         qty,
       }
       this.$http.post(api,{data: cart}).then(response => {
-        console.log(response.data);
+        //console.log(response.data);
         if (response.data.success) {
           vm.status.loadingItem = '';
           vm.getCart();
@@ -325,7 +321,7 @@ export default {
       const vm = this;
       vm.isLoading = true;
       this.$http.get(api).then(response => {
-        console.log(response.data.data);
+        //console.log(response.data.data);
         vm.shopCart = response.data.data;
         vm.isLoading = false;
       });
@@ -387,6 +383,7 @@ export default {
             //console.log('訂單已建立',response);
             if(response.data.success){
               vm.$bus.$emit('message:push', `${response.data.message}`, 'success');
+              vm.$router.push(`/admin/orderCheckout/${response.data.orderId}`);
             }else{
               vm.$bus.$emit('message:push', `${response.data.message}`, 'danger');
             }
@@ -399,7 +396,21 @@ export default {
           vm.$bus.$emit('message:push', `噢！訂單內有欄位空白唷`, 'danger');
         }
       });
-    }
+    },
+    categoryClassName(category){
+      let className = '';
+      switch (category) {
+        case 'Switch':
+            return className = 'badge-danger'
+            break;     
+        case '3DS':
+            return className = 'badge-main'
+            break;
+        case 'PS4':
+            return className = 'badge-dark'
+            break;
+      }
+    },
   },
   created() {
     this.getProducts();
