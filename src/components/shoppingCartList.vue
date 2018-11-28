@@ -37,7 +37,7 @@
                         <div>{{item.final_total | currency}}</div>
                     </td>
                     <td class="align-middle text-right text-nowrap" v-else>{{item.final_total | currency}}</td>
-                    </tr>
+                </tr>
             </tbody>
         </slot>
         <slot name="tableFooter">

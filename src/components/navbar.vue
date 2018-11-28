@@ -1,7 +1,7 @@
 <template>
   <div>
     <nav class="navbar navbar-expand-lg navbar-dark bg-main">
-      <router-link to="/admin/products" class="navbar-brand">
+      <router-link to="/admin/products" class="navbar-brand" @click.native="closeNavbar">
         <img src="@/assets/img/crossgate-logo.png" alt="回首頁" class="img-fluid" width="120">
       </router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
