@@ -6,12 +6,12 @@
     <alertMessage></alertMessage>
     <div class="container d-flex flex-column justify-content-center" id="container">
       <div class="row no-gutters justify-content-center">
-        <div class="col-md-4">
+        <div class="col-md-6 col-lg-5 col-xl-4">
           <div class="text-center">
             <img src="@/assets/img/crossgate-logo.png" alt="CrossGate" class="img-fluid">
           </div>
           <div class="login-form-title"> 
-            <h1>CrossGate 管理平台</h1>
+            <h1>ＣｒｏｓｓＧａｔｅ管理平台</h1>
           </div>
           <form @submit.prevent="signin">
             <div class="login-form-block">
@@ -34,7 +34,9 @@
             </div>
             <button class="login-btn" type="submit">登入</button>
           </form>
-          <p class="pt-3 pb-3 text-muted text-center mb-0">&copy; 2018 CrossGate 遊戲商店</p>
+          <p class="py-3 text-center mb-0">
+            <router-link to="/index" class="text-main font-weight-bold">&copy; 2018 CrossGate 遊戲商店</router-link>
+          </p>
         </div>
       </div>
     </div>

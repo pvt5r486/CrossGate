@@ -73,7 +73,10 @@ export default {
   props: {
     tableData: {
         type: Object,
-        default:{},
+        // 物件或陣列預設值必須從工厂函数获取
+        default: function () {
+            return {}
+        }
     },
     loadingItem:{
         type: String,

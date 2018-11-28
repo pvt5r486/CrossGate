@@ -14,20 +14,38 @@
     padding-bottom: 0px;
     color: white;
     background: $main;
-    text-align: center;
+    display: flex;
+    justify-content: center;
     h1{
         margin-bottom: 0px;
-        font-size: 24px;
+        font-size: 20px;
+        width: 265px;
+        border-right: 1px solid;
+        overflow: hidden;
+        white-space: nowrap;
+        animation: typing 3s steps(13), insert 1s steps(1) infinite;
     }
     @include media-breakpoint-up(md) {
         padding-top: 20px;
         padding-bottom: 20px;
         h1{
-            margin-bottom: 0px;
-            font-size: 26px;
+            font-size: 24px;
+            width: 315px;
         }
     }
 }
+
+@keyframes insert {
+    50% {
+      border-color: transparent;
+    }
+  }
+  @keyframes typing {
+    0% {
+      width: 0;
+    }
+}
+
 
 .login-form-block{
     background: $main;

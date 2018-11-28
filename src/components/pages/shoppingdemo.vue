@@ -23,10 +23,12 @@
           </div>
           <div class="card-footer">
             <button type="button" class="btn btn-outline-main btn-block" @click="getProduct(item.id)" :disabled="status.loadingItem != '' ">
-              <i class="fas fa-spinner fa-spin mr-1" v-if="status.loadingItem === item.id"></i>查看更多
+              <i class="fas fa-spinner fa-spin mr-1" v-if="status.loadingItem === item.id"></i>
+              <i class="fas fa-search mr-1" v-else></i>查看更多
             </button>
             <button type="button" class="btn btn-becare text-main btn-block font-weight-bold" @click="addtoCart(item.id)" :disabled="status.loadingItem != '' ">
-              <i class="fas fa-spinner fa-spin mr-1" v-if="status.loadingItem === item.id"></i>加到購物車
+              <i class="fas fa-spinner fa-spin mr-1" v-if="status.loadingItem === item.id"></i>
+              <i class="fas fa-cart-plus mr-1" v-else></i>加到購物車
             </button>
           </div>
         </div>
@@ -38,9 +40,10 @@
       <span class="count" v-if="shopCart.carts && shopCart.carts.length != 0">{{shopCart.carts.length}}</span>
     </a>
     <!-- Modal -->
-    <modal id="productInfoModal" :modal-data="product">
+    <modal id="productInfoModal">
       <div slot="modalHeader" class="modal-header bg-main text-white">
         <h5 class="modal-title" id="exampleModalLabel">
+          <i class="fas fa-gamepad mr-1"></i>
           <span>{{product.title}}</span>
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -70,13 +73,15 @@
           <strong v-else>{{product.buyNum * product.origin_price | currency}}</strong>元
         </div>
         <button type="button" class="btn btn-becare text-main" @click="addtoCart(product.id,product.buyNum)" :disabled="status.loadingItem != '' ">
-          <i class="fas fa-spinner fa-spin mr-1" v-if="status.loadingItem === product.id"></i>加到購物車
+          <i class="fas fa-spinner fa-spin mr-1" v-if="status.loadingItem === product.id"></i>
+          <i class="fas fa-cart-plus mr-1" v-else></i>加到購物車
         </button>
       </div>
     </modal>
-    <modal id="shopCartModal" :modal-data="shopCart">
+    <modal id="shopCartModal">
       <div slot="modalHeader" class="modal-header bg-main text-white">
         <h5 class="modal-title" id="exampleModalLabel">
+          <i class="fas fa-shopping-cart mr-1"></i>
           <span v-if="shopCart.carts && shopCart.carts.length != 0">購物車 - 共 {{shopCart.carts.length}} 件商品</span>
           <span v-else>購物車 - 目前是空的哦</span>
         </h5>
@@ -99,16 +104,18 @@
         <div v-else class="alert alert-becare py-5 text-center font-weight-bold mb-0">- 噢 , 很遺憾 , 這裡空空如也 - <br>繼續逛逛 , 好嗎 ?</div>
       </div>
       <div slot="modalFooter" class="modal-footer">
-        <button type="button" class="btn btn-main" @click="closeMyshopCart">繼續逛逛</button>
+        <button type="button" class="btn btn-main" @click="closeMyshopCart">
+         <i class="fas fa-walking mr-1"></i>繼續逛逛
+        </button>
         <button type="button" class="btn btn-becare text-main font-weight-bold" v-if="shopCart.carts && shopCart.carts.length != 0" @click="orderModal">
-          去結帳
+          <i class="fas fa-hand-holding-usd mr-1"></i>去結帳
         </button>
       </div>
     </modal>
-    <modal id="OrderModal" :modal-data="form">
+    <modal id="OrderModal">
       <div slot="modalHeader" class="modal-header bg-main text-white">
         <h5 class="modal-title" id="exampleModalLabel">
-          <span>建立訂單</span>
+          <span><i class="fas fa-scroll mr-1"></i>建立訂單</span>
         </h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true" class="text-white">&times;</span>
@@ -149,7 +156,8 @@
         </div>
       </div>
       <div slot="modalFooter" class="modal-footer">
-        <button class="btn btn-becare" type="submit" @click.prevent="createdOrder">送出訂單</button>
+        <button class="btn btn-becare text-main font-weight-bold" type="submit" @click.prevent="createdOrder">
+          <i class="fas fa-envelope mr-1"></i>送出訂單</button>
       </div>
     </modal>
   </div>

@@ -60,7 +60,7 @@
             </table>
         </div>
         <pagination :page-data="pagination" @changepage="getOrders" class="d-flex justify-content-center"></pagination>    
-        <modal id="editOrderModal" :modal-data="tempOrder">
+        <modal id="editOrderModal">
             <div slot="modalHeader" class="modal-header bg-main text-white">
                 <h5 class="modal-title" id="exampleModalLabel">
                     <span>編輯訂單</span>
@@ -169,7 +169,7 @@
                 </button>
             </div>
         </modal>
-        <modal id="delOrderModal" :modal-data="tempOrder" :isloading="status.loading" @doit="deleteOrder">
+        <modal id="delOrderModal" :isloading="status.loading" @doit="deleteOrder">
             <div slot="modalHeader" class="modal-header bg-danger text-white">
                 <h5 class="modal-title" id="exampleModalLabel">
                     <span>刪除訂單</span>

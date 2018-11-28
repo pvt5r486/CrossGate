@@ -37,7 +37,9 @@ export default {
   props: {
     modalData: {
         type: Object,
-        default:{},
+        default:function(){
+            return {}
+        },
     },
     isloading:{
         type:Boolean,

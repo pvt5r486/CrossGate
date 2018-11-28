@@ -9,7 +9,7 @@
                     <i class="fas fa-shopping-cart mr-2"></i>購買商品清單
                 </h3>
                 <div class="table-responsive">
-                    <shoppingCartList :table-data="order">
+                    <shoppingCartList>
                         <thead slot="tableHead" class="table-becare">
                             <tr class="text-nowrap">
                                 <th>品名</th>
@@ -84,9 +84,11 @@
                     </table>
                 </div>
                 <button class="btn btn-becare btn-block btn-lg font-weight-bold text-main" v-if="order.is_paid === false" :disabled="status.loadIcon">
-                    <i class="fas fa-spinner fa-spin mr-1" v-if="status.loadIcon"></i>確認付款
+                    <i class="fas fa-spinner fa-spin mr-1" v-if="status.loadIcon"></i>
+                    <i class="fas fa-clipboard-check mr-1" v-else></i>確認付款
                 </button>
-                <router-link to="/admin/shopping-demo" class="btn btn-main btn-block btn-lg font-weight-bold" v-else>繼續逛逛？</router-link>
+                <router-link to="/admin/shopping-demo" class="btn btn-main btn-block btn-lg font-weight-bold" v-else>
+                    <i class="fas fa-reply mr-1"></i>繼續逛逛？</router-link>
             </form>
         </div>
     </div>

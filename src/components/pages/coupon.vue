@@ -39,7 +39,7 @@
             </table>
         </div>
         <pagination :page-data="pagination" @changepage="getCoupons" class="d-flex justify-content-center"></pagination>
-        <modal id="couponModal" :modal-data="tempCoupon">
+        <modal id="couponModal">
             <div slot="modalHeader" class="modal-header bg-main text-white">
                 <h5 class="modal-title" id="exampleModalLabel">
                     <span v-if="isNew">新增優惠券</span>

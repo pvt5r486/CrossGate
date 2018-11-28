@@ -30,9 +30,9 @@
             </router-link>
           </li>
         </ul>
-        <button class="btn btn-outline-secondary btn-sm border-0 bg-transparent" @click="signout">
-          登出<i class="fas fa-sign-out-alt ml-1"></i>
-        </button>
+        <a href="#" class="nav-link pl-0 pl-md-3 text-dontcare" @click.prevent="signout">
+          <i class="fas fa-sign-out-alt mr-1"></i>登出
+        </a>
       </div>
     </nav>
   </div>

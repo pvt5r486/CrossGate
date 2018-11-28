@@ -43,7 +43,7 @@
             </table>
         </div>
         <pagination :page-data="pagination" @changepage="getProducts" class="d-flex justify-content-center"></pagination>
-        <modal id="productModal" :modal-data="tempProduct">
+        <modal id="productModal">
             <div slot="modalHeader" class="modal-header bg-main text-white">
                 <h5 class="modal-title" id="exampleModalLabel">
                     <span v-if="isNew">新增產品</span>
