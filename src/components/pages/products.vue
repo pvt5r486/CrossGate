@@ -128,8 +128,8 @@
             </div>
             <div slot="modalFooter" class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary border-0" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-becare text-main" @click="updateProduct">
-                <i class="fas fa-spinner fa-spin" v-if="status.loading"></i>確認
+                <button type="button" class="btn btn-becare text-main" @click="updateProduct" :disabled="status.loading">
+                    <i class="fas fa-spinner fa-spin mr-1" v-if="status.loading"></i>確認
                 </button>
             </div>
         </modal>
@@ -213,8 +213,7 @@ export default {
       if (!vm.isNew) {
         api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/product/${vm.tempProduct.id}`;
         httpMethod = 'put';
-      }
-      
+      }  
       //調整資料格式 使其 被API接受
       //console.log({data: vm.tempProduct});
       this.$validator.validate().then((result) => { 
@@ -224,13 +223,13 @@ export default {
                 //vm.products = response.data.products;
                 //console.log('新增產品API狀態', response.data.success)
                 if (response.data.success) {
-                    vm.status.loading = false;
                     $('#productModal').modal('hide');
+                    vm.status.loading = false;
                     vm.getProducts(vm.pagination.current_page);
                     vm.$bus.$emit('message:push', response.data.message, 'success');
                 } else {
-                    vm.status.loading = false;
                     $('#productModal').modal('hide');
+                    vm.status.loading = false;            
                     vm.$bus.$emit('message:push', response.data.message, 'danger');
                 }
             })
@@ -246,14 +245,14 @@ export default {
       this.$http.delete(api).then(response => {
         //console.log('刪除產品API狀態', response.data.success);
         if (response.data.success) {
-          vm.status.loading = false;
           $('#delProductModal').modal('hide');
+          vm.status.loading = false; 
           vm.$bus.$emit('message:push', response.data.message, 'success');
           //console.log('刪除成功');
           vm.getProducts();
         } else {
-          vm.status.loading = false;
-          $('#delProductModal').modal('hide')
+          $('#delProductModal').modal('hide');
+          vm.status.loading = false;     
           vm.$bus.$emit('message:push', response.data.message, 'danger');
         }
       })

@@ -53,8 +53,7 @@
                         </td>
                         <td>
                             <button class="btn btn-outline-main btn-block" @click="editModal(item)">編輯</button>
-                            <button class="btn btn-outline-secondary btn-block" v-if="item.is_paid" disabled>刪除</button>
-                            <button class="btn btn-outline-secondary btn-block" v-else @click="delModal(item)">刪除</button>
+                            <button class="btn btn-outline-secondary btn-block" v-if="!item.is_paid" @click="delModal(item)">刪除</button>
                         </td>
                     </tr>
                 </tbody>
@@ -165,8 +164,8 @@
             </div>
             <div slot="modalFooter" class="modal-footer">
                 <button type="button" class="btn btn-outline-secondary border-0" data-dismiss="modal">取消</button>
-                <button type="button" class="btn btn-becare text-main" @click="updateOrder">
-                    <i class="fas fa-spinner fa-spin" v-if="status.loading"></i>確認
+                <button type="button" class="btn btn-becare text-main" @click="updateOrder" :disabled="status.loading">
+                    <i class="fas fa-spinner fa-spin mr-1" v-if="status.loading"></i>確認
                 </button>
             </div>
         </modal>

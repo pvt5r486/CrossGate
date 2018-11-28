@@ -9,15 +9,15 @@
                     <i class="fas fa-shopping-cart mr-2"></i>購買商品清單
                 </h3>
                 <div class="table-responsive">
-                    <table class="table table-hover">
-                        <thead class="table-becare">
+                    <shoppingCartList :table-data="order">
+                        <thead slot="tableHead" class="table-becare">
                             <tr class="text-nowrap">
                                 <th>品名</th>
                                 <th width="80">數量</th>
                                 <th width="80">單價</th>
                             </tr>
                         </thead>
-                        <tbody class="bg-white">
+                        <tbody slot="tableBody" class="bg-white">
                             <tr v-for="item in order.products" :key="item.id">
                                 <td class="align-middle">
                                     <p class="mb-0">
@@ -45,20 +45,17 @@
                                 </td>
                             </tr>
                         </tbody>
-                        <tfoot class="bg-white">
+                        <tfoot slot="tableFooter" class="bg-white">
                             <tr>
                                 <td colspan="2" class="text-right">總計</td>
                                 <td class="text-right text-danger font-weight-bold">{{ order.total | currency}}</td>
                             </tr>
                         </tfoot>
-                    </table>
+                    </shoppingCartList>
                 </div>
-                <h3 class="text-center text-main mt-4">
-                    <i class="fas fa-user-circle mr-2"></i>
-                    購買人資料
-                </h3>
+                <h3 class="text-center text-main mt-4"><i class="fas fa-user-circle mr-2"></i>購買人資料</h3>
                 <div class="table-responsive">
-                    <table class="table ">
+                    <table class="table">
                         <tbody class="bg-white">
                             <tr>
                                 <th width="100" class="table-success align-middle">Email</th>
@@ -86,16 +83,10 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="text-right" v-if="order.is_paid === false">
-                    <button class="btn btn-becare btn-block btn-lg font-weight-bold text-main">
-                        確認付款
-                    </button>
-                </div>
-                <div v-else>
-                    <router-link to="/admin/shopping-demo" class="btn btn-main btn-block btn-lg font-weight-bold">
-                        繼續逛逛？
-                    </router-link>
-                </div>
+                <button class="btn btn-becare btn-block btn-lg font-weight-bold text-main" v-if="order.is_paid === false" :disabled="status.loadIcon">
+                    <i class="fas fa-spinner fa-spin mr-1" v-if="status.loadIcon"></i>確認付款
+                </button>
+                <router-link to="/admin/shopping-demo" class="btn btn-main btn-block btn-lg font-weight-bold" v-else>繼續逛逛？</router-link>
             </form>
         </div>
     </div>
@@ -103,14 +94,21 @@
 
 
 <script>
+import shoppingCartList from '@/components/shoppingCartList';
 export default {
+  components: {
+    shoppingCartList,
+  },
   data() {
     return {
         orderId:'',
         isLoading: false,
         order:{
             user:{},
-        }   
+        },
+        status:{
+            loadIcon:false,
+        }
     }
   },
   methods: {
@@ -121,7 +119,6 @@ export default {
         this.$http.get(api).then(response => {
             if (response.data.success) {
                 vm.order = response.data.order;
-                //console.log(response.data);
                 vm.isLoading = false;
             } 
         })
@@ -129,18 +126,16 @@ export default {
       payOrder(){
         const vm = this;
         const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/pay/${vm.orderId}`;  
-        vm.isLoading = true;
+        vm.status.loadIcon = true;
         this.$http.post(api).then(response => {
             if (response.data.success) {
-                //vm.order = response.data.order;
-                console.log(response);
                 if (response.data.success){
                     vm.$bus.$emit('message:push', response.data.message, 'success');
                     vm.getOrder();
                 } else {
                     vm.$bus.$emit('message:push', '付款失敗 :( ', 'danger');
                 }
-                vm.isLoading = false;
+                vm.status.loadIcon = true;
             } 
         })
       },

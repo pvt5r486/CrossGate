@@ -85,8 +85,8 @@
             </div>
             <div slot="modalFooter" class="modal-footer">
                 <button type="button"  class="btn btn-outline-secondary border-0" data-dismiss="modal">取消</button>
-                <button type="button"  class="btn btn-becare text-main" @click="updateCoupons">
-                <i class="fas fa-spinner fa-spin" v-if="status.loading"></i>確認
+                <button type="button"  class="btn btn-becare text-main" @click="updateCoupons" :disabled="status.loading">
+                    <i class="fas fa-spinner fa-spin mr-1" v-if="status.loading"></i>確認
                 </button>
             </div>
         </modal>
@@ -179,13 +179,13 @@ export default {
 
             this.$http[httpMethod](api, { data: updateCoupon }).then(response => {
                 if (response.data.success) {
-                    vm.status.loading = false;
                     $('#couponModal').modal('hide');
+                    vm.status.loading = false;
                     vm.getCoupons();
                     vm.$bus.$emit('message:push', response.data.message, 'success');
                 } else {
-                    vm.status.loading = false;
                     $('#couponModal').modal('hide');
+                    vm.status.loading = false;      
                     vm.$bus.$emit('message:push', response.data.message, 'danger');
                 }
             })
@@ -200,13 +200,13 @@ export default {
       vm.status.loading = true;
       this.$http.delete(api).then(response => {
         if (response.data.success) {
-          vm.status.loading = false;
           $('#delCouponModal').modal('hide');
+          vm.status.loading = false;      
           vm.$bus.$emit('message:push', response.data.message, 'success');
           vm.getCoupons();
         } else {
-          vm.status.loading = false;
           $('#delCouponModal').modal('hide');
+          vm.status.loading = false;       
           vm.$bus.$emit('message:push', response.data.message, 'danger')
         }
       })

@@ -20,9 +20,8 @@
                 <slot name="modalFooter">
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger border-0" data-dismiss="modal">取消</button>
-                        <button type="button" class="btn btn-outline-secondary border-0" @click="doit">
-                            <i class="fas fa-spinner fa-spin" v-if="isloading"></i>
-                            確認刪除
+                        <button type="button" class="btn btn-outline-secondary border-0" @click="doit" :disabled="isloading">
+                            <i class="fas fa-spinner fa-spin mr-1" v-if="isloading"></i>確認刪除
                         </button>
                     </div>
                 </slot>
@@ -38,7 +37,7 @@ export default {
   props: {
     modalData: {
         type: Object,
-        default: {},
+        default:{},
     },
     isloading:{
         type:Boolean,
