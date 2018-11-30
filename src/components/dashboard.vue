@@ -1,12 +1,8 @@
 <template>
-    <!-- 
-        1.版型拆解，將重複性高的東西拆出去當元件
-        2.載入那些元件
-     -->
-    <div class="back-background">
-        <navbar class="sticky-top"></navbar>
+    <div>
+        <navbarBack></navbarBack>
         <alertMessage></alertMessage>
-        <div class="container-fluid">
+        <div class="container-fluid back-background">
             <div class="row">
                 <main role="main" class="col-md-9 col-lg-10 px-4 mx-auto fixheight">
                     <router-view></router-view>
@@ -19,11 +15,11 @@
 
 
 <script>
-import navbar from './navbar';
+import navbarBack from './navbarBack';
 import alertMessage from './AlertMessage';
 export default {
   components: {
-    navbar,
+    navbarBack,
     alertMessage,
   }
 }

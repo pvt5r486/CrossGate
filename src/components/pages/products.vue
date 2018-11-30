@@ -46,8 +46,8 @@
         <modal id="productModal">
             <div slot="modalHeader" class="modal-header bg-main text-white">
                 <h5 class="modal-title" id="exampleModalLabel">
-                    <span v-if="isNew">新增產品</span>
-                    <span v-else>編輯產品</span>
+                    <span v-if="isNew"><i class="fas fa-folder-plus mr-1"></i>新增產品</span>
+                    <span v-else><i class="fas fa-edit mr-1"></i>編輯產品</span>
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" class="text-white">&times;</span>

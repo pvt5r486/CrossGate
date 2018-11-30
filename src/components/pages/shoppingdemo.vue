@@ -8,14 +8,15 @@
         <div class="card border-0 shadow-sm h-100" >
           <div style="height: 200px; background-size: cover; background-position: center top" :style="{backgroundImage:`url(${item.imageUrl})`}">
           </div>
-          <div class="card-body">
-            <span class="badge float-right ml-2" :class="categoryClassName(item.category)">{{item.category}}
-            </span>
-            <h5 class="card-title text-truncate">
-              <a href="#" class="text-dark">{{item.title}}</a>
-            </h5>
+          <div class="card-body d-flex flex-column">    
+            <div class="d-flex justify-content-between align-items-center mb-3">
+              <h5 class="card-title text-truncate mb-0">
+                <a href="#" class="text-main font-weight-bold" @click.prevent="getProduct(item.id)">{{item.title}}</a>
+              </h5>
+              <span class="badge" :class="categoryClassName(item.category)">{{item.category}}</span>
+            </div>
             <p class="card-text multiple-line-truncate">{{item.description}}</p>
-            <div class="d-flex justify-content-between align-items-baseline flex-wrap">
+            <div class="d-flex justify-content-between align-items-baseline flex-wrap mt-auto">
               <div class="h5 text-main ml-auto" v-if="item.price === item.origin_price">售價 {{item.origin_price | currency}} 元</div>
               <del class="h6 text-dontcare " v-if="item.price && item.price != item.origin_price">原價 {{item.origin_price | currency}} 元</del>
               <div class="h5 text-danger font-weight-bold" v-if="item.price && item.price != item.origin_price">破盤價 {{item.price | currency}} 元</div>
@@ -39,7 +40,6 @@
       <i class="fas fa-shopping-cart"></i>
       <span class="count" v-if="shopCart.carts && shopCart.carts.length != 0">{{shopCart.carts.length}}</span>
     </a>
-    <!-- Modal -->
     <modal id="productInfoModal">
       <div slot="modalHeader" class="modal-header bg-main text-white">
         <h5 class="modal-title" id="exampleModalLabel">

@@ -63,6 +63,7 @@
         <modal id="editOrderModal">
             <div slot="modalHeader" class="modal-header bg-main text-white">
                 <h5 class="modal-title" id="exampleModalLabel">
+                    <i class="fas fa-edit mr-1"></i>
                     <span>編輯訂單</span>
                 </h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -170,14 +171,6 @@
             </div>
         </modal>
         <modal id="delOrderModal" :isloading="status.loading" @doit="deleteOrder">
-            <div slot="modalHeader" class="modal-header bg-danger text-white">
-                <h5 class="modal-title" id="exampleModalLabel">
-                    <span>刪除訂單</span>
-                </h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true" class="text-white">&times;</span>
-                </button>
-            </div>
             <div slot="modalBody" class="modal-body">
                 <div>是否<span class="text-danger">刪除</span>該筆訂單?</div>      
                 <ul v-if="tempOrder.user" class="list-group my-3">

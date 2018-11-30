@@ -1,0 +1,56 @@
+//漢堡按鈕
+.navbar-toggler {
+    border: none;
+    &:focus{
+        outline: 0px;
+    }
+}
+
+//購物車ICON
+nav .shopcart-icon .material-icons{
+    font-size: 30px;
+}
+
+//選單
+.menu li{
+    display: flex;
+    align-items: center;
+    //height: 40px;
+    padding-left: 12px;
+    position: relative;
+    transition: all .5s;
+    &:hover,&.active{
+        background: $second;
+        a{
+            color:$main !important;
+        }
+    }
+    @include media-breakpoint-up(md) {
+        padding-left: 0px;       
+        &:hover,&.active{
+            background: none;
+        }
+        &:after{
+            content: "";
+            width: 0px;
+            height: 2px;
+            background: $main;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transition: all .5s;
+        }
+        &:hover::after,&.active:after{
+            left: 0;
+            width: 100%;
+        }
+    }
+    a{
+        display: block;
+        font-weight: bolder;
+        transition: all .5s;
+        padding: 8px 10px 8px 10px !important;
+    }
+}
+
+

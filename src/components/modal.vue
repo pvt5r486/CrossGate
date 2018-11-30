@@ -5,6 +5,7 @@
                 <slot name="modalHeader">
                     <div class="modal-header bg-danger text-white">
                         <h5 class="modal-title" id="exampleModalLabel">
+                            <i class="fas fa-exclamation-triangle mr-1"></i>
                             <span>刪除警示</span>
                         </h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">

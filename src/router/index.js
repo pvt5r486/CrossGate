@@ -9,6 +9,7 @@ import Orders from '@/components/pages/orders';
 import Coupon from '@/components/pages/coupon';
 import ShoppingDemo from '@/components/pages/shoppingdemo';
 import OrderCheckout from '@/components/pages/orderCheckout';
+import Index from '@/components/index';
 
 Vue.use(VueRouter);
 
@@ -55,6 +56,21 @@ export default new VueRouter({
                     meta: { requiresAuth: true },
                 },
             ],
+        },
+        {
+            name:"首頁",
+            path: '/index',
+            component: Index,
+        },
+        {
+            name:"主機介紹",
+            path: '/gamehost',
+            component: Index,
+        },
+        {
+            name:"CrossGate",
+            path: '/shopping',
+            component: Index,
         },
     ],
 });

@@ -23,7 +23,7 @@
         border-right: 1px solid;
         overflow: hidden;
         white-space: nowrap;
-        animation: typing 3s steps(13), insert 1s steps(1) infinite;
+        animation: typing 2.5s steps(13), insert 1s steps(1) infinite;
     }
     @include media-breakpoint-up(md) {
         padding-top: 20px;

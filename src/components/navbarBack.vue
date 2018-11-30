@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="sticky-top">
     <nav class="navbar navbar-expand-lg navbar-dark bg-main">
       <router-link to="/admin/products" class="navbar-brand" @click.native="closeNavbar">
         <img src="@/assets/img/crossgate-logo.png" alt="回首頁" class="img-fluid" width="120">
@@ -42,10 +42,9 @@
 <script>
 import $ from 'jquery';
 export default {
-  name: 'navbar',
+  name: 'navbarBack',
   data() {
     return {
-      isActive:false,
     }
   },
   methods: {
