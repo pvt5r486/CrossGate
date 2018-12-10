@@ -1,5 +1,5 @@
 <template>
-  <div class="sticky-top">
+  <div class="sticky-top  shadow-sm">
     <nav class="navbar navbar-expand-md navbar-light bg-white">
       <div class="container">
         <button class="navbar-toggler py-0" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -11,6 +11,7 @@
         </router-link>
         <router-link to="/index" class="text-main shopcart-icon d-flex align-items-center order-md-1">
           <i class="material-icons">shopping_cart</i>
+          <span class="badge  badge-pill  badge-danger shopcart-icon-counter">9</span>
         </router-link>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav menu mt-2">

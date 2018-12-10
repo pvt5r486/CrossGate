@@ -18,7 +18,7 @@ export default new VueRouter({
         {
             //避免用戶輸入不存在的頁面
             path: '*',
-            redirect: 'login',
+            redirect: 'index',
         },
         {
             path: '/login',

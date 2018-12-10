@@ -11,6 +11,16 @@ nav .shopcart-icon .material-icons{
     font-size: 30px;
 }
 
+.shopcart-icon{
+    position: relative;
+}
+
+.shopcart-icon-counter{
+    position: absolute;
+    top: -10px;
+    right: -10px;
+}
+
 //選單
 .menu li{
     display: flex;
@@ -50,6 +60,76 @@ nav .shopcart-icon .material-icons{
         font-weight: bolder;
         transition: all .5s;
         padding: 8px 10px 8px 10px !important;
+    }
+}
+
+//訂閱
+.subcribe-slogan{
+    margin-left: 20px;
+    font-size: 24px;
+    color: white;
+}
+
+.subcribe-form{
+    position: relative;
+    button{
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        padding-left: 19px;
+        padding-right: 19px;
+        outline: none;
+        color: $main;
+    }
+}
+
+.subcribe-form-icon {
+    position: absolute;
+    top: 16px;
+    left: 20px;
+    color: #3F5D45;
+}
+
+//頁尾
+.companyInfo,.authorInfo,.socialLink{
+    color:$main;
+    margin-bottom: 0;
+    a{
+        transition: all .3s;
+        color:$main;      
+        &:hover{
+            color:darken($main,10%); 
+        }
+    }
+}
+
+.companyInfo,.authorInfo{
+    letter-spacing: 1px;
+}
+
+.authorInfo,.socialLink{
+    @include media-breakpoint-up(md) {        
+        margin-left: -30px;
+    }
+}
+
+.authorInfo{
+    opacity: .9;
+    font-size: 12px;
+    font-weight: bolder;
+    padding: 5px 10px 5px 10px;
+    background-color: darken($second, 10%);
+    border-radius: 10px;
+}
+
+.socialLink{
+    display: flex;
+    li{
+        margin-right: 10px;
+        a{
+            font-size: 40px;
+        }
     }
 }
 
