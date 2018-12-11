@@ -62,7 +62,10 @@ name: 'topSilder',
 
 <style lang="scss" scoped>
 .swiper-container{
-    height: 400px;   
+    height: 300px;
+    @media (min-width: 768px) {
+      height: 400px;
+    }   
 }
 .slide{
     height: 100%;

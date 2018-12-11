@@ -47,7 +47,7 @@ export default {
   },
   data() {
     return {
-      tempProduct: {},
+      tempProduct: [],
       isLoading: false,
     }
   },

@@ -22,9 +22,9 @@ name: 'prodSilder',
   },
   props: {
     productsData:{
-      type: Object,
+      type: Array,
       default:function(){
-          return {}
+          return []
       },
     }
   },
