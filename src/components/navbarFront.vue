@@ -7,7 +7,7 @@
           <i class="material-icons d-flex align-items-center">menu</i>
         </button>
         <router-link to="/index" class="navbar-brand" @click.native="closeNavbar">
-          <img src="@/assets/img/crossgate-logo.png" alt="回首頁" class="img-fluid" width="150">
+          <h2>CrossGate寶貝商店</h2>
         </router-link>
         <router-link to="/index" class="text-main shopcart-icon d-flex align-items-center order-md-1">
           <i class="material-icons">shopping_cart</i>

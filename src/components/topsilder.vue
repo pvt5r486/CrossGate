@@ -59,3 +59,14 @@ name: 'topSilder',
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.swiper-container{
+    height: 400px;   
+}
+.slide{
+    height: 100%;
+    background-position: center center;
+    background-size: cover;
+}
+</style>

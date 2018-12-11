@@ -1,0 +1,36 @@
+.page_title{
+    white-space:nowrap;
+    font-size: 28px;
+    text-align: center;
+    color:$main;
+    margin-bottom: 0;
+    @include titleLine(darken($second,10%),2px);
+}
+.daily_message{
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    margin-bottom: 0;
+    padding:16px 10px 16px 10px;
+    background: $second;
+    transition: all .3s;
+    li{
+        margin-right: 10px;
+        word-break: break-all;
+        
+        &:last-child{
+            margin-right: 0px;
+        }
+    }
+    .tag{
+        padding:3px 5px 3px 5px;
+        border-radius: 5px;
+        &.tag-danger{
+            background-color: $danger;
+            color: white;
+        }
+    }
+    &:hover{
+        background: darken($second, 10%);
+    }
+}

@@ -43,3 +43,23 @@
     /* 其它瀏覽器降級方式：給定最大高度 */
     max-height:70px;
 }
+
+@mixin titleLine($border-color,$border-weight){
+    display: flex;
+    align-items: center;
+    &:before,&:after{
+        content:"";
+        flex-grow: 1;
+        border-top: $border-weight solid $border-color;
+        margin:0px 13px;
+    }
+}
+
+@mixin multiple-line-truncate($lineNum,$maxheight) {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: $lineNum;
+    overflow: hidden;  
+    /* 其它瀏覽器降級方式：給定最大高度 */
+    max-height:$maxheight;
+}

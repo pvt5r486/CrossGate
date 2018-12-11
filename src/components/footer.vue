@@ -10,8 +10,9 @@
                 <div class="col-md-5">
                     <div class="subcribe-form h-100">
                         <label for="subscription" class="subcribe-form-icon"><i class="fas fa-envelope"></i></label>
-                        <input type="email" id="subscription" class="form-input w-100 h-100" placeholder="ex@gmail.com">
-                        <button class="btn btn-becare d-flex align-items-center"><i class="fas fa-arrow-right"></i></button>
+                        <input type="email" class="form-input w-100 h-100 text-main" :class="{'bg-warning': errors.has('email')}" name="email" id="useremail"
+                            v-model="tempEmail" placeholder="ex@gmail.com" v-validate="'required|email'" >
+                        <button class="btn btn-becare d-flex align-items-center" @click.prevent="subscription"><i class="fas fa-arrow-right"></i></button>
                     </div>
                 </div>
             </div>
@@ -61,10 +62,22 @@ export default {
   name: 'footerSection',
   data() {
     return {
+        tempEmail:'',
     }
   },
   methods: {
-
+    subscription(){
+        const vm = this;
+        this.$validator.validate().then((result) => {
+            if (result) {
+                vm.$bus.$emit('message:push', `感謝 ${vm.tempEmail} 的訂閱 :D`, 'success');
+                vm.tempEmail = '';
+            }else{
+                vm.$bus.$emit('message:push', `噢！Email欄位怪怪的哦`, 'danger');
+                $('#useremail').focus();
+            }
+        });
+    }
   },
 }
 </script>
