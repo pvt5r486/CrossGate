@@ -1,7 +1,7 @@
 @import '~bootstrap/scss/functions';  //bootstrap4 套用變數的方法
 @import './helpers/_variables';       //自訂的 bootstrap4變數
 @import '~bootstrap/scss/bootstrap';  //引用bootstrap4 scss
-
+@import './helpers/_swiper'; 
 //自己寫的scss
 @import './_mytool';
 @import './_layout';
