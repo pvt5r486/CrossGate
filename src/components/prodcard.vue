@@ -14,10 +14,16 @@
         <div class="prod_card_footer">
             <div class="row no-gutters">
                 <div class="col-6">
-                    <a href="#">詳細介紹</a>
+                    <button  class="btn btn-block" @click.prevent="prodInfo" :disabled="status.loadingItem != '' ">
+                        <i class="fas fa-spinner fa-spin mr-1" v-if="status.loadingItem === cardData.id"></i>
+                        <i class="fas fa-search mr-1" v-else></i>詳細介紹
+                    </button>
                 </div>
                 <div class="col-6">
-                    <a href="#">加入購物車</a>
+                    <button  class="btn btn-block" @click.prevent="pushProdID" :disabled="status.loadingItem != '' ">
+                        <i class="fas fa-spinner fa-spin mr-1" v-if="status.loadingItem === cardData.id"></i>
+                        <i class="fas fa-cart-plus mr-1" v-else></i>加到購物車
+                    </button>
                 </div>
             </div>    
         </div>   
@@ -33,7 +39,13 @@ export default {
         default:function(){
             return {}
         },
-      }
+      },
+      status:{
+        type:Object,
+        default:function(){
+            return {}
+        },
+    }
   },
   methods: {
     categoryClassName(category){
@@ -50,6 +62,14 @@ export default {
                 break;
         }
     },
+    pushProdID(){
+      const vm = this;
+      vm.$bus.$emit('prodID:push', vm.cardData.id);
+    },
+    prodInfo(){
+      const vm = this;
+      console.log('還沒做好'+vm.cardData.id);
+    }
   }
 }
 </script>

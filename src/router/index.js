@@ -10,6 +10,7 @@ import Coupon from '@/components/pages/coupon';
 import ShoppingDemo from '@/components/pages/shoppingdemo';
 import OrderCheckout from '@/components/pages/orderCheckout';
 import Index from '@/components/pages/index';
+import Gamehost from '@/components/pages/gamehost';
 
 Vue.use(VueRouter);
 
@@ -65,7 +66,7 @@ export default new VueRouter({
         {
             name:"主機介紹",
             path: '/gamehost',
-            component: Index,
+            component: Gamehost,
         },
         {
             name:"CrossGate",

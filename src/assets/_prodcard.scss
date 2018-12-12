@@ -21,25 +21,20 @@
     font-size: 12px;
     padding: 3px 5px 3px 15px;
     transition: all .3s;
-    transform: translateX(80%);
     &.SW{
-        background-color: $danger;
+        background-color: rgba($danger,.7);
     }
     &.N3DS{
-        background-color:  $main;
+        background-color:  rgba($main,.7);
     }
     &.PS4{
-        background-color: $dark;
-    }
-    &:hover{
-        transform: translateX(0px);
+        background-color: rgba($dark,.7);
     }
 }
 
 
 .prod_info,.prod_price{
     padding:10px 15px 10px 15px;
-    cursor: w-resize;
 }
 
 .prod_info{
@@ -78,15 +73,20 @@
 }
 
 .prod_card_footer{
-    a{
-        text-align: center;
-        display: block;
+    button{
+        text-align: center;    
         outline: none;
         border: none;
+        border-radius: 0px;
+        color:$dontcare;
         background-color: rgba($dontcare,.2);
         font-weight: bolder;
         padding:5px 10px 5px 10px;
         transition: all .3s;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        cursor: pointer;
         &:hover{
             background-color: $becare;
             color:$main;     

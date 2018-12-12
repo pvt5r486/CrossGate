@@ -27,9 +27,8 @@
                     </div>
                     <div>
                         <ul class="socialLink">
-                            <li><a href="#"><i class="fab fa-facebook-square"></i></a></li>
-                            <li><a href="#"><i class="fab fa-line"></i></a></li>
                             <li><a href="https://github.com/pvt5r486/CrossGate"><i class="fab fa-github"></i></a></li>
+                            <li><router-link to="/login"><i class="fas fa-chart-pie"></i></router-link></li>
                         </ul>
                         <ul class="authorInfo  shadow-sm">
                             <li>僅個人練習使用．不做商業用途</li>
@@ -48,7 +47,6 @@
                     </ul>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

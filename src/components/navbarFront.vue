@@ -11,7 +11,8 @@
         </router-link>
         <router-link to="/index" class="text-main shopcart-icon d-flex align-items-center order-md-1">
           <i class="material-icons">shopping_cart</i>
-          <span class="badge  badge-pill  badge-danger shopcart-icon-counter">9</span>
+          <span class="badge badge-pill  badge-danger shopcart-icon-counter"
+           v-if="cartData.carts && cartData.carts.length != 0">{{cartData.carts.length}}</span>
         </router-link>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav menu mt-2">
@@ -36,6 +37,14 @@
 import $ from 'jquery';
 export default {
   name: 'navbarFront',
+  props: {
+    cartData: {
+        type: Object,
+        default:function(){
+            return {}
+        },
+    },
+  },
   data() {
     return {
     }

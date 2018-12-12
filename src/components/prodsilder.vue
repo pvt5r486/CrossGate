@@ -2,7 +2,7 @@
     <div class="p-3">
         <swiper :options="swiperOption">
             <swiper-slide v-for="item in productsData" :key="item.id">
-                <prodCard :card-data="item"></prodCard>
+                <prodCard :card-data="item" :status="status"></prodCard>
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
@@ -11,6 +11,7 @@
 
 
 <script>
+import $ from 'jquery';
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 import prodCard from './prodcard';
 export default {
@@ -26,6 +27,12 @@ name: 'prodSilder',
       default:function(){
           return []
       },
+    },
+    status:{
+      type:Object,
+      default:function(){
+          return {}
+      },
     }
   },
   data() {
@@ -33,7 +40,8 @@ name: 'prodSilder',
       swiperOption: {
         slidesPerView: 4,
         spaceBetween: 10,
-        speed: 600, 
+        speed: 600,
+        grabCursor:true, 
         autoplay:{
           delay: 5000,
         },
@@ -57,6 +65,14 @@ name: 'prodSilder',
         }
       },
     }
+  },
+  mounted(){
+    $('.swiper-container').on("mouseenter",function(){
+      this.swiper.autoplay.stop();
+    });
+    $('.swiper-container').on("mouseleave",function(){
+      this.swiper.autoplay.start();
+    });
   },
 }
 </script>

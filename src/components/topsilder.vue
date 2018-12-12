@@ -8,7 +8,7 @@
         <div class="swiper-button-prev" slot="button-prev"><i class="fas fa-arrow-left"></i></div>
         <div class="swiper-button-next" slot="button-next"><i class="fas fa-arrow-right"></i></div>
       </swiper>
-    </div>
+    </div> 
 </template>
 
 
@@ -24,6 +24,7 @@ name: 'topSilder',
           loop: true,
           spaceBetween: 30,
           centeredSlides: true,
+          grabCursor:true,
           autoplay: {
             delay: 10000,
             disableOnInteraction: false
@@ -39,15 +40,15 @@ name: 'topSilder',
         },
         sliderImg:[
           {
-            imgPath:'https://www.qsf5.com/wp-content/uploads/2016/01/Call-of-Duty-Black-Ops-3-Logo.jpg',
+            imgPath:'static/silderImg/Call-of-Duty-Black-Ops-3-Logo.jpg',
             info:'決勝時刻：黑色行動III Call of Duty Black Ops III',
           },
           {
-            imgPath:'https://www.qsf5.com/wp-content/uploads/2018/07/mariorabbids-kingdom-battle.jpg',
+            imgPath:'static/silderImg/mariorabbids-kingdom-battle.jpg',
             info:'瑪利歐+瘋狂兔子 王國之戰 - Mario Rabbids KINDOM BATTLE',
           },
           {
-            imgPath:'https://www.qsf5.com/wp-content/uploads/2017/01/Dragon-Quest-VII-3DS.jpg',
+            imgPath:'static/silderImg/Dragon-Quest-VII-3DS.jpg',
             info:'勇者鬥惡龍VII 伊甸的戰士們 - Dragon Quest VII',
           }
         ]
