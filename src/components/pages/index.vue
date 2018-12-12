@@ -23,7 +23,7 @@
           </p>
         </div>
         <h2 class="page_title">本期熱銷商品</h2>
-        <prodSilder :products-data="tempProduct"></prodSilder>
+        <prodSilder :products-data="products"></prodSilder>
       </div>
       <footerSection></footerSection>
     </div>
@@ -32,11 +32,11 @@
 
 
 <script>
-import navbarFront from './navbarFront';
-import alertMessage from './AlertMessage';
-import footerSection from './footer';
-import topSilder from './topsilder';
-import prodSilder from './prodsilder';
+import navbarFront from '@/components/navbarFront';
+import alertMessage from '@/components/AlertMessage';
+import footerSection from '@/components/footer';
+import topSilder from '@/components/topsilder';
+import prodSilder from '@/components/prodsilder';
 export default {
   components: {
     navbarFront,
@@ -47,7 +47,7 @@ export default {
   },
   data() {
     return {
-      tempProduct: [],
+      products: [],
       isLoading: false,
     }
   },
@@ -58,7 +58,7 @@ export default {
       vm.isLoading = true;
       this.$http.get(api).then(response => {
         if (response.data.success) {
-          vm.tempProduct = response.data.products;
+          vm.products = response.data.products;
           vm.isLoading = false;
         }
       })

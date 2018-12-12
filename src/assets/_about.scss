@@ -19,7 +19,11 @@
         word-break: break-all;
         
         &:last-child{
+            margin-top: 5px;
             margin-right: 0px;
+            @include media-breakpoint-up(md) {        
+                margin-top: 0px;
+            }
         }
     }
     .tag{

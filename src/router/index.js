@@ -9,7 +9,7 @@ import Orders from '@/components/pages/orders';
 import Coupon from '@/components/pages/coupon';
 import ShoppingDemo from '@/components/pages/shoppingdemo';
 import OrderCheckout from '@/components/pages/orderCheckout';
-import Index from '@/components/index';
+import Index from '@/components/pages/index';
 
 Vue.use(VueRouter);
 

@@ -53,11 +53,7 @@
         white-space: nowrap;
     }
     p{
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp:2;
-        overflow: hidden;  
-        max-height:50px;
+        @include multiple-line-truncate(2,50px);
         margin-bottom: 0;
         margin-top: 10px;
     }
