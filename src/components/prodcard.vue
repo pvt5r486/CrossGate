@@ -20,7 +20,7 @@
                     </button>
                 </div>
                 <div class="col-6">
-                    <button  class="btn btn-block" @click.prevent="pushProdID" :disabled="status.loadingItem != '' ">
+                    <button  class="btn btn-block" @click.prevent="returnProdID" :disabled="status.loadingItem != '' ">
                         <i class="fas fa-spinner fa-spin mr-1" v-if="status.loadingItem === cardData.id"></i>
                         <i class="fas fa-cart-plus mr-1" v-else></i>加到購物車
                     </button>
@@ -62,9 +62,9 @@ export default {
                 break;
         }
     },
-    pushProdID(){
+    returnProdID(){
       const vm = this;
-      vm.$bus.$emit('prodID:push', vm.cardData.id);
+      vm.$emit('returnProdID', vm.cardData.id);
     },
     prodInfo(){
       const vm = this;

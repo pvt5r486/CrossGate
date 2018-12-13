@@ -1,8 +1,11 @@
 <template>
     <div class="p-3">
+      <loading :active.sync="isLoading">
+        <img src="@/assets/img/loading.gif" alt="" width="200">
+      </loading>
         <swiper :options="swiperOption">
-            <swiper-slide v-for="item in productsData" :key="item.id">
-                <prodCard :card-data="item" :status="status"></prodCard>
+            <swiper-slide v-for="item in products" :key="item.id">
+                <prodCard :card-data="item" :status="status" @returnProdID="addtoCart"></prodCard>
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
         </swiper>
@@ -20,20 +23,6 @@ name: 'prodSilder',
     swiper,
     swiperSlide,
     prodCard
-  },
-  props: {
-    productsData:{
-      type: Array,
-      default:function(){
-          return []
-      },
-    },
-    status:{
-      type:Object,
-      default:function(){
-          return {}
-      },
-    }
   },
   data() {
     return {
@@ -64,7 +53,44 @@ name: 'prodSilder',
           }
         }
       },
+      products: [],
+      status:{
+        loadingItem:'',
+        loadingIcon:false
+      },
+      isLoading: false,
     }
+  },
+  methods:{
+    getProducts() {
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products/all`;
+      const vm = this;
+      vm.isLoading = true;
+      this.$http.get(api).then(response => {
+        if (response.data.success) {
+          vm.products = response.data.products;
+          vm.isLoading = false;
+        }
+      })
+    },
+    addtoCart(id,qty = 1){
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
+      const vm = this;
+      vm.status.loadingItem = id;
+      const cart = {
+        product_id:id,
+        qty,
+      }
+      this.$http.post(api,{data: cart}).then(response => {
+        if (response.data.success) {
+          vm.$bus.$emit('shopCart:update');
+          vm.status.loadingItem='';
+          vm.$bus.$emit('message:push', `【${response.data.data.product.title}】
+            ${response.data.data.qty} ${response.data.data.product.unit} 
+            ${response.data.message}`, 'success');
+        }
+      })
+    },
   },
   mounted(){
     $('.swiper-container').on("mouseenter",function(){
@@ -74,6 +100,10 @@ name: 'prodSilder',
       this.swiper.autoplay.start();
     });
   },
+  created(){
+    const vm = this;
+    vm.getProducts();
+  }
 }
 </script>
 

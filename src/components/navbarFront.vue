@@ -12,18 +12,18 @@
         <router-link to="/index" class="text-main shopcart-icon d-flex align-items-center order-md-1">
           <i class="material-icons">shopping_cart</i>
           <span class="badge badge-pill  badge-danger shopcart-icon-counter"
-           v-if="cartData.carts && cartData.carts.length != 0">{{cartData.carts.length}}</span>
+           v-if="shopCart.carts && shopCart.carts.length != 0">{{shopCart.carts.length}}</span>
         </router-link>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav menu mt-2">
             <router-link class="nav-item" to="/index" tag="li" @click.native="closeNavbar" active-class="active">
-              <a href="#" class="nav-link py-2 py-md-0">首頁</a>
+              <a href="#" class="nav-link py-2 py-md-0 w-100">首頁</a>
             </router-link>
             <router-link class="nav-item" to="/gamehost" tag="li" @click.native="closeNavbar" active-class="active">
-              <a href="#" class="nav-link py-2 py-md-0">主機介紹</a>
+              <a href="#" class="nav-link py-2 py-md-0 w-100">主機介紹</a>
             </router-link>
             <router-link class="nav-item" to="/shopping" tag="li" @click.native="closeNavbar" active-class="active">
-              <a href="#" class="nav-link py-2 py-md-0">CrossGate</a>
+              <a href="#" class="nav-link py-2 py-md-0 w-100">CrossGate</a>
             </router-link>
           </ul>
         </div>
@@ -37,22 +37,29 @@
 import $ from 'jquery';
 export default {
   name: 'navbarFront',
-  props: {
-    cartData: {
-        type: Object,
-        default:function(){
-            return {}
-        },
-    },
-  },
   data() {
     return {
+      shopCart:{},
     }
   },
   methods: {
     closeNavbar(){
       $('.collapse').collapse('hide');
-    }
+    },
+    getCart(){
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
+      const vm = this;
+      this.$http.get(api).then(response => {
+        vm.shopCart = response.data.data;
+      });
+    },
   },
+  created() {
+    const vm = this;
+    vm.getCart();
+    vm.$bus.$on('shopCart:update', () => {
+      vm.getCart();
+    });
+  }
 }
 </script>

@@ -1,0 +1,84 @@
+.host-img{
+    height: 100px;
+    background-position: center center;
+    background-size: cover;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &.switch{
+        background-image: url('/static/articleImg/switch.jpg');
+    }
+    &.n3ds{
+        background-image: url('/static/articleImg/nintendo-3ds.jpg');
+    }
+    &.ps4{
+        background-image: url('/static/articleImg/ps4.jpg');
+    }
+    @include media-breakpoint-up(sm) { 
+        height: 200px;
+    }
+    @include media-breakpoint-up(md) { 
+        height: 300px;
+    }
+    @include media-breakpoint-up(lg) { 
+        height: 400px;
+    }
+    &:after{
+        content: "";
+        transition: all .5s;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(black,.4);
+    }
+    &:hover:after{
+        background-color: rgba(black,.7);
+    }
+}
+
+
+.host-info{
+    z-index: 999;
+    color: white;
+    font-weight: bolder;
+    padding:16px;
+    width: 80%;
+    text-align: center;
+    @include media-breakpoint-up(md) { 
+        text-align: left;
+        background-color: rgba(white,.2);
+    }
+    h3{
+        display: none;
+        font-size: 16px;
+        border-bottom: 2px solid white;
+        @include media-breakpoint-up(md) { 
+            font-size: 24px;
+            display: block;
+        }
+    }
+    p{
+        display: none;
+        font-size: 12px;
+        margin-bottom: 15px;
+        @include media-breakpoint-up(md) { 
+            font-size: 16px;
+            @include multiple-line-truncate(3,100px);
+        }
+    }
+    a{
+        padding:8px 16px 8px 16px;
+        color:white;
+        border:1px solid white;
+        background-color: rgba(white,.3);
+        transition: all .3s;
+        display: inline-block;
+        width: 100px;
+        &:hover{
+            background-color: rgba(white,.5);
+        }
+    }
+}

@@ -23,12 +23,21 @@
     transition: all .3s;
     &.SW{
         background-color: rgba($danger,.7);
+        &:hover{
+            background-color: rgba($danger,1);
+        }
     }
     &.N3DS{
         background-color:  rgba($main,.7);
+        &:hover{
+            background-color: rgba($main,1);
+        }
     }
     &.PS4{
         background-color: rgba($dark,.7);
+        &:hover{
+            background-color: rgba($dark,1);
+        }
     }
 }
 

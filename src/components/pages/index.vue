@@ -1,11 +1,8 @@
 <template>
     <div>
-      <loading :active.sync="isLoading">
-        <img src="@/assets/img/loading.gif" alt="" width="200">
-      </loading>
       <alertMessage></alertMessage>
-      <navbarFront :cart-data="shopCart"></navbarFront>
-      <topSilder class="mb-3"></topSilder>
+      <navbarFront></navbarFront>
+      <topSilder></topSilder>
       <div class="container py-3 px-0">
         <ul class="daily_message">
           <li>2018.12.24</li>
@@ -23,13 +20,11 @@
           </p>
         </div>
         <h2 class="page_title">本期熱銷商品</h2>
-        <prodSilder :products-data="products"  :status="status" ></prodSilder>
+        <prodSilder></prodSilder>
       </div>
       <footerSection></footerSection>
     </div>
 </template>
-
-
 
 <script>
 import navbarFront from '@/components/navbarFront';
@@ -45,65 +40,6 @@ export default {
     topSilder,
     prodSilder,
   },
-  data() {
-    return {
-      products: [],
-      shopCart:{},
-      status:{
-        loadingItem:'',
-        loadingIcon:false
-      },
-      isLoading: false,
-    }
-  },
-  methods:{
-    getProducts() {
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/products/all`;
-      const vm = this;
-      vm.isLoading = true;
-      this.$http.get(api).then(response => {
-        if (response.data.success) {
-          vm.products = response.data.products;
-          vm.isLoading = false;
-        }
-      })
-    },
-    getCart(){
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
-      const vm = this;
-      this.$http.get(api).then(response => {
-        vm.shopCart = response.data.data;
-        //由getCart() 統一關閉 vm.status.loadingItem 這樣比較沒有時間差
-        vm.status.loadingItem = '';
-      });
-    },
-    addtoCart(id,qty = 1){
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
-      const vm = this;
-      vm.status.loadingItem = id;
-      const cart = {
-        product_id:id,
-        qty,
-      }
-      this.$http.post(api,{data: cart}).then(response => {
-        if (response.data.success) {
-          vm.getCart();
-          vm.$bus.$emit('message:push', `【${response.data.data.product.title}】
-            ${response.data.data.qty} ${response.data.data.product.unit} 
-            ${response.data.message}`, 'success');
-        }
-      })
-    },
-  },
-  created() {
-    const vm = this;
-    vm.getProducts();
-    vm.getCart();
-    //接收子元件傳來的prodID
-    vm.$bus.$on('prodID:push', (prodID) => {
-      vm.addtoCart(prodID);
-    });
-  }
 }
 </script>
 

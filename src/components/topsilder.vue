@@ -1,5 +1,5 @@
 <template>
-    <div class="container px-0">
+    <div class="container px-0 mb-3">
       <swiper :options="swiperOption">
         <swiper-slide v-for="(item, index) in sliderImg" :key="index">
           <div class="slide" :style="`background-image: url('${item.imgPath}');`" :title="`${item.info}`"></div>
@@ -14,7 +14,6 @@
 
 <script>
 //引用swiper
-//import 'swiper/dist/css/swiper.css'
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 export default {
 name: 'topSilder',
