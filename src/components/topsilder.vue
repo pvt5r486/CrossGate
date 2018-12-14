@@ -5,8 +5,6 @@
           <div class="slide" :style="`background-image: url('${item.imgPath}');`" :title="`${item.info}`"></div>
         </swiper-slide>
         <div class="swiper-pagination" slot="pagination"></div>
-        <div class="swiper-button-prev" slot="button-prev"><i class="fas fa-arrow-left"></i></div>
-        <div class="swiper-button-next" slot="button-next"><i class="fas fa-arrow-right"></i></div>
       </swiper>
     </div> 
 </template>
@@ -32,10 +30,6 @@ name: 'topSilder',
             el: '.swiper-pagination',
             clickable: true
           },
-          navigation: {
-            nextEl: '.swiper-button-next',
-            prevEl: '.swiper-button-prev'
-          }
         },
         sliderImg:[
           {
