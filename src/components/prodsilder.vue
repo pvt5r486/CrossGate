@@ -76,7 +76,8 @@ name: 'prodSilder',
       const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
       const vm = this;
       vm.status.loadingItem = id;
-      vm.swiper.autoplay.stop();
+      const sw = document.querySelector('.swiper-container');
+      sw.swiper.autoplay.stop();
       const cart = {
         product_id:id,
         qty,
@@ -85,7 +86,7 @@ name: 'prodSilder',
         if (response.data.success) {
           vm.$bus.$emit('shopCart:update');
           vm.status.loadingItem='';
-          vm.swiper.autoplay.start();
+          sw.swiper.autoplay.start();
           vm.$bus.$emit('message:push', `【${response.data.data.product.title}】
             ${response.data.data.qty} ${response.data.data.product.unit} 
             ${response.data.message}`, 'success');
