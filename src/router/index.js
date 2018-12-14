@@ -9,26 +9,84 @@ import Orders from '@/components/pages/orders';
 import Coupon from '@/components/pages/coupon';
 import ShoppingDemo from '@/components/pages/shoppingdemo';
 import OrderCheckout from '@/components/pages/orderCheckout';
-import Index from '@/components/pages/index';
-import Gamehost from '@/components/pages/gamehost';
+import Index from '@/components/index';
+import About from '@/components/pages/about';
+import Gamehost from '@/components/gameHost';
+import GamehostMenu from '@/components/pages/gameHostMenu';
+import Switch from '@/components/pages/switch';
+import Ps4 from '@/components/pages/ps4';
+import N3ds from '@/components/pages/n3ds';
 
 Vue.use(VueRouter);
 
 export default new VueRouter({
+    //切換路由時回到畫面頂部
+    scrollBehavior (to, from, savedPosition) {
+        if (savedPosition) {
+          return savedPosition
+        } else {
+          return { x: 0, y: 0 }
+        }
+    },
     routes: [
         {
-            //避免用戶輸入不存在的頁面
             path: '*',
-            redirect: 'index',
+            redirect: '/index'
         },
+        {
+            path: '/',
+            redirect: '/index',
+            component: Index,
+            children: [
+                {
+                    name:"關於我們",
+                    path: 'index',
+                    component: About,
+                },
+                {
+                    path: 'gamehost',
+                    component: Gamehost,
+                    children: [
+                        {
+                            name:"主機介紹",
+                            path: '/',
+                            component: GamehostMenu,
+                        },
+                        {
+                            name:"主機介紹-Switch",
+                            path: 'switch',
+                            component: Switch,
+                        },
+                        {
+                            name:"主機介紹-PS4",
+                            path: 'ps4',
+                            component: Ps4,
+                        },
+                        {
+                            name:"主機介紹-N3DS",
+                            path: 'n3ds',
+                            component: N3ds,
+                        },
+                    ],
+                },
+                {
+                    name:"CrossGate商城",
+                    path: 'shopping',
+                    component: About,
+                },
+            ],
+        },
+        //登入頁
         {
             path: '/login',
             component: Login,
         },
+        //後台
         {
             path: '/admin',
-            component: Dashboard,
-            meta: { requiresAuth: true },   
+            redirect: '/login',
+            //搭配 redirect 代表如果輸入 path 則導引到redirect路徑
+            component: Dashboard, 
             children: [
                 // 根的路徑通常會加上 "/"   子路徑則不會加上 "/"
                 {
@@ -57,21 +115,6 @@ export default new VueRouter({
                     meta: { requiresAuth: true },
                 },
             ],
-        },
-        {
-            name:"首頁",
-            path: '/index',
-            component: Index,
-        },
-        {
-            name:"主機介紹",
-            path: '/gamehost',
-            component: Gamehost,
-        },
-        {
-            name:"CrossGate",
-            path: '/shopping',
-            component: Index,
         },
     ],
 });

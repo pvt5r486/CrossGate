@@ -1,8 +1,8 @@
 <template>
     <div class="prod_card">
-        <a href="#" class="prod_img" :style="`background-image: url('${cardData.imageUrl}');`">
-            <span class="categoryTag" :class="categoryClassName(cardData.category)">{{categoryClassName(cardData.category)}}</span>
-        </a>
+        <router-link to="#" class="prod_img" :style="`background-image: url('${cardData.imageUrl}');`">
+             <span class="categoryTag" :class="categoryClassName(cardData.category)">{{categoryClassName(cardData.category)}}</span>
+        </router-link>
         <div class="prod_info">
             <h3>{{cardData.title}}</h3>
             <p>{{cardData.description}}</p>

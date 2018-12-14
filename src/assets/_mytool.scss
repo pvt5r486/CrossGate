@@ -63,3 +63,19 @@
     /* 其它瀏覽器降級方式：給定最大高度 */
     max-height:$maxheight;
 }
+
+@mixin bg-mask($color){
+    &:after{
+        content: "";
+        transition: all .5s;
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba($color,.5);
+    }
+    &:hover:after{
+        background-color: rgba($color,.7);
+    }
+}
