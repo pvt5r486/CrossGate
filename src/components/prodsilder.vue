@@ -4,7 +4,7 @@
         <img src="@/assets/img/loading.gif" alt="" width="200">
       </loading>
         <swiper :options="swiperOption">
-            <swiper-slide v-for="item in products" :key="item.id">
+            <swiper-slide v-for="item in filterData" :key="item.id">
                 <prodCard :card-data="item" :status="status" @returnProdID="addtoCart"></prodCard>
             </swiper-slide>
             <div class="swiper-pagination" slot="pagination"></div>
@@ -22,6 +22,12 @@ name: 'prodSilder',
     swiper,
     swiperSlide,
     prodCard
+  },
+  props: {
+    prodCategory: {
+        type: String,
+        default:'',
+    },
   },
   data() {
     return {
@@ -105,7 +111,19 @@ name: 'prodSilder',
   created(){
     const vm = this;
     vm.getProducts();
-  }
+  },
+  computed: {
+    filterData(){
+      const vm = this;
+      return vm.products.filter((item) =>{
+        if (vm.prodCategory === ''){
+          return item
+        }else{
+          return item.category === vm.prodCategory
+        }
+      })
+    }
+  },
 }
 </script>
 

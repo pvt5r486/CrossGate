@@ -142,4 +142,36 @@ nav .shopcart-icon .material-icons{
     }
 }
 
+.go_crossgate{
+    display: block;
+    transition: all .5s;
+    padding: 4px 8px 4px 8px;
+    width: 200px;
+    color:$main;
+    font-size: 20px;
+    font-weight: bolder;
+    border: 2px solid $main;
+    text-align: center;
+    i{
+        animation-duration:3s;
+        animation-iteration-count:infinite;
+        animation-name:arrowRight;
+    }
+    &:hover{
+        color:white;
+        background-color: $main;
+    }
+}
 
+
+@keyframes arrowRight {
+    0% {
+        transform: translateX(0px);
+    }
+    50% {
+        transform: translateX(5px);
+    }
+    100%{
+        transform: translateX(0px);
+    }
+  }

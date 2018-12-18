@@ -85,3 +85,50 @@
         }
     }
 }
+
+
+@mixin buy-reason($bgColor,$hoverBG){
+    text-align: center;
+    margin-bottom: 16px;
+    border-radius: 30px;
+    color:white;
+    background-color: $bgColor;
+    position: relative;
+    transition: all .5s;
+    li{
+        padding-top: 4px;
+        padding-bottom: 4px;
+    }
+    li:nth-child(2){
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+    &:after{
+        content: "";
+        transition: all .5s;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 0;
+        height: 0;
+        bottom: -40px;
+        right: 50px;
+        border: transparent  20px solid;
+        border-top:$bgColor 20px solid;
+    }
+    &:hover{
+        background-color: $hoverBG;
+        &:after{
+            border-top: $hoverBG 20px solid;
+        }
+    }
+}
+
+.buy-switch-reason{
+    @include  buy-reason(rgba(red,.8),rgba(red,1));
+}
+
+.buy-ps4-reason{
+    @include  buy-reason(rgba(black,.7),rgba(black,1));
+}
+
