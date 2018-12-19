@@ -34,7 +34,7 @@ export default {
   methods: {
       changePage(page){
           //每次換頁都回到最上
-          window.scrollTo({ top: 0, });
+          //window.scrollTo({ top: 0, });
           this.$emit('changepage', page);
           //console.log(page);
       },

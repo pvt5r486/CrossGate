@@ -12,6 +12,7 @@
 
 <script>
 //引用swiper
+import $ from 'jquery';
 import { swiper, swiperSlide } from 'vue-awesome-swiper'
 export default {
 name: 'topSilder',
@@ -50,7 +51,15 @@ name: 'topSilder',
   components: {
     swiper,
     swiperSlide
-  }
+  },
+  mounted(){
+    $('.swiper-container').on("mouseenter",function(){
+      this.swiper.autoplay.stop();
+    });
+    $('.swiper-container').on("mouseleave",function(){
+      this.swiper.autoplay.start();
+    });
+  },
 }
 </script>
 

@@ -16,7 +16,7 @@ import GamehostMenu from '@/components/pages/gameHostMenu';
 import Switch from '@/components/pages/switch';
 import Ps4 from '@/components/pages/ps4';
 import N3ds from '@/components/pages/n3ds';
-
+import Crossgate from '@/components/pages/crossgate';
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -72,7 +72,7 @@ export default new VueRouter({
                 {
                     name:"CrossGate商城",
                     path: 'shopping',
-                    component: About,
+                    component: Crossgate,
                 },
             ],
         },
