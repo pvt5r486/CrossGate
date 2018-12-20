@@ -3,7 +3,7 @@
       <loading :active.sync="isLoading">
         <img src="@/assets/img/loading.gif" alt="" width="200">
       </loading>
-        <swiper :options="swiperOption">
+        <swiper :options="swiperOption" class="prodSwiper"  v-if="filterData.length > 0">
             <swiper-slide v-for="item in filterData" :key="item.id">
                 <prodCard :card-data="item" :status="status" @returnProdID="addtoCart"></prodCard>
             </swiper-slide>
@@ -33,6 +33,8 @@ name: 'prodSilder',
     return {
       swiperOption: {
         slidesPerView: 4,
+        slidesPerGroup:4,
+        loop:true,
         spaceBetween: 10,
         speed: 600,
         grabCursor:true, 
@@ -46,14 +48,17 @@ name: 'prodSilder',
         breakpoints: {
           480: {
             slidesPerView: 1,
-            spaceBetween: 20
+            slidesPerGroup:1,
+            spaceBetween: 20,      
           },
           767: {
             slidesPerView: 2,
+            slidesPerGroup:2,
             spaceBetween: 30
           },
           992: {
             slidesPerView: 3,
+            slidesPerGroup:3,
             spaceBetween: 30
           }
         }
@@ -81,9 +86,9 @@ name: 'prodSilder',
     addtoCart(id,qty = 1){
       const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/cart`;
       const vm = this;
-      vm.status.loadingItem = id;
-      const sw = document.querySelector('.swiper-container');
-      sw.swiper.autoplay.stop();
+      vm.status.loadingItem = id;    
+      const prodSwiper = document.querySelector('.prodSwiper');
+      prodSwiper.swiper.autoplay.stop();
       const cart = {
         product_id:id,
         qty,
@@ -92,7 +97,7 @@ name: 'prodSilder',
         if (response.data.success) {
           vm.$bus.$emit('shopCart:update');
           vm.status.loadingItem='';
-          sw.swiper.autoplay.start();
+          prodSwiper.swiper.autoplay.start();
           vm.$bus.$emit('message:push', `【${response.data.data.product.title}】
             ${response.data.data.qty} ${response.data.data.product.unit} 
             ${response.data.message}`, 'success');
@@ -101,16 +106,14 @@ name: 'prodSilder',
     },
   },
   mounted(){
-    $('.swiper-container').on("mouseenter",function(){
-      this.swiper.autoplay.stop();
-    });
-    $('.swiper-container').on("mouseleave",function(){
-      this.swiper.autoplay.start();
-    });
-  },
-  created(){
     const vm = this;
     vm.getProducts();
+    $('.prodSwiper').on("mouseenter",function(){
+      this.swiper.autoplay.stop();
+    });
+    $('.prodSwiper').on("mouseleave",function(){
+      this.swiper.autoplay.start();
+    });
   },
   computed: {
     filterData(){

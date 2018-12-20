@@ -1,6 +1,6 @@
 <template>
     <div class="container px-0 mb-3">
-      <swiper :options="swiperOption">
+      <swiper :options="swiperOption" class="topSwiper">
         <swiper-slide v-for="(item, index) in sliderImg" :key="index">
           <div class="slide" :style="`background-image: url('${item.imgPath}');`" :title="`${item.info}`"></div>
         </swiper-slide>
@@ -53,10 +53,10 @@ name: 'topSilder',
     swiperSlide
   },
   mounted(){
-    $('.swiper-container').on("mouseenter",function(){
+    $('.topSwiper').on("mouseenter",function(){
       this.swiper.autoplay.stop();
     });
-    $('.swiper-container').on("mouseleave",function(){
+    $('.topSwiper').on("mouseleave",function(){
       this.swiper.autoplay.start();
     });
   },
