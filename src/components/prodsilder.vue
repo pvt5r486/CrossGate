@@ -99,15 +99,17 @@ name: 'prodSilder',
           vm.status.loadingItem='';
           prodSwiper.swiper.autoplay.start();
           vm.$bus.$emit('message:push', `【${response.data.data.product.title}】
-            ${response.data.data.qty} ${response.data.data.product.unit} 
-            ${response.data.message}`, 'success');
+          ${response.data.data.qty} ${response.data.data.product.unit} 
+          ${response.data.message}`, 'success');
         }
       })
     },
   },
-  mounted(){
+  created(){
     const vm = this;
     vm.getProducts();
+  },
+  updated(){
     $('.prodSwiper').on("mouseenter",function(){
       this.swiper.autoplay.stop();
     });
@@ -125,7 +127,7 @@ name: 'prodSilder',
           return item.category === vm.prodCategory
         }
       })
-    }
+    },
   },
 }
 </script>
