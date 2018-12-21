@@ -119,10 +119,14 @@ export default {
         const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/order/${vm.orderId}`;  
         vm.isLoading = true;
         this.$http.get(api).then(response => {
-            if (response.data.success) {
+            if (response.data.success && response.data.order) {
                 vm.order = response.data.order;
                 vm.isLoading = false;
-            } 
+            } else{
+                vm.isLoading = false;
+                vm.$bus.$emit('message:push', '糟糕...沒有這筆訂單喔！', 'danger');
+                vm.$router.push(`/admin/shopping-demo`);
+            }
         })
       },
       payOrder(){

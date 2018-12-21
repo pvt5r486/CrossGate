@@ -53,3 +53,11 @@ a:hover{
   box-shadow: 0 0 0 2px lighten($main, 40%);
   border:1px solid $main;
 }
+
+.btn:focus, .btn.focus,.btn,
+.btn:not(:disabled):not(.disabled):active:focus, 
+.btn:not(:disabled):not(.disabled).active:focus,
+.page-link:focus{
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}

@@ -28,13 +28,22 @@ name: 'prodSilder',
         type: String,
         default:'',
     },
+    searchResult:{
+        type:Array,
+        default:function(){
+          return [];
+        }
+    },
+    searchFilter:{
+        type: String,
+        default:'',
+    }
   },
   data() {
     return {
       swiperOption: {
         slidesPerView: 4,
         slidesPerGroup:4,
-        loop:true,
         spaceBetween: 10,
         speed: 600,
         grabCursor:true, 
@@ -120,15 +129,25 @@ name: 'prodSilder',
   computed: {
     filterData(){
       const vm = this;
-      return vm.products.filter((item) =>{
-        if (vm.prodCategory === ''){
-          return item
-        }else{
-          return item.category === vm.prodCategory
-        }
-      })
+      if(vm.searchFilter || vm.searchResult.length){
+        return vm.searchResult
+      }else{
+        return vm.products.filter((item) =>{
+          if (vm.prodCategory === ''){
+            return item
+          }else{
+            return item.category === vm.prodCategory
+          }
+        })
+      }
     },
   },
+  watch:{
+    prodCategory(){
+      const prodSwiper = document.querySelector('.prodSwiper');
+      prodSwiper.swiper.slideTo(0, 600);
+    }
+  }
 }
 </script>
 

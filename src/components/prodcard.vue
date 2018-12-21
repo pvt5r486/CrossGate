@@ -68,7 +68,8 @@ export default {
     },
     prodInfo(){
       const vm = this;
-      console.log('還沒做好'+vm.cardData.id);
+      //console.log('還沒做好'+vm.cardData.id);
+      vm.$router.push(`productDetail/${vm.cardData.id}`);
     }
   }
 }
