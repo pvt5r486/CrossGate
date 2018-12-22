@@ -110,7 +110,15 @@ export default {
       const vm = this;
       vm.productID = vm.$route.params.prodId;
       vm.getProduct(vm.productID);
+  },
+  watch:{
+      '$route.params.prodId':function(){
+        const vm = this;
+        vm.productID = vm.$route.params.prodId;
+        vm.getProduct(vm.productID);
+      }
   }
+
 }
 </script>
 

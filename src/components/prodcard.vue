@@ -70,6 +70,6 @@ export default {
       const vm = this;
       vm.$router.push(`/productDetail/${vm.cardData.id}`);
     }
-  }
+  },
 }
 </script>
