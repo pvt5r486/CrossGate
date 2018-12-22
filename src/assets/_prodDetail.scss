@@ -1,0 +1,82 @@
+.prodImg{
+    @include media-breakpoint-up(md) {
+        padding: 20px;
+    }
+    img{
+        max-width: 100%;
+        height: auto;
+    }
+}
+
+.prodInfo{
+    padding:20px;
+    h2,h3{
+        font-size: 24px;
+        padding-bottom: 8px;
+        border-bottom: 2px solid $dontcare; 
+        font-weight: bolder; 
+        color: $main;
+    }
+    h3{
+        font-size: 20px;
+    }
+    .subSlogan{
+        display: block;
+        font-size: 12px;
+        padding-left: 20px;
+        color:$main;
+        font-weight: bolder; 
+    }
+    p{
+        text-align: justify;
+    }
+    &.addCartblock{
+        margin-top: 20px;
+        background-color: $second;
+    }
+}
+
+.prodNotice{
+    font-size: 14px;
+    margin-left: 20px;
+    margin-bottom: 0px;
+    color:$secondary;
+    list-style-type: decimal;
+    text-align: justify;
+    li{
+        margin-bottom: 8px;
+    }
+}
+
+.prodPrice{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    margin-bottom: 16px;
+    del{
+        font-size: 14px;
+        color: $secondary;
+    }
+    h4{
+        font-size: 20px;
+        font-weight: bolder;
+        color: $danger;
+        margin-bottom: 0;
+        @include media-breakpoint-up(md) {
+            font-size: 24px;
+        }
+    }
+}
+
+.addTocardBtn{
+    @include btn;
+    height:inherit;
+    line-height: 1;
+    padding: 16px 8px 16px 8px;
+    font-size: 20px;
+    &.disabled, &:disabled{
+        cursor: default;
+        opacity: 0.6;
+    }
+}

@@ -1,8 +1,8 @@
 <template>
     <div class="prod_card">
-        <router-link to="#" class="prod_img" :style="`background-image: url('${cardData.imageUrl}');`">
+        <a class="prod_img" href="#" :style="`background-image: url('${cardData.imageUrl}');`" @click.prevent="prodInfo">
              <span class="categoryTag" :class="categoryClassName(cardData.category)">{{categoryClassName(cardData.category)}}</span>
-        </router-link>
+        </a>
         <div class="prod_info">
             <h3>{{cardData.title}}</h3>
             <p>{{cardData.description}}</p>
@@ -68,8 +68,7 @@ export default {
     },
     prodInfo(){
       const vm = this;
-      //console.log('還沒做好'+vm.cardData.id);
-      vm.$router.push(`productDetail/${vm.cardData.id}`);
+      vm.$router.push(`/productDetail/${vm.cardData.id}`);
     }
   }
 }
