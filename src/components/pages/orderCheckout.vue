@@ -9,7 +9,7 @@
                     <i class="fas fa-shopping-cart mr-2"></i>購買商品清單
                 </h3>
                 <div class="table-responsive">
-                    <shoppingCartList>
+                    <shopCartTable>
                         <thead slot="tableHead" class="table-becare">
                             <tr class="text-nowrap">
                                 <th>品名</th>
@@ -21,7 +21,7 @@
                             <tr v-for="item in order.products" :key="item.id">
                                 <td class="align-middle">
                                     <p class="mb-0">
-                                        <span class="badge d-none d-md-inline-block" :class="categoryClassName(item.product.category)">
+                                        <span class="badge d-none d-md-inline-block" :class="item.product.category | category">
                                             {{item.product.category}}
                                         </span>
                                         {{item.product.title}}
@@ -51,7 +51,7 @@
                                 <td class="text-right text-danger font-weight-bold">{{ order.total | currency}}</td>
                             </tr>
                         </tfoot>
-                    </shoppingCartList>
+                    </shopCartTable>
                 </div>
                 <h3 class="text-center text-main mt-4"><i class="fas fa-user-circle mr-2"></i>購買人資料</h3>
                 <div class="table-responsive">
@@ -96,10 +96,10 @@
 
 
 <script>
-import shoppingCartList from '@/components/shoppingCartList';
+import shopCartTable from '@/components/shopCartTable';
 export default {
   components: {
-    shoppingCartList,
+    shopCartTable,
   },
   data() {
     return {
@@ -144,20 +144,6 @@ export default {
                 vm.status.loadIcon = true;
             } 
         })
-      },
-      categoryClassName(category){
-        let className = '';
-        switch (category) {
-            case 'Switch':
-                return className = 'badge-danger'
-                break;     
-            case '3DS':
-                return className = 'badge-main'
-                break;
-            case 'PS4':
-                return className = 'badge-dark'
-                break;
-        }
       },
   },
   created(){

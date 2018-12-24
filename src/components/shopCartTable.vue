@@ -21,7 +21,7 @@
                     </td>
                     <td class="align-middle">
                         <p class="mb-0">
-                            <span class="badge d-none d-md-inline-block" :class="categoryClassName(item.product.category)">{{item.product.category}}</span>
+                            <span class="badge d-none d-md-inline-block" :class="item.product.category | category">{{item.product.category}}</span>
                             <span>{{item.product.title}}</span>
                             <span class="text-right d-md-none">{{item.qty}} {{item.product.unit}}</span> 
                         </p> 
@@ -69,7 +69,7 @@
 
 <script>
 export default {
-  name: 'shoppingCartList',
+  name: 'shopCartTable',
   props: {
     tableData: {
         type: Object,
@@ -87,20 +87,6 @@ export default {
         doit(id,tile){
             this.$emit('doit',id,tile);
         },
-        categoryClassName(category){
-            let className = '';
-            switch (category) {
-                case 'Switch':
-                    return className = 'badge-danger';
-                    break;     
-                case '3DS':
-                    return className = 'badge-main';
-                    break;
-                case 'PS4':
-                    return className = 'badge-dark';
-                    break;
-            }
-        }
     },
 }
 </script>

@@ -13,7 +13,7 @@
               <h5 class="card-title text-truncate mb-0">
                 <a href="#" class="text-main font-weight-bold" @click.prevent="getProduct(item.id)">{{item.title}}</a>
               </h5>
-              <span class="badge" :class="categoryClassName(item.category)">{{item.category}}</span>
+              <span class="badge" :class="item.category | category">{{item.category}}</span>
             </div>
             <p class="card-text multiple-line-truncate">{{item.description}}</p>
             <div class="d-flex justify-content-between align-items-baseline flex-wrap mt-auto">
@@ -91,7 +91,7 @@
       </div>
       <div slot="modalBody" class="modal-body">
         <div class="table-responsive" v-if="shopCart.carts && shopCart.carts.length != 0">
-          <shoppingCartList :table-data="shopCart" :loading-item="status.loadingItem" @doit="delCartItem" class="table-sm"></shoppingCartList>
+          <shopCartTable :table-data="shopCart" :loading-item="status.loadingItem" @doit="delCartItem" class="table-sm"></shopCartTable>
           <div class="input-group mb-3 px-1">
             <input type="text" class="form-control" id="coupontext" v-model="coupon_code" placeholder="請輸入優惠碼" aria-label="請輸入優惠碼">
               <div class="input-group-append">
@@ -165,11 +165,11 @@
 
 <script>
 import $ from 'jquery';
-import shoppingCartList from '@/components/shoppingCartList';
+import shopCartTable from '@/components/shopCartTable';
 export default {
   name: 'shoppingDemo',
   components: {
-    shoppingCartList,
+    shopCartTable,
   },
   data() {
     return {
@@ -315,20 +315,6 @@ export default {
           vm.$bus.$emit('message:push', `噢！訂單內有欄位空白唷`, 'danger');
         }
       });
-    },
-    categoryClassName(category){
-      let className = '';
-      switch (category) {
-        case 'Switch':
-            return className = 'badge-danger'
-            break;     
-        case '3DS':
-            return className = 'badge-main'
-            break;
-        case 'PS4':
-            return className = 'badge-dark'
-            break;
-      }
     },
   },
   created() {

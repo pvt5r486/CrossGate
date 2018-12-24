@@ -1,7 +1,7 @@
 <template>
     <div class="prod_card">
         <a class="prod_img" href="#" :style="`background-image: url('${cardData.imageUrl}');`" @click.prevent="prodInfo">
-             <span class="categoryTag" :class="categoryClassName(cardData.category)">{{categoryClassName(cardData.category)}}</span>
+             <span class="categoryTag" :class="cardData.category | category">{{cardData.category}}</span>
         </a>
         <div class="prod_info">
             <h3>{{cardData.title}}</h3>
@@ -48,20 +48,6 @@ export default {
     }
   },
   methods: {
-    categoryClassName(category){
-        let className = '';
-        switch (category) {
-            case 'Switch':
-                return className = 'SW'
-                break;     
-            case '3DS':
-                return className = 'N3DS'
-                break;
-            case 'PS4':
-                return className = 'PS4'
-                break;
-        }
-    },
     returnProdID(){
       const vm = this;
       vm.$emit('returnProdID', vm.cardData.id);

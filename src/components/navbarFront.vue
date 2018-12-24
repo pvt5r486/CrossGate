@@ -9,11 +9,20 @@
         <router-link to="/index" class="navbar-brand" @click.native="closeNavbar">
           <h2>CrossGate寶貝商店</h2>
         </router-link>
-        <router-link to="/index" class="text-main shopcart-icon d-flex align-items-center order-md-1">
+        <div class="shopcart-icon d-flex align-items-center order-md-1" :class="{'active':showSubMenu}" @click.prevent="showSubMenu = !showSubMenu">
           <i class="material-icons">shopping_cart</i>
-          <span class="badge badge-pill  badge-danger shopcart-icon-counter"
-           v-if="shopCart.carts && shopCart.carts.length != 0">{{shopCart.carts.length}}</span>
-        </router-link>
+          <span class="badge badge-pill  badge-danger shopcart-icon-counter" v-if="shopCart.carts && shopCart.carts.length != 0">
+            {{shopCart.carts.length}}
+          </span>
+          <ul class="subMenu">
+            <li>
+              <router-link to="/myshoppingCart">我的購物車</router-link>
+            </li>
+            <li>
+              <router-link to="/myOrders">我的訂單</router-link>
+            </li>
+          </ul>
+        </div>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav menu mt-2">
             <router-link class="nav-item" to="/index" tag="li" @click.native="closeNavbar" active-class="active">
@@ -40,6 +49,7 @@ export default {
   data() {
     return {
       shopCart:{},
+      showSubMenu:false,
     }
   },
   methods: {

@@ -21,12 +21,60 @@ nav .shopcart-icon .material-icons{
 
 .shopcart-icon{
     position: relative;
+    cursor: pointer;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    color:$main;
+    transition: color .5s;
+    &.active{
+        .subMenu{
+            transform: translateY(120%) scale(1);
+        }
+    }
+    &:hover,&.active{
+        color:lighten($main,10%);
+    }
 }
 
 .shopcart-icon-counter{
     position: absolute;
     top: -10px;
     right: -10px;
+}
+
+.subMenu{
+    position: absolute;
+    right: -3px;
+    bottom: 0;
+    margin-bottom: 0;
+    transform: translateY(120%) scale(0);
+    border-radius: 10px;
+    background-color: #d4edda;
+    transition: all .3s;
+    li{
+        a{
+            display: block;
+            white-space: nowrap;
+            padding:6px 12px 6px 12px;
+            color:$main;
+            text-align: center;
+            transition: all .3s;
+            &:hover,&:focus{
+                color:darken($main,10%);
+            }
+        }
+    }
+    &:after{
+        content: "";
+        position: absolute;
+        right: 5px;
+        top: 0px;
+        transform: translateY(-98%);
+        width: 0;
+        height: 0;
+        border: transparent  15px solid;
+        border-bottom: #d4edda 15px solid;
+    }
 }
 
 //選單

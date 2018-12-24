@@ -23,6 +23,7 @@ import router from '@/router';
 import './bus';
 import currencyFilter from './filters/currency';
 import timeTampsFilter from './filters/timetamps';
+import categoryClassNameFilter from './filters/categoryClassName';
 import pagination from '@/components/pagination';
 import modal from '@/components/modal';
 
@@ -39,7 +40,7 @@ Vue.component('pagination',pagination);
 Vue.component('modal',modal);
 Vue.filter('currency',currencyFilter);
 Vue.filter('timeTamps',timeTampsFilter);
-
+Vue.filter('category',categoryClassNameFilter);
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

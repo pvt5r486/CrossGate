@@ -13,6 +13,7 @@
 @import './gamehost';
 @import './crossgate';
 @import './prodDetail';
+@import './shopCart';
 
 //全域設定
 html,body {
@@ -38,15 +39,19 @@ a:hover{
 
 .message-alert {
   position: fixed;
-  top: 0px;
+  bottom: 0px;
   right: 0px;
   left: 0px;
   z-index: 1100;
-  transform: translateY(-50%);
+  transform: translateY(50%);
   transition: all .3s;
   &.active{
     transform: translateY(0%);
   }
+}
+
+.alert-rounded{
+  border-radius: 50px;
 }
 
 .form-control:focus {

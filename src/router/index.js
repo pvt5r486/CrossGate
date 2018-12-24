@@ -18,6 +18,8 @@ import Ps4 from '@/components/pages/ps4';
 import N3ds from '@/components/pages/n3ds';
 import Crossgate from '@/components/pages/crossgate';
 import productDetail from '@/components/pages/productDetail';
+import myshoppingCart from '@/components/pages/shopCart';
+import orderCheck from '@/components/pages/orderCheck';
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -76,9 +78,19 @@ export default new VueRouter({
                     component: Crossgate,
                 },
                 {
-                    name:"產品明細",
+                    name:"產品介紹",
                     path: 'productDetail/:prodId',
                     component: productDetail,
+                },
+                {
+                    name:"我的購物車",
+                    path: 'myshoppingCart',
+                    component: myshoppingCart,
+                },
+                {
+                    name:"確認訂單",
+                    path: 'orderCheckout/:orderID',
+                    component: orderCheck,
                 },
             ],
         },
