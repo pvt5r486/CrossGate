@@ -16,7 +16,7 @@
                     <div class="form-row text-center mt-3">
                       <div class="col-12 col-sm">
                           <div class="alert alert-primary alert-rounded shadow-sm" role="alert">
-                              1.輸入收件人資訊<i class="fas fa-check ml-1"></i>
+                              1.輸入收件人資訊<i class="fas fa-map-marker-alt ml-1"></i>
                           </div>
                       </div>
                       <div class="col-12 col-sm">
