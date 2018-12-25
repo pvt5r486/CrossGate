@@ -3,7 +3,27 @@
         <loading :active.sync="isLoading">
             <img src="@/assets/img/loading.gif" alt="" width="200">
         </loading>
-        <div class="my-5 row justify-content-center">
+        <div class="form-row text-center mt-5">
+            <div class="col-12 col-sm">
+            <div class="alert alert-success alert-rounded shadow-sm"  role="alert">
+                1.輸入收件人資訊<i class="fas fa-check ml-1"></i>
+            </div>
+            </div>
+            <div class="col-12 col-sm">
+            <div class="alert alert-primary alert-rounded shadow-sm" :class="{'alert-success':order.is_paid}" role="alert">
+                2.確認付款
+                <i class="fas fa-map-marker-alt ml-1" v-if="!order.is_paid"></i>
+                <i class="fas fa-check ml-1" v-else></i>
+            </div>
+            </div>
+            <div class="col-12 col-sm">
+            <div class="alert alert-secondary alert-rounded shadow-sm" :class="{'alert-success':order.is_paid}" role="alert">
+                3.完成
+                <i class="fas fa-check ml-1" v-if="order.is_paid"></i>
+            </div>
+            </div>
+        </div>
+        <div class="my-3 row justify-content-center">
             <form class="col-md-8" @submit.prevent="payOrder">
                 <h3 class="text-center text-main">
                     <i class="fas fa-shopping-cart mr-2"></i>購買商品清單
@@ -48,7 +68,7 @@
                         <tfoot slot="tableFooter" class="bg-white">
                             <tr>
                                 <td colspan="2" class="text-right">總計</td>
-                                <td class="text-right text-danger font-weight-bold">{{ order.total | currency}}</td>
+                                <td class="text-right text-danger font-weight-bold" v-if="order.total">{{ order.total | currency}}</td>
                             </tr>
                         </tfoot>
                     </shopCartTable>
@@ -87,7 +107,7 @@
                     <i class="fas fa-spinner fa-spin mr-1" v-if="status.loadIcon"></i>
                     <i class="fas fa-clipboard-check mr-1" v-else></i>確認付款
                 </button>
-                <router-link to="/admin/shopping-demo" class="btn btn-main btn-block btn-lg font-weight-bold" v-else>
+                <router-link :to="option.redirePath" class="btn btn-main btn-block btn-lg font-weight-bold" v-else>
                     <i class="fas fa-reply mr-1"></i>繼續逛逛？</router-link>
             </form>
         </div>
@@ -100,6 +120,16 @@ import shopCartTable from '@/components/shopCartTable';
 export default {
   components: {
     shopCartTable,
+  },
+  props: {
+    option: {
+        type: Object,
+        default:function(){
+            return {
+                redirePath:'/admin/shopping-demo',
+            }
+        },
+    },
   },
   data() {
     return {
@@ -147,7 +177,6 @@ export default {
       },
   },
   created(){
-      // path: 'orderCheckout/:orderID',
       this.orderId = this.$route.params.orderID;
       this.getOrder();
   }

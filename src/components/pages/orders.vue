@@ -3,8 +3,8 @@
         <loading :active.sync="isLoading">
             <img src="@/assets/img/loading.gif" alt="" width="200">
         </loading>
-        <div class="table-responsive mt-5">
-            <table class="table table-hover mt-4">
+        <div class="table-responsive my-3" v-if="orders.length != 0">
+            <table class="table table-hover">
                 <thead class="table-becare">
                     <tr class="text-nowrap">
                         <th width="100">下單時間</th>
@@ -52,14 +52,15 @@
                             <span v-else>未付款</span>
                         </td>
                         <td>
-                            <button class="btn btn-outline-main btn-block" @click="editModal(item)">編輯</button>
-                            <button class="btn btn-outline-secondary btn-block" v-if="!item.is_paid" @click="delModal(item)">刪除</button>
+                            <button class="btn btn-main btn-block" @click="gopay(option.gopayPath,item.id)" v-if="!item.is_paid">結帳</button>
+                            <button class="btn btn-outline-primary btn-block border-0" @click="editModal(item)" v-if="option.editFunction">編輯</button>
+                            <button class="btn btn-outline-secondary btn-block border-0" v-if="!item.is_paid && option.delFuntion" @click="delModal(item)">刪除</button>
                         </td>
                     </tr>
                 </tbody>
             </table>
         </div>
-        <pagination :page-data="pagination" @changepage="getOrders" class="d-flex justify-content-center"></pagination>    
+        <pagination :page-data="pagination" @changepage="getOrders" class="d-flex justify-content-center" v-if="orders.length != 0"></pagination>  
         <modal id="editOrderModal">
             <div slot="modalHeader" class="modal-header bg-main text-white">
                 <h5 class="modal-title" id="exampleModalLabel">
@@ -199,6 +200,18 @@
 <script>
 import $ from 'jquery';
 export default {
+  props: {
+    option: {
+        type: Object,
+        default:function(){
+            return {
+                delFuntion:true,
+                editFunction:true,
+                gopayPath:'/admin/orderCheckout/',
+            }
+        },
+    },
+  },
   data() {
     return {
       orders: [],
@@ -297,6 +310,10 @@ export default {
       });
 
 
+    },
+    gopay(path,orderID){
+        const vm = this;
+        vm.$router.push(`${path}${orderID}`);
     }
   },
   created() {

@@ -15,8 +15,8 @@
                   <template v-else>
                     <div class="form-row text-center mt-3">
                       <div class="col-12 col-sm">
-                          <div class="alert alert-success alert-rounded shadow-sm" role="alert">
-                              1.輸入收件人資訊
+                          <div class="alert alert-primary alert-rounded shadow-sm" role="alert">
+                              1.輸入收件人資訊<i class="fas fa-check ml-1"></i>
                           </div>
                       </div>
                       <div class="col-12 col-sm">
@@ -35,30 +35,30 @@
                         <div class="form-group">
                           <label for="useremail">*Email</label>
                           <input type="email" class="form-control" :class="{'is-invalid': errors.has('email')}" name="email" id="useremail"
-                            v-model="form.user.email" placeholder="請輸入 Email" v-validate="'required|email'" autofocus>
+                            v-model.trim="form.user.email" placeholder="請輸入 Email" v-validate="'required|email'" autofocus>
                           <span class="text-danger" v-if="errors.has('email')">{{errors.first('email')}}</span>
                         </div>
                         <div class="form-group">
                           <label for="username">*收件人姓名</label>
                           <input type="text" class="form-control" :class="{'is-invalid': errors.has('name')}" name="name" id="username"
-                            v-model="form.user.name" v-validate="'required'" placeholder="輸入姓名">
+                            v-model.trim="form.user.name" v-validate="'required'" placeholder="輸入姓名">
                           <span class="text-danger" v-if="errors.has('name')">請輸入姓名</span>
                         </div>      
                         <div class="form-group">
                           <label for="usertel">*收件人電話</label>
-                          <input type="tel" class="form-control" id="usertel" name="regex" v-model="form.user.tel" 
+                          <input type="tel" class="form-control" id="usertel" name="regex" v-model.trim="form.user.tel" 
                             v-validate="{ required: true, regex: /^([0-9]+)$/ }" placeholder="請輸入電話" :class="{'is-invalid': errors.has('regex')}">
                           <span class="text-danger" v-if="errors.has('regex')">僅接受純數字</span>
                         </div>  
                         <div class="form-group">
                           <label for="useraddress">*收件人地址</label>
                           <input type="address" class="form-control"  :class="{'is-invalid': errors.has('address')}" name="address" id="useraddress" 
-                            v-model="form.user.address" placeholder="請輸入地址" v-validate="'required'">
+                            v-model.trim="form.user.address" placeholder="請輸入地址" v-validate="'required'">
                           <span class="text-danger" v-if="errors.has('address')">地址欄位不得留空</span>
                         </div>
                         <div class="form-group">
                           <label for="usermessage">特殊需求</label>
-                          <textarea name="message" id="usermessage" class="form-control" cols="30" rows="10" v-model="form.message" placeholder="如果貨品有特殊需求，請在此填入"></textarea>
+                          <textarea name="message" id="usermessage" class="form-control" cols="30" rows="10" v-model.trim="form.message" placeholder="如果貨品有特殊需求，請在此填入"></textarea>
                         </div>
                         <button class="btn btn-outline-main btn-block btn-lg font-weight-bold rounded-0 mb-4" type="submit" @click.prevent="createdOrder">
                           <i class="fas fa-envelope mr-1"></i>送出訂單
@@ -85,13 +85,17 @@
                         <span class="text-danger">{{shopCart.final_total | currency}}</span>
                       </li>
                     </ul>
-                    <div class="input-group my-3" v-if="!creatOrder">
-                      <input type="text" class="form-control" id="coupontext" v-model="coupon_code" placeholder="請輸入優惠碼" aria-label="請輸入優惠碼">
-                        <div class="input-group-append">
-                          <button class="btn btn-main" type="button" @click="addCouponCode" :disabled="status.loadingIcon || status.loadingItem != ''" >
-                            <i class="fas fa-spinner fa-spin mr-1" v-if="status.loadingIcon"></i>套用優惠券
-                          </button>
-                        </div>
+                    <div class="form-group my-3" v-if="!creatOrder">
+                      <div class="input-group">
+                        <input type="text" class="form-control" id="coupontext" v-model.trim="coupon_code" placeholder="請輸入優惠碼" aria-label="請輸入優惠碼"
+                          :class="{'is-invalid': errors.has('coupontext')}" name="coupontext" v-validate="'required'">
+                          <div class="input-group-append">
+                            <button class="btn btn-main" type="button" @click="addCouponCode" :disabled="status.loadingIcon || status.loadingItem != ''" >
+                              <i class="fas fa-spinner fa-spin mr-1" v-if="status.loadingIcon"></i>套用優惠券
+                            </button>
+                          </div>
+                      </div>
+                       <span class="text-danger" v-if="errors.has('coupontext')">請輸入優惠碼</span>
                     </div>
                   </div>
                   <button class="btn btn-main btn-lg btn-block rounded-0" 
@@ -165,17 +169,23 @@ export default {
       const coupon = {
         code:vm.coupon_code
       }
-      vm.status.loadingIcon = true;
-      this.$http.post(api,{data:coupon}).then(response => {
-        //console.log(response);
-        if(response.data.success){
-          vm.$bus.$emit('message:push', `${response.data.message}`, 'success');
+      this.$validator.validate().then((result) => {
+        if (result) {
+          vm.status.loadingIcon = true;
+          this.$http.post(api,{data:coupon}).then(response => {
+            //console.log(response);
+            if(response.data.success){
+              vm.$bus.$emit('message:push', `${response.data.message}`, 'success');
+            }else{
+              vm.$bus.$emit('message:push', `${response.data.message}`, 'danger');
+            }
+            vm.status.loadingIcon = false;
+            vm.coupon_code='';
+            vm.getCart();
+          });
         }else{
-          vm.$bus.$emit('message:push', `${response.data.message}`, 'danger');
+           vm.$bus.$emit('message:push', `優惠碼不可以空白哦`, 'danger');
         }
-        vm.status.loadingIcon = false;
-        vm.coupon_code='';
-        vm.getCart();
       });
     },
     createdOrder(){

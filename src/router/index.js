@@ -20,6 +20,7 @@ import Crossgate from '@/components/pages/crossgate';
 import productDetail from '@/components/pages/productDetail';
 import myshoppingCart from '@/components/pages/shopCart';
 import orderCheck from '@/components/pages/orderCheck';
+import myorders from '@/components/pages/myorders';
 Vue.use(VueRouter);
 
 export default new VueRouter({
@@ -86,6 +87,11 @@ export default new VueRouter({
                     name:"我的購物車",
                     path: 'myshoppingCart',
                     component: myshoppingCart,
+                },
+                {
+                    name:"我的訂單",
+                    path: 'myorders',
+                    component: myorders,
                 },
                 {
                     name:"確認訂單",
