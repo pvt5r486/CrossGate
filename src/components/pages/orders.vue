@@ -240,7 +240,7 @@ export default {
       $('#delOrderModal').modal('show');
     },
     getOrders(page = 1) {
-      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/admin/orders?page=${page}`;
+      const api = `${process.env.APIPATH}/api/${process.env.CUSTOMPATH}/orders?page=${page}`;
       const vm = this;
       vm.isLoading = true;
       this.$http.get(api).then(response => {
@@ -317,6 +317,7 @@ export default {
     }
   },
   created() {
+    const vm = this;
     this.getOrders();
   },
   computed:{
