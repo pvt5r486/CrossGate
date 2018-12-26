@@ -1,81 +1,80 @@
-/*圖片取代文字*/
+/* 圖片取代文字 */
 @mixin hidden_text{
-    text-indent: 101%;
-    white-space: nowrap;
-    overflow: hidden;
+	text-indent: 101%;
+	white-space: nowrap;
+	overflow: hidden;
 }
 
-/*圖片置中且不重複*/
+/* 圖片置中且不重複 */
 @mixin bg_center_norepeat{
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+	background-size: cover;
 }
 
 
-//button
+// button
 @mixin btn {
-    display: block;
-    width: 100%;
-    height: 65px;
-    line-height: 65px;
-    background-color: $becare;
-    color:$main;
-    font-size: 24px;
-    text-align: center;
-    font-weight: bolder;
-    cursor: pointer;
-    outline: none;
-    border: none;
-    transition: all .3s;
-    text-decoration: none !important;
-    &:hover{
-        color:$main;
-        background: darken($becare,10%);
-    }
+	display: block;
+	width: 100%;
+	height: 65px;
+	line-height: 65px;
+	background-color: $becare;
+	color:$main;
+	font-size: 24px;
+	text-align: center;
+	font-weight: bolder;
+	cursor: pointer;
+	outline: none;
+	border: none;
+	transition: all .3s;
+	text-decoration: none !important;
+	&:hover{
+		color:$main;
+		background: darken($becare,10%);
+	}
 }
 
 .multiple-line-truncate{
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    overflow: hidden;  
-    /* 其它瀏覽器降級方式：給定最大高度 */
-    max-height:70px;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: 3;
+	overflow: hidden;  
+	/* 其它瀏覽器降級方式：給定最大高度 */
+	max-height:70px;
 }
 
 @mixin titleLine($border-color,$border-weight){
-    display: flex;
-    align-items: center;
-    &:before,&:after{
-        content:"";
-        flex-grow: 1;
-        border-top: $border-weight solid $border-color;
-        margin:0px 13px;
-    }
+	display: flex;
+	align-items: center;
+	&:before,&:after{
+		content:"";
+		flex-grow: 1;
+		border-top: $border-weight solid $border-color;
+		margin:0px 13px;
+	}
 }
 
 @mixin multiple-line-truncate($lineNum,$maxheight) {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: $lineNum;
-    overflow: hidden;  
-    /* 其它瀏覽器降級方式：給定最大高度 */
-    max-height:$maxheight;
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	-webkit-line-clamp: $lineNum;
+	overflow: hidden;  
+	max-height:$maxheight;
 }
 
 @mixin bg-mask($color){
-    &:after{
-        content: "";
-        transition: all .5s;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        left: 0;
-        right: 0;
-        background-color: rgba($color,.5);
-    }
-    &:hover:after{
-        background-color: rgba($color,.7);
-    }
+	&:after{
+		content: "";
+		transition: all .5s;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		background-color: rgba($color,.5);
+	}
+	&:hover:after{
+		background-color: rgba($color,.7);
+	}
 }

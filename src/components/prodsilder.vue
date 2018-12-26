@@ -1,15 +1,15 @@
 <template>
-    <div class="p-3">
-      <loading :active.sync="isLoading">
-        <img src="@/assets/img/loading.gif" alt="" width="200">
-      </loading>
-        <swiper :options="swiperOption" class="prodSwiper"  v-if="filterData.length > 0">
-            <swiper-slide v-for="item in filterData" :key="item.id">
-                <prodCard :card-data="item" :status="status" @returnProdID="addtoCart"></prodCard>
-            </swiper-slide>
-            <div class="swiper-pagination" slot="pagination"></div>
-        </swiper>
-    </div>
+  <div class="p-3">
+    <loading :active.sync="isLoading">
+      <img src="@/assets/img/loading.gif" alt="" width="200">
+    </loading>
+    <swiper :options="swiperOption" class="prodSwiper"  v-if="filterData.length > 0">
+      <swiper-slide v-for="item in filterData" :key="item.id">
+        <prodCard :card-data="item" :status="status" @returnProdID="addtoCart"></prodCard>
+      </swiper-slide>
+      <div class="swiper-pagination" slot="pagination"></div>
+    </swiper>
+  </div>
 </template>
 
 <script>
@@ -25,18 +25,18 @@ name: 'prodSilder',
   },
   props: {
     prodCategory: {
-        type: String,
-        default:'',
+      type: String,
+      default:'',
     },
     searchResult:{
-        type:Array,
-        default:function(){
-          return [];
-        }
+      type:Array,
+      default:function(){
+        return [];
+      }
     },
     searchFilter:{
-        type: String,
-        default:'',
+      type: String,
+      default:'',
     }
   },
   data() {

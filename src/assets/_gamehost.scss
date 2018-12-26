@@ -1,134 +1,127 @@
 .host-img{
-    height: 150px;
-    background-position: center center;
-    background-size: cover;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    &.switch{
-        background-image: url('../static/articleImg/switch.jpg');
-        @include bg-mask(red);
-    }
-    &.n3ds{
-        background-image: url('../static/articleImg/nintendo-3ds.jpg');
-        @include bg-mask(black);
-    }
-    &.ps4{
-        background-image: url('../static/articleImg/ps4.jpg');
-        @include bg-mask(black);
-    }
-    @include media-breakpoint-up(sm) { 
-        height: 200px;
-    }
-    @include media-breakpoint-up(md) { 
-        height: 300px;
-        &:hover{
-            .host-info a{
-                transform: translateY(0px);
-            }
-        }
-    }
-    @include media-breakpoint-up(lg) { 
-        height: 400px;
-    }
-
+	height: 150px;
+	background-position: center center;
+	background-size: cover;
+	position: relative;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	&.switch{
+		background-image: url('../static/articleImg/switch.jpg');
+		@include bg-mask(red);
+	}
+	&.n3ds{
+		background-image: url('../static/articleImg/nintendo-3ds.jpg');
+		@include bg-mask(black);
+	}
+	&.ps4{
+		background-image: url('../static/articleImg/ps4.jpg');
+		@include bg-mask(black);
+	}
+	@include media-breakpoint-up(sm) { 
+		height: 200px;
+	}
+	@include media-breakpoint-up(md) { 
+		height: 300px;
+		&:hover{
+			.host-info a{
+				transform: translateY(0px);
+			}
+		}
+	}
+	@include media-breakpoint-up(lg) { 
+		height: 400px;
+	}
 }
-
-
 .host-info{
-    z-index: 999;
-    color: white;
-    font-weight: bolder;
-    padding:8px;
-    width: 80%;
-    overflow: hidden;
-    background-color: rgba(white,.4);
-    @include media-breakpoint-up(md) { 
-        padding:16px;
-    }
-    h3{
-        font-size: 16px;
-        border-bottom: 2px solid white;
-        @include media-breakpoint-up(md) { 
-            font-size: 24px;
-        }
-    }
-    p{
-        font-size: 12px;
-        margin-bottom: 10px;
-        @include multiple-line-truncate(2,50px);
-        @include media-breakpoint-up(md) { 
-            margin-bottom: 15px;
-            font-size: 16px;
-            @include multiple-line-truncate(3,100px);
-        }
-    }
-    a{
-        padding:4px 8px 4px 8px;
-        color:white;
-        border:1px solid white;
-        background-color: rgba(black,.3);
-        transition: all .3s;
-        display: inline-block;
-        width: 80px;
-        font-size: 12px;
-        text-align: center;
-        @include media-breakpoint-up(md) { 
-            padding:8px 16px 8px 16px;
-            width: 100px;
-            font-size: 16px;
-            transform: translateY(100px);
-        }
-        &:hover{
-            background-color: rgba(black,.5);
-        }
-    }
+	z-index: 999;
+	color: white;
+	font-weight: bolder;
+	padding:8px;
+	width: 80%;
+	overflow: hidden;
+	background-color: rgba(white,.4);
+	@include media-breakpoint-up(md) { 
+		padding:16px;
+	}
+	h3{
+		font-size: 16px;
+		border-bottom: 2px solid white;
+		@include media-breakpoint-up(md) { 
+			font-size: 24px;
+		}
+	}
+	p{
+		font-size: 12px;
+		margin-bottom: 10px;
+		@include multiple-line-truncate(2,50px);
+		@include media-breakpoint-up(md) { 
+			margin-bottom: 15px;
+			font-size: 16px;
+			@include multiple-line-truncate(3,100px);
+		}
+	}
+	a{
+		padding:4px 8px 4px 8px;
+		color:white;
+		border:1px solid white;
+		background-color: rgba(black,.3);
+		transition: all .3s;
+		display: inline-block;
+		width: 80px;
+		font-size: 12px;
+		text-align: center;
+		@include media-breakpoint-up(md) { 
+			padding:8px 16px 8px 16px;
+			width: 100px;
+			font-size: 16px;
+			transform: translateY(100px);
+		}
+		&:hover{
+			background-color: rgba(black,.5);
+		}
+	}
 }
-
-
 @mixin buy-reason($bgColor,$hoverBG){
-    text-align: center;
-    margin-bottom: 16px;
-    border-radius: 30px;
-    color:white;
-    background-color: $bgColor;
-    position: relative;
-    transition: all .5s;
-    li{
-        padding-top: 4px;
-        padding-bottom: 4px;
-    }
-    li:nth-child(2){
-        padding-top: 8px;
-        padding-bottom: 8px;
-    }
-    &:after{
-        content: "";
-        transition: all .5s;
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        width: 0;
-        height: 0;
-        bottom: -40px;
-        right: 50px;
-        border: transparent  20px solid;
-        border-top:$bgColor 20px solid;
-    }
-    &:hover{
-        background-color: $hoverBG;
-        &:after{
-            border-top: $hoverBG 20px solid;
-        }
-    }
+	text-align: center;
+	margin-bottom: 16px;
+	border-radius: 30px;
+	color:white;
+	background-color: $bgColor;
+	position: relative;
+	transition: all .5s;
+	li{
+		padding-top: 4px;
+		padding-bottom: 4px;
+	}
+	li:nth-child(2){
+		padding-top: 8px;
+		padding-bottom: 8px;
+	}
+	&:after{
+		content: "";
+		transition: all .5s;
+		position: absolute;
+		right: 0;
+		bottom: 0;
+		width: 0;
+		height: 0;
+		bottom: -40px;
+		right: 50px;
+		border: transparent  20px solid;
+		border-top:$bgColor 20px solid;
+	}
+	&:hover{
+		background-color: $hoverBG;
+		&:after{
+			border-top: $hoverBG 20px solid;
+		}
+	}
 }
-
 .buy-switch-reason{
-    @include  buy-reason(rgba(red,.8),rgba(red,1));
+	@include  buy-reason(rgba(red,.8),rgba(red,1));
 }
-
 .buy-ps4-reason{
-    @include  buy-reason(rgba(black,.7),rgba(black,1));
+	@include  buy-reason(rgba(black,.7),rgba(black,1));
 }
 

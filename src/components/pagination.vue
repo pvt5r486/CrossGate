@@ -1,25 +1,25 @@
 <template>
-    <div>
-        <nav>
-            <ul class="pagination">
-                <li class="page-item" :class="{'disabled': pageData.has_pre === false}">
-                    <a class="page-link" href="#" aria-label="Previous" @click.prevent="changePage(pageData.current_page - 1)">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                </li>
-                <li class="page-item" v-for="page in pageData.total_pages" :key="page" :class="{'active': pageData.current_page === page}">
-                    <a class="page-link" href="#" @click.prevent="changePage(page)">{{page}}</a>
-                </li>
-                <li class="page-item" :class="{'disabled': pageData.has_next === false}">
-                    <a class="page-link" href="#" aria-label="Next" @click.prevent="changePage(pageData.current_page + 1)">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
-    </div>
+	<div>
+		<nav>
+			<ul class="pagination">
+				<li class="page-item" :class="{'disabled': pageData.has_pre === false}">
+					<a class="page-link" href="#" aria-label="Previous" @click.prevent="changePage(pageData.current_page - 1)">
+						<span aria-hidden="true">&laquo;</span>
+						<span class="sr-only">Previous</span>
+					</a>
+				</li>
+				<li class="page-item" v-for="page in pageData.total_pages" :key="page" :class="{'active': pageData.current_page === page}">
+					<a class="page-link" href="#" @click.prevent="changePage(page)">{{page}}</a>
+				</li>
+				<li class="page-item" :class="{'disabled': pageData.has_next === false}">
+					<a class="page-link" href="#" aria-label="Next" @click.prevent="changePage(pageData.current_page + 1)">
+						<span aria-hidden="true">&raquo;</span>
+						<span class="sr-only">Next</span>
+					</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
 </template>
 
 <script>
@@ -32,12 +32,9 @@ export default {
     },
   },
   methods: {
-      changePage(page){
-          //每次換頁都回到最上
-          //window.scrollTo({ top: 0, });
-          this.$emit('changepage', page);
-          //console.log(page);
-      },
+		changePage(page){
+			this.$emit('changepage', page);
+		},
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
-    <div class="container">
-        <orderCheckout :option="option"></orderCheckout>
-    </div>
+  <div class="container">
+    <orderCheckout :option="option"></orderCheckout>
+  </div>
 </template>
 
 <script>

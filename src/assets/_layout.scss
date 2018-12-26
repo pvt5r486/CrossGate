@@ -1,225 +1,224 @@
-//漢堡按鈕
+// 漢堡按鈕
 .navbar-toggler {
-    border: none;
-    &:focus{
-        outline: 0px;
-    }
+	border: none;
+	&:focus{
+		outline: 0px;
+	}
 }
 
 .navbar-brand{
-    width: 150px;
-    height: 50px;
-    background-image: url('../src/assets/img/crossgate-logo.png');
-    @include bg_center_norepeat;
-    @include hidden_text;
+	width: 150px;
+	height: 50px;
+	background-image: url('../src/assets/img/crossgate-logo.png');
+	@include bg_center_norepeat;
+	@include hidden_text;
 }
 
-//購物車ICON
+// 購物車 ICON
 nav .shopcart-icon .material-icons{
-    font-size: 30px;
+	font-size: 30px;
 }
 
 .shopcart-icon{
-    position: relative;
-    cursor: pointer;
-    -moz-user-select: none;
-    -webkit-user-select: none;
-    color:$main;
-    transition: color .5s;
-    &.active{
-        .subMenu{
-            transform: translateY(120%) scale(1);
-        }
-    }
-    &:hover,&.active{
-        color:lighten($main,10%);
-    }
+	position: relative;
+	cursor: pointer;
+	-moz-user-select: none;
+	-webkit-user-select: none;
+	color:$main;
+	transition: color .5s;
+	&.active{
+		.subMenu{
+			transform: translateY(120%) scale(1);
+		}
+	}
+	&:hover,&.active{
+		color:lighten($main,10%);
+	}
 }
 
 .shopcart-icon-counter{
-    position: absolute;
-    top: -10px;
-    right: -10px;
+	position: absolute;
+	top: -10px;
+	right: -10px;
 }
 
 .subMenu{
-    position: absolute;
-    right: -3px;
-    bottom: 0;
-    margin-bottom: 0;
-    transform: translateY(120%) scale(0);
-    border-radius: 10px;
-    background-color: #d4edda;
-    transition: all .3s;
-    li{
-        a{
-            display: block;
-            white-space: nowrap;
-            padding:6px 12px 6px 12px;
-            color:$main;
-            text-align: center;
-            transition: all .3s;
-            &:hover,&:focus{
-                color:darken($main,10%);
-            }
-        }
-    }
-    &:after{
-        content: "";
-        position: absolute;
-        right: 5px;
-        top: 0px;
-        transform: translateY(-98%);
-        width: 0;
-        height: 0;
-        border: transparent  15px solid;
-        border-bottom: #d4edda 15px solid;
-    }
+	position: absolute;
+	right: -3px;
+	bottom: 0;
+	margin-bottom: 0;
+	transform: translateY(120%) scale(0);
+	border-radius: 10px;
+	background-color: #d4edda;
+	transition: all .3s;
+	li{
+		a{
+			display: block;
+			white-space: nowrap;
+			padding:6px 12px 6px 12px;
+			color:$main;
+			text-align: center;
+			transition: all .3s;
+			&:hover,&:focus{
+				color:darken($main,10%);
+			}
+		}
+  }
+	&:after{
+		content: "";
+		position: absolute;
+		right: 5px;
+		top: 0px;
+		transform: translateY(-98%);
+		width: 0;
+		height: 0;
+		border: transparent  15px solid;
+		border-bottom: #d4edda 15px solid;
+	}
 }
 
-//選單
+// 選單
 .menu li{
-    display: flex;
-    align-items: center;
-    //height: 40px;
-    padding-left: 12px;
-    position: relative;
-    transition: all .5s;
-    &:hover,&.active{
-        background: $second;
-        a{
-            color:$main !important;
-        }
-    }
-    @include media-breakpoint-up(md) {
-        padding-left: 0px;       
-        &:hover,&.active{
-            background: none;
-        }
-        &:after{
-            content: "";
-            width: 0px;
-            height: 2px;
-            background: $main;
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transition: all .5s;
-        }
-        &:hover::after,&.active:after{
-            left: 0;
-            width: 100%;
-        }
-    }
-    a{
-        display: block;
-        font-weight: bolder;
-        transition: all .5s;
-        padding: 8px 10px 8px 10px !important;
-    }
+	display: flex;
+	align-items: center;
+	padding-left: 12px;
+	position: relative;
+	transition: all .5s;
+	&:hover,&.active{
+		background: $second;
+		a{
+			color:$main !important;
+		}
+	}
+	@include media-breakpoint-up(md) {
+		padding-left: 0px;       
+		&:hover,&.active{
+			background: none;
+		}
+		&:after{
+			content: "";
+			width: 0px;
+			height: 2px;
+			background: $main;
+			position: absolute;
+			bottom: 0;
+			left: 50%;
+			transition: all .5s;
+		}
+		&:hover::after,&.active:after{
+			left: 0;
+			width: 100%;
+		}
+	}
+	a{
+		display: block;
+		font-weight: bolder;
+		transition: all .5s;
+		padding: 8px 10px 8px 10px !important;
+	}
 }
 
-//訂閱
+// 訂閱
 .subcribe-slogan{
-    margin-left: 20px;
-    font-size: 24px;
-    color: white;
-    letter-spacing: 1px;
+	margin-left: 20px;
+	font-size: 24px;
+	color: white;
+	letter-spacing: 1px;
 }
 
 .subcribe-form{
-    position: relative;
-    button{
-        position: absolute;
-        top: 0;
-        bottom: 0;
-        right: 0;
-        padding-left: 19px;
-        padding-right: 19px;
-        outline: none;
-        color: $main;
-    }
+	position: relative;
+	button{
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		right: 0;
+		padding-left: 19px;
+		padding-right: 19px;
+		outline: none;
+		color: $main;
+	}
 }
 
 .subcribe-form-icon {
-    position: absolute;
-    top: 16px;
-    left: 20px;
-    color: #3F5D45;
+	position: absolute;
+	top: 16px;
+	left: 20px;
+	color: #3F5D45;
 }
 
-//頁尾
+// 頁尾
 .companyInfo,.authorInfo,.socialLink{
-    color:$main;
-    margin-bottom: 0;
-    a{
-        transition: all .3s;
-        color:$main;      
-        &:hover{
-            color:darken($main,10%); 
-        }
-    }
+	color:$main;
+	margin-bottom: 0;
+	a{
+		transition: all .3s;
+		color:$main;      
+		&:hover{
+			color:darken($main,10%); 
+		}
+	}
 }
 
 .companyInfo,.authorInfo{
-    letter-spacing: 1px;
+	letter-spacing: 1px;
 }
 
 .authorInfo,.socialLink{
-    @include media-breakpoint-up(md) {        
-        margin-left: -30px;
-    }
+	@include media-breakpoint-up(md) {        
+		margin-left: -30px;
+	}
 }
 
 .authorInfo{
-    opacity: .9;
-    font-size: 12px;
-    font-weight: bolder;
-    padding: 5px 10px 5px 10px;
-    background-color: darken($second, 10%);
-    border-radius: 10px;
+	opacity: .9;
+	font-size: 12px;
+	font-weight: bolder;
+	padding: 5px 10px 5px 10px;
+	background-color: darken($second, 10%);
+	border-radius: 10px;
 }
 
 .socialLink{
-    display: flex;
-    li{
-        margin-right: 10px;
-        a{
-            font-size: 40px;
-        }
-    }
+	display: flex;
+	li{
+		margin-right: 10px;
+		a{
+			font-size: 40px;
+		}
+	}
 }
 
 .go_crossgate{
-    display: block;
-    transition: all .5s;
-    padding: 4px 8px 4px 8px;
-    width: 200px;
-    color:$main;
-    font-size: 20px;
-    font-weight: bolder;
-    border: 2px solid $main;
-    text-align: center;
-    i{
-        animation-duration:3s;
-        animation-iteration-count:infinite;
-        animation-name:arrowRight;
-    }
-    &:hover{
-        color:white;
-        background-color: $main;
-    }
+	display: block;
+	transition: all .5s;
+	padding: 4px 8px 4px 8px;
+	width: 200px;
+	color:$main;
+	font-size: 20px;
+	font-weight: bolder;
+	border: 2px solid $main;
+	text-align: center;
+	i{
+		animation-duration:3s;
+		animation-iteration-count:infinite;
+		animation-name:arrowRight;
+	}
+	&:hover{
+		color:white;
+		background-color: $main;
+	}
 }
 
 
 @keyframes arrowRight {
-    0% {
-        transform: translateX(0px);
-    }
-    50% {
-        transform: translateX(5px);
-    }
-    100%{
-        transform: translateX(0px);
-    }
-  }
+	0% {
+		transform: translateX(0px);
+	}
+	50% {
+		transform: translateX(5px);
+	}
+	100%{
+		transform: translateX(0px);
+	}
+}

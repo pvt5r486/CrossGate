@@ -1,34 +1,34 @@
 .page-link{
-    color:$main;
-    &:hover{
-        color:$main;
-        background-color: lighten($main, 40%);
-    }
+	color:$main;
+	&:hover{
+		color:$main;
+		background-color: lighten($main, 40%);
+	}
 }
 .page-item.active .page-link {
-    color: #fff;
-    background-color: $main;
-    border: 1px solid $main;
+	color: #fff;
+	background-color: $main;
+	border: 1px solid $main;
 }
 
 .upload-filed{
-    width: 100%;
-    padding: 6px 12px 6px 12px;
-    border: #ced4da solid 1px;
-    color: #495057;
-    position: relative;
-    transition: all .3s;
-    &:hover,&.dragin{
-        border:darken($becare, 20%) solid 1px;
-    }
+	width: 100%;
+	padding: 6px 12px 6px 12px;
+	border: #ced4da solid 1px;
+	color: #495057;
+	position: relative;
+	transition: all .3s;
+	&:hover,&.dragin{
+		border:darken($becare, 20%) solid 1px;
+	}
 }
 
 .upload-contorl{
-    position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-    opacity: 0 ;
-    cursor: pointer;
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	opacity: 0 ;
+	cursor: pointer;
 }

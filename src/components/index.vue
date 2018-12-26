@@ -1,10 +1,10 @@
 <template>
-    <div>
-      <alertMessage></alertMessage>
-      <navbarFront></navbarFront>
-      <router-view></router-view>
-      <footerSection></footerSection>
-    </div>
+  <div>
+    <alertMessage></alertMessage>
+    <navbarFront></navbarFront>
+    <router-view></router-view>
+    <footerSection></footerSection>
+  </div>
 </template>
 
 <script>

@@ -179,7 +179,6 @@ export default {
       pagination: {},
       isLoading: false,
       status:{
-        //判斷目前在loading的是哪個產品的id
         loadingItem:'',
         loadingIcon:false
       },
@@ -201,9 +200,7 @@ export default {
       const vm = this;
       vm.isLoading = true;
       this.$http.get(api).then(response => {
-        //console.log('產品清單API狀態', response.data.success);
         vm.products = response.data.products;
-        //console.log(response.data);
         vm.pagination = response.data.pagination;
         vm.isLoading = false;
       })
@@ -215,7 +212,6 @@ export default {
       this.$http.get(api).then(response => {
         vm.product = response.data.product;
         vm.$set(vm.product, 'buyNum', 1);
-        //console.log(response.data.product);
         $('#productInfoModal').modal('show');
         vm.status.loadingItem = '';    
       })
@@ -243,7 +239,7 @@ export default {
       const vm = this;
       this.$http.get(api).then(response => {
         vm.shopCart = response.data.data;
-        //由getCart() 統一關閉 vm.status.loadingItem 這樣比較沒有時間差
+        // 由 getCart() 統一關閉 vm.status.loadingItem 這樣比較沒有時間差
         vm.status.loadingItem = '';
       });
     },
@@ -270,7 +266,6 @@ export default {
       }
       vm.status.loadingIcon = true;
       this.$http.post(api,{data:coupon}).then(response => {
-        //console.log(response);
         if(response.data.success){
           vm.$bus.$emit('message:push', `${response.data.message}`, 'success');
         }else{
@@ -299,7 +294,6 @@ export default {
         if (result) {
           vm.isLoading = true;
           this.$http.post(api,{data:order}).then(response => {
-            //console.log('訂單已建立',response);
             if(response.data.success){
               vm.$bus.$emit('message:push', `${response.data.message}`, 'success');
               vm.$router.push(`/admin/orderCheckout/${response.data.orderId}`);
@@ -307,7 +301,6 @@ export default {
               vm.$bus.$emit('message:push', `${response.data.message}`, 'danger');
             }
             vm.isLoading = false;
-            //後續處理
             $('#OrderModal').modal('hide');
             vm.getCart();
           });

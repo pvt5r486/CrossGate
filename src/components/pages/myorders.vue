@@ -1,10 +1,10 @@
 <template>
-    <div>
-        <div class="container">
-            <h1 class="page_title my-4">我的購物訂單</h1>
-            <orders :option="option"></orders>
-        </div>    
-    </div>
+	<div>
+		<div class="container">
+			<h1 class="page_title my-4">我的購物訂單</h1>
+			<orders :option="option"></orders>
+		</div>    
+	</div>
 </template>
 
 
@@ -16,11 +16,11 @@ export default {
   },
   data() {
     return {
-        option:{
-            delFuntion:false,
-            editFunction:false,
-            gopayPath:'/orderCheckout/',
-        }
+			option:{
+				delFuntion:false,
+				editFunction:false,
+				gopayPath:'/orderCheckout/',
+			}
     }
   },
 }

@@ -1,104 +1,104 @@
 .prod_card{
-    border:1px solid darken($second,10%);
-    height: 100%;
-    overflow: hidden;
+	border:1px solid darken($second,10%);
+	height: 100%;
+	overflow: hidden;
 }
 
 .prod_img{
-    background-position: center center;
-    background-size: cover;
-    position: relative;
-    height: 150px;
-    display: block;
+	background-position: center center;
+	background-size: cover;
+	position: relative;
+	height: 150px;
+	display: block;
 }
 
 .categoryTag{
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    color: white;
-    border-radius: 10px 0px 0px 10px;
-    font-size: 12px;
-    padding: 3px 5px 3px 15px;
-    transition: all .3s;
-    &.SW{
-        background-color: rgba($danger,.7);
-        &:hover{
-            background-color: rgba($danger,1);
-        }
-    }
-    &.N3DS{
-        background-color:  rgba($main,.7);
-        &:hover{
-            background-color: rgba($main,1);
-        }
-    }
-    &.PS4{
-        background-color: rgba($dark,.7);
-        &:hover{
-            background-color: rgba($dark,1);
-        }
-    }
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	color: white;
+	border-radius: 10px 0px 0px 10px;
+	font-size: 12px;
+	padding: 3px 5px 3px 15px;
+	transition: all .3s;
+	&.SW{
+		background-color: rgba($danger,.7);
+		&:hover{
+			background-color: rgba($danger,1);
+		}
+	}
+	&.N3DS{
+		background-color:  rgba($main,.7);
+		&:hover{
+			background-color: rgba($main,1);
+		}
+	}
+	&.PS4{
+		background-color: rgba($dark,.7);
+		&:hover{
+			background-color: rgba($dark,1);
+		}
+	}
 }
 
 
 .prod_info,.prod_price{
-    padding:10px 15px 10px 15px;
+	padding:10px 15px 10px 15px;
 }
 
 .prod_info{
-    h3{
-        color: $main;
-        font-weight: bolder;
-        font-size: 20px;
-        margin-bottom: 0;      
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-    }
-    p{
-        @include multiple-line-truncate(2,50px);
-        margin-bottom: 0;
-        margin-top: 10px;
-    }
+	h3{
+		color: $main;
+		font-weight: bolder;
+		font-size: 20px;
+		margin-bottom: 0;      
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+	p{
+		@include multiple-line-truncate(2,50px);
+		margin-bottom: 0;
+		margin-top: 10px;
+	}
 }
 
 .prod_price{
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    span{
-        font-size: 12px;
-        color:$dontcare;
-        font-style:italic;
-        text-decoration:line-through;
-    }
-    h4{
-        margin-bottom: 0;
-        font-size: 18px;
-        color:$danger;
-        font-weight: bolder;
-    }
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+	span{
+		font-size: 12px;
+		color:$dontcare;
+		font-style:italic;
+		text-decoration:line-through;
+	}
+	h4{
+		margin-bottom: 0;
+		font-size: 18px;
+		color:$danger;
+		font-weight: bolder;
+	}
 }
 
 .prod_card_footer{
-    button{
-        text-align: center;    
-        outline: none;
-        border: none;
-        border-radius: 0px;
-        color:$dontcare;
-        background-color: rgba($dontcare,.2);
-        font-weight: bolder;
-        padding:5px 10px 5px 10px;
-        transition: all .3s;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
-        cursor: pointer;
-        &:hover{
-            background-color: $becare;
-            color:$main;     
-        }
-    }
+	button{
+		text-align: center;    
+		outline: none;
+		border: none;
+		border-radius: 0px;
+		color:$dontcare;
+		background-color: rgba($dontcare,.2);
+		font-weight: bolder;
+		padding:5px 10px 5px 10px;
+		transition: all .3s;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		cursor: pointer;
+		&:hover{
+			background-color: $becare;
+			color:$main;     
+		}
+	}
 }

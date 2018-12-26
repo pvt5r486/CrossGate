@@ -1,35 +1,35 @@
 .category_Menu{
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0;
-    @include media-breakpoint-up(md) {
-        flex-direction: column;
-    }
-    a{
-        padding:6px 8px 6px 8px;
-        font-size: 14px;
-        font-weight: bolder;
-        border: 2px solid $dontcare;
-        color: $main;
-        overflow: hidden;
-        border-radius: 10px;
-        margin-bottom: 16px;
-        display: flex;
-        justify-content:space-between;
-        align-items: center;
-        cursor: pointer;
-        transition: all .3s;
-        &:hover,&.active{
-            background-color: $becare;
-            border: 2px solid $becare;
-            color: $main;
-        }
-    }
-    img{
-        display: none;
-        @include media-breakpoint-up(sm) {
-            display: inline-block;
-            margin-right: 4px;
-        }
-    }
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 0;
+	@include media-breakpoint-up(md) {
+		flex-direction: column;
+	}
+	a{
+		padding:6px 8px 6px 8px;
+		font-size: 14px;
+		font-weight: bolder;
+		border: 2px solid $dontcare;
+		color: $main;
+		overflow: hidden;
+		border-radius: 10px;
+		margin-bottom: 16px;
+		display: flex;
+		justify-content:space-between;
+		align-items: center;
+		cursor: pointer;
+		transition: all .3s;
+		&:hover,&.active{
+			background-color: $becare;
+			border: 2px solid $becare;
+			color: $main;
+		}
+	}
+	img{
+		display: none;
+		@include media-breakpoint-up(sm) {
+			display: inline-block;
+			margin-right: 4px;
+		}
+	}
 }

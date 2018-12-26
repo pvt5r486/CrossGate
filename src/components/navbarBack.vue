@@ -43,10 +43,6 @@
 import $ from 'jquery';
 export default {
   name: 'navbarBack',
-  data() {
-    return {
-    }
-  },
   methods: {
     signout() {
       const api = `${process.env.APIPATH}/logout`;

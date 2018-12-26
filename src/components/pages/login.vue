@@ -64,21 +64,16 @@ export default {
   methods: {
     signin() {
       const api = `${process.env.APIPATH}/admin/signin`;
-      //這個API方法是使用POST
       const vm = this;
       vm.isLoading = true;
       localStorage.setItem('isRemember', vm.user.isRemember);
       vm.user.isRemember ? localStorage.setItem('userAccount', vm.user.username) : localStorage.removeItem('userAccount')   
-      //this.$http.post(路徑,傳入參數)
-      //console.log(vm.user)
       this.$http.post(api, vm.user).then(response => {
-        //console.log(response.data);
         if (response.data.success) {
           vm.isLoading = false;
           vm.$router.push('/admin/products');
         } else {
           vm.isLoading = false;
-          //alert(`${response.data.message}，請確認您的帳號密碼。`)
           vm.$bus.$emit('message:push', `${response.data.message}，請確認您的帳號密碼。`, 'danger');
         }
       });
