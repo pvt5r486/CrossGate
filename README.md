@@ -1,4 +1,4 @@
-# CrossGate
+# CrossGate 商店
 ![default](https://user-images.githubusercontent.com/41603487/50428050-a54c7200-08ee-11e9-8ac1-047a93fe2544.JPG)
 # Demo
 https://pvt5r486.github.io/CrossGate/dist/#/index
@@ -50,5 +50,6 @@ https://pvt5r486.github.io/CrossGate/dist/#/index
 ![default](https://user-images.githubusercontent.com/41603487/50430077-e055a200-08fc-11e9-94f8-dcbf1b7f156c.JPG)
 #感謝
 * 六角學院的講師們
-* 所有給予我幫助的朋友們<br>
-其實還有很多小細節沒有處理得很完善，實際下去做才知道，一個好的電商網站要照顧的細節實在是不勝枚舉，我要走的路還有很長呢(茶)
+* 所有給予我幫助的朋友們
+
+###其實還有很多小細節沒有處理得很完善，實際下去做才知道，一個好的電商網站要照顧的細節實在是不勝枚舉，我要走的路還有很長呢(茶)
