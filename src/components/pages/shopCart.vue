@@ -3,7 +3,7 @@
         <loading :active.sync="isLoading">
             <img src="@/assets/img/loading.gif" alt="" width="200">
         </loading>
-        <div v-if="shopCart.carts && shopCart.carts.length != 0" class="container mb-3">
+        <div v-if="shopCart.carts && shopCart.carts.length != 0" class="container" style="min-height:calc(100vh - 85px - 213.88px - 66px)">
             <div class="row">
                 <div class="col-md-8">
                   <template v-if="!creatOrder">
