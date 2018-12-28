@@ -1,7 +1,8 @@
 # CrossGate 商店
 ![default](https://user-images.githubusercontent.com/41603487/50428050-a54c7200-08ee-11e9-8ac1-047a93fe2544.JPG)
 # Demo
-https://pvt5r486.github.io/CrossGate/dist/#/index
+Vue cli 2.0 https://pvt5r486.github.io/CrossGate/dist/#/index <br>
+Vue cli 3.0 + Vuex + ESlint https://pvt5r486.github.io/CrossGateV3/dist/#/index
 # 聲明
 本作品內所有圖片、文字內容，單純為個人前端練習用，不做任何商業用途<br>
 所有資料來源皆為 google 搜尋取得
