@@ -21,7 +21,6 @@ https://pvt5r486.github.io/CrossGate/dist/#/index
 * Webpack 概念
 * API的應用
 * Bootstrap 4 + 手刻 SCSS 的混合應用
->> 預計而尚未運用的技術 Vuex、Vue Cli 3.0
 # 前台內容介紹
 ## loading
 全站皆使用的 loading 過場<br>
