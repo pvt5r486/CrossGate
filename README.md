@@ -1,8 +1,8 @@
 # CrossGate 商店
 ![default](https://user-images.githubusercontent.com/41603487/50428050-a54c7200-08ee-11e9-8ac1-047a93fe2544.JPG)
 # Demo
-Vue cli 2.0 https://pvt5r486.github.io/CrossGate/dist/#/index <br>
-Vue cli 3.0 + Vuex + ESlint https://pvt5r486.github.io/CrossGateV3/dist/#/index
+Vue cli 2 https://pvt5r486.github.io/CrossGate/dist/#/index <br>
+Vue cli 3 + Vuex + ESlint https://pvt5r486.github.io/CrossGateV3/dist/#/index
 # 聲明
 本作品內所有圖片、文字內容，單純為個人前端練習用，不做任何商業用途<br>
 所有資料來源皆為 google 搜尋取得
@@ -11,7 +11,7 @@ Vue cli 3.0 + Vuex + ESlint https://pvt5r486.github.io/CrossGateV3/dist/#/index
 * 前台:商品展示、購物車清單、商品下單、優惠券套用、訂單列表、訂單結帳
 * 後台:商品管理、客戶訂單管理、優惠券管理
 # 練習技術
-* Vue Cli 2.0
+* Vue Cli 2
 * Vue Router
 * Vue Component
 * 第三方 Vue 套件的運用
