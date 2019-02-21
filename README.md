@@ -49,8 +49,3 @@ Vue cli 3 + Vuex + ESlint https://pvt5r486.github.io/CrossGateV3/dist/#/index
 # 後台內容簡介
 主要使用Bootstrap 4 快速搭建後台，管理前台所需資料內容。
 ![default](https://user-images.githubusercontent.com/41603487/50430077-e055a200-08fc-11e9-94f8-dcbf1b7f156c.JPG)
-#感謝
-* 六角學院的講師們
-* 所有給予我幫助的朋友們
-
-其實還有很多小細節沒有處理得很完善，實際下去做才知道，一個好的電商網站要照顧的細節實在是不勝枚舉，我要走的路還有很長呢(茶)
